@@ -1,0 +1,14 @@
+YAML
+
+# YAML
+key: value
+
+# JSON
+{
+  "key": "value"
+}
+
+PASCAL VOC(Visual Object Classes)  => TXT(YOLO)
+
+
+- PCA(주성분분석, 매니폴드) 학습
