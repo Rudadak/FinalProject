@@ -1,4 +1,5 @@
 import { HashRouter as Routes,  Route } from "react-router-dom";
+import Switch from "react-switch";
 import logo from './회전루피.gif';
 import './App.css';
 import First from "./pages/First";
@@ -24,16 +25,15 @@ function App() {
           rel="noopener noreferrer"
         >
           하단 네비게이션 만들기
-
         </a>
 
       </header>
-      <Routes>
-        <Route path="/first" component={First} />
-      </Routes>
+
     </div>
 
   );
 }
-
+<Switch>
+<Route path="/first" component={First} />
+</Switch>
 export default App;
