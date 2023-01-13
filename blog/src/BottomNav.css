@@ -1,3 +1,4 @@
+
 /* nav태그 아래의 자식들을 수평정렬하기 위한 설정 */
 nav {
     overflow: hidden;
@@ -11,5 +12,5 @@ nav {
   
     /* 세로길이 설정 */
     height: 45px;
-    line-height: 45px;
+    line-height: 45px; 
   }
