@@ -5,14 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import BottomNav from "./BottomNav";
+import App2 from "./pages/First";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <BottomNav />
+
     <App />
+    <BottomNav />
     </BrowserRouter>
   </React.StrictMode>
 

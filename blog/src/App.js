@@ -7,8 +7,7 @@ import First from "./pages/First";
 function App() {
   return (
     <div className="App">
-      
-      <header classNa e="App-header">
+      <header className="App-header">
         <a
           href = "https://mk28.tistory.com/245"
           target="_blank"

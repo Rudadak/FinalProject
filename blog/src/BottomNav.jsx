@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./BottomNav.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 // 사용할 아이콘 import
 import "./FontAwesome";
 // FontAwesomIcon 컴포넌트를 사용하기 위해 import
@@ -11,7 +11,7 @@ const BottomNav = () => {
   return (
     <nav className="wrapper">
       {/* 하단 네비게이션 최상위 태그 */}
-      <Link to="/first" className="nav-link" onClick={() => setActiveNav(1)}>
+      <Link to="./pages/First" className="nav-link">
         <div>
           <FontAwesomeIcon
             icon="home"
@@ -20,7 +20,7 @@ const BottomNav = () => {
           {/* 네비게이션을 구성하고 있는 하나의 버튼 */}
         </div>
       </Link>
-      <Link to="/second" className="nav-link" onClick={() => setActiveNav(2)}>
+      <Link to="./pages/second" className="nav-link" onClick={() => setActiveNav(2)}>
         <div>
           <FontAwesomeIcon
             icon="compass"
