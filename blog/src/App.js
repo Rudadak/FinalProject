@@ -17,11 +17,11 @@ function App() {
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://velog.io/@gym/React-React%EB%A1%9C-%ED%95%98%EB%8B%A8%ED%83%AD-%EB%A7%8C%EB%93%A4%EA%B8%B0"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          하단 네비게이션 만들기
         </a>
       </header>
     </div>
