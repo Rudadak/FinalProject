@@ -21,7 +21,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          하단 네비게이션 만들기
+          하단 네비게이션 만들기lll
         </a>
       </header>
     </div>
