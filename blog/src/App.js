@@ -7,7 +7,8 @@ import First from "./pages/First";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      
+      <header classNa e="App-header">
         <a
           href = "https://mk28.tistory.com/245"
           target="_blank"
@@ -33,7 +34,5 @@ function App() {
 
   );
 }
-<Switch>
-<Route path="/first" component={First} />
-</Switch>
+
 export default App;
