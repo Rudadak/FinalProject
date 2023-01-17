@@ -1,37 +1,64 @@
-import { HashRouter as Routes,  Route } from "react-router-dom";
-import Switch from "react-switch";
-import logo from './회전루피.gif';
+import React, { Component } from 'react';
+import logo from './logo.svg';
 import './App.css';
-import First from "./pages/First";
+import Information from './pages/info-json';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <a
-          href = "https://mk28.tistory.com/245"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-        <img src={logo} className="App-logo" alt="logo" />
-        </a>
-        <p>
-          테스트 페이지
-        </p>
-        <a
-          className="App-link"
-          href="https://velog.io/@gym/React-React%EB%A1%9C-%ED%95%98%EB%8B%A8%ED%83%AD-%EB%A7%8C%EB%93%A4%EA%B8%B0"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          하단 네비게이션 만들기
-        </a>
+class App extends Component {
 
-      </header>
+  constructor(){
+    super();
 
-    </div>
+    this.state={
+      search:null
+    };
+  }
 
-  );
+  searchSpace=(event)=>{
+    let keyword = event.target.value;
+    this.setState({search:keyword})
+  }
+
+  render(){
+    const styleInfo = {
+      paddingRight:'10px'
+    }
+    const elementStyle ={
+      border:'solid',
+      borderRadius:'10px',
+      position:'relative',
+      left:'10vh',
+      height:'3vh',
+      width:'20vh',
+      marginTop:'5vh',
+      marginBottom:'10vh'
+    }
+    const items = Information.filter((data)=>{
+      if(this.state.search == null)
+          return data
+      else if(data.name.toLowerCase().includes(this.state.search.toLowerCase()) || data.country.toLowerCase().includes(this.state.search.toLowerCase())){
+          return data
+      }
+    }).map(data=>{
+      return(
+      <div>
+        <ul>
+          <li style={{position:'relative',left:'10vh'}}>
+            <span style={styleInfo}>{data.name}</span>
+            <span style={styleInfo}>{data.age}</span>
+            <span style={styleInfo}>{data.country}</span>
+          </li>
+        </ul>
+      </div>
+      )
+    })
+
+    return (
+      <div>
+      <input type="text" placeholder="Enter item to be searched" style={elementStyle} onChange={(e)=>this.searchSpace(e)} />
+      {items}
+      </div>
+    )
+  }
 }
 
 export default App;
