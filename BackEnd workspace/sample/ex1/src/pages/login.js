@@ -87,11 +87,11 @@ export default function SignIn() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              로그인
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/nav" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>

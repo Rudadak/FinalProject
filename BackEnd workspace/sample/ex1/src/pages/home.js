@@ -77,9 +77,11 @@ export default function Album() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">직원에게 전화</Button>
+              <Button variant="contained">직원 호출</Button>
               <Button variant="outlined">
-              <Link to ={'/login'}>버튼2 </Link><br/>
+              <Link href="/login" >
+                  로그인
+                </Link>
               </Button>
             
               
