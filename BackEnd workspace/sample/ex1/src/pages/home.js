@@ -45,13 +45,17 @@ export default function Album() {
           <Typography variant="h6" color="inherit" noWrap>
             루다닥 홈페이지 입니다.
           </Typography>
-          <nav>
+          {/* <nav>
         <Link to={''}>Home </Link><br/>
         <Button variant="outlined">
               <Link to ={'/login'}>로그인</Link><br/>
               </Button>
               <Link to={'/nav'}>네비 </Link><br/>
-      </nav> 
+      </nav>  */}
+      <Link href="/login" ><h1 color = "red">
+                  로그인</h1>
+                </Link>
+
 
 
         </Toolbar>
