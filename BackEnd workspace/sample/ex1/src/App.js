@@ -10,7 +10,7 @@ function App() {
     <header>위 페이지는 루다닥에서 제공합니다.</header>
       <nav>
         <Link to={''}>Home </Link><br/>
-        <Button variant="contained">
+        <Button variant="outlined">
               <Link to ={'/login'}>로그인</Link><br/>
               </Button>
       </nav> 
