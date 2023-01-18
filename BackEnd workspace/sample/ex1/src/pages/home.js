@@ -42,7 +42,7 @@ export default function Album() {
         <Toolbar>
           <CameraIcon sx={{ mr: 2 }} />
           <Typography variant="h6" color="inherit" noWrap>
-            Album layout
+            루다닥 홈페이지 입니다.
           </Typography>
         </Toolbar>
       </AppBar>
@@ -63,7 +63,7 @@ export default function Album() {
               color="text.primary"
               gutterBottom
             >
-              Album layout
+              RUDADAK
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
               Something short and leading about the collection below—its contents,
@@ -76,8 +76,10 @@ export default function Album() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
+              <Button variant="contained">직원에게 전화</Button>
+              <Button variant="outlined">
+              <Link to ={'/login'}>나의 페이지 조회 </Link><br/>
+              </Button>
             </Stack>
           </Container>
         </Box>
@@ -120,7 +122,7 @@ export default function Album() {
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
-          Footer
+          RUDADAK END
         </Typography>
         <Typography
           variant="subtitle1"
