@@ -16,6 +16,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { BrowserRouter } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -78,8 +79,10 @@ export default function Album() {
             >
               <Button variant="contained">직원에게 전화</Button>
               <Button variant="outlined">
-              <Link to ={'/login'}>나의 페이지 조회 </Link><br/>
+              <Link to ={'/login'}>버튼2 </Link><br/>
               </Button>
+            
+              
             </Stack>
           </Container>
         </Box>
