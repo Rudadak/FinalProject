@@ -11,11 +11,7 @@ function App() {
     <BrowserRouter>
     <header>위 페이지는 루다닥에서 제공합니다.</header>
       
-      <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='/login' element={<Login />}/>
-        <Route path='/nav' element={<Bottomnav />}/>
-      </Routes>
+
       <footer>프로젝트 입니다.</footer>
     </BrowserRouter>
   );
