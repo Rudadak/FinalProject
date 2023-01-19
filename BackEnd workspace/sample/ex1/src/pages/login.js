@@ -1,110 +1,106 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { useEffect, useState } from 'react'
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+const User = {
+  email: 'test@example.com',
+  pw: 'test2323@@@'
 }
 
-const theme = createTheme();
 
-export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+export default function Login() {
+    const [email, setEmail] = useState('');
+    const [pw, setPw] = useState('');
 
-  return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
+    const [emailValid, setEmailValid] = useState(false);
+    const [pwValid, setPwValid] = useState(false);
+    const [notAllow, setNotAllow] = useState(true);
+
+    useEffect(() => {
+      if(emailValid && pwValid) {
+        setNotAllow(false);
+        return;
+      }
+      setNotAllow(true);
+    }, [emailValid, pwValid]);
+
+    const handleEmail = (e) => {
+      setEmail(e.target.value);
+      const regex =
+        /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+      if (regex.test(e.target.value)) {
+        setEmailValid(true);
+      } else {
+        setEmailValid(false);
+      }
+    };
+    const handlePw = (e) => {
+      setPw(e.target.value);
+      const regex =
+        /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{8,20}$/;
+      if (regex.test(e.target.value)) {
+        setPwValid(true);
+      } else {
+        setPwValid(false);
+      }
+    };
+    const onClickConfirmButton = () => {
+      if(email === User.email && pw === User.pw) {
+        alert('로그인에 성공했습니다.')
+      } else {
+        alert("등록되지 않은 회원입니다.");
+      }
+    }
+
+    return (
+      <div className="page">
+        <div className="titleWrap">
+          이메일과 비밀번호를
+          <br />
+          입력해주세요
+        </div>
+
+        <div className="contentWrap">
+          <div className="inputTitle">이메일 주소</div>
+          <div
+            className="inputWrap"
+          >
+            <input
+              className="input"
+              type="text"
+              placeholder="test@gmail.com"
+              value={email}
+              onChange={handleEmail}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
+          </div>
+          <div className="errorMessageWrap">
+            {!emailValid && email.length > 0 && (
+              <div>올바른 이메일을 입력해주세요.</div>
+            )}
+          </div>
+
+          <div style={{ marginTop: "26px" }} className="inputTitle">
+            비밀번호
+          </div>
+          <div className="inputWrap">
+            <input
+              className="input"
               type="password"
-              id="password"
-              autoComplete="current-password"
+              placeholder="영문, 숫자, 특수문자 포함 8자 이상"
+              value={pw}
+              onChange={handlePw}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              로그인
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="/nav" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
-  );
+          </div>
+          <div className="errorMessageWrap">
+            {!pwValid && pw.length > 0 && (
+              <div>영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.</div>
+            )}
+          </div>
+        </div>
+
+        <div>
+          <button onClick={onClickConfirmButton} disabled={notAllow} className="bottomButton">
+            확인
+          </button>
+        </div>
+      </div>
+    );
 }
