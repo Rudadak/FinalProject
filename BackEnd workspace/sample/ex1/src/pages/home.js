@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { BrowserRouter } from 'react-router-dom';
+
 
 function Copyright() {
   return (
@@ -37,14 +37,27 @@ const theme = createTheme();
 
 export default function Album() {
   return (
+    
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AppBar position="relative">
+\      <AppBar position="relative">
         <Toolbar>
           <CameraIcon sx={{ mr: 2 }} />
           <Typography variant="h6" color="inherit" noWrap>
             루다닥 홈페이지 입니다.
           </Typography>
+          <nav>
+        <Link to={''}>Home </Link><br/>
+        <Button variant="outlined">
+              <Link to ={'/login'}>로그인</Link><br/>
+              </Button>
+              <Link to={'/nav'}>네비 </Link><br/>
+      </nav>  
+      <Link href="/login" ><h1 color = "red">
+                  로그인</h1>
+                </Link>
+
+
+
         </Toolbar>
       </AppBar>
       <main>
