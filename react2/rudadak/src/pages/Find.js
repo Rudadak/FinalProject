@@ -3,12 +3,14 @@ import axios from 'axios';
 
 const Find = () => {
   const [data, setData] = useState(null);
+  const [num12, num12change] = useState(3)
   const onClick = async () => {
     try{
       const response = await axios.get(
-        'http://127.0.0.1:8000/test/data/1',
+        'http://127.0.0.1:8000/test/datas',
       );
       setData(response.data);
+      console.log(response)
     } catch (e) {
       console.log(e)
     }
