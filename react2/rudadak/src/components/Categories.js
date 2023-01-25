@@ -11,6 +11,10 @@ const categories = [
   {
     name: 'find',
     text: '친구찾기'
+  },
+  {
+    name: 'search',
+    text: '친구탐색'
   }
 ];
 

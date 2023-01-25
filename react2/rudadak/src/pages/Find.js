@@ -22,14 +22,13 @@ const Find = () => {
 
 
       <button onClick={onClick}>예쁘게 불러오기</button>
+      <input></input>
       <br /><br />
-      {data && <li>{JSON.stringify(data, ['id', 'name', 'email'], 2)}</li>}
+      {data && <li>{JSON.stringify(data, ['id', 'name'], 2)}</li>}
       {data && <li>{JSON.stringify(data, ['id'], 2)}</li>}
       {data && <li>{JSON.stringify(data, ['name'], 2)}</li>}
-      {data && <li>{JSON.stringify(data, ['email'], 2)}</li>}
       {data && <li>id: {data.id}</li>}
       {data && <li>name: {data.name}</li>}
-      {data && <li>email: {data.email}</li>}
     </div>
   );
 };

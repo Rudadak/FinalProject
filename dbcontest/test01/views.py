@@ -24,3 +24,16 @@ def getTestData(request, id):
     data = Test01.objects.get(id=id)
     serializer = TestDataSerializer(data, many=False)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def getMembers(request):
+    reqData = request.data
+    id = reqData['id']
+    name = reqData['name']
+    print("id is : ", id)
+    print("name is : ", name)
+    data = Test01.objects.filter(id=id, name=name)
+    serializer = TestDataSerializer(data, many=True)
+    print(serializer.data)
+    return Response(serializer.data)
