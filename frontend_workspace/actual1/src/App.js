@@ -3,13 +3,14 @@ import {Routes, Route} from 'react-router-dom';
 import {Button, Navbar, Container, Nav} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Find from './Find'
+import Datasheet from './Find'
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path = "/" element={<Home />} />
-        <Route path = "/product" element={<Find />} />
+        <Route path = "/product" element={<Datasheet />} />
         <Route path = "/store" element={<Store />} />
         <Route path = "/camera" element={<Camera />} />
       </Routes>
