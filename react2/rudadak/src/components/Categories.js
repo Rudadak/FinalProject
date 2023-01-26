@@ -15,6 +15,10 @@ const categories = [
   {
     name: 'search',
     text: '친구탐색'
+  },
+  {
+    name: 'sound',
+    text: '소리'
   }
 ];
 

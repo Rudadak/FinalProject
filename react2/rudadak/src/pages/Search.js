@@ -60,12 +60,8 @@ const Search = () => {
 
       <br /><br /><br />
       <button type="submit" onClick={onClick}>탐색 테스트</button>
+      <br />
       {resData && <textarea rows={15} value={JSON.stringify(resData, null, 2)} readOnly={true}/>}
-      {resData && <li>{JSON.stringify(resData, ['id', 'name'], 2)}</li>}
-      {resData && <li>{JSON.stringify(resData, ['id'], 2)}</li>}
-      {resData && <li>{JSON.stringify(resData, ['name'], 2)}</li>}
-      {resData && <li>id: {resData[0].id}</li>}
-      {resData && <li>name: {resData[0].name}</li>}
 
     </div>
   );
