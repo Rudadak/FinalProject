@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import {Navs} from './App';
 
 const Find = () => {
   const [data, setData] = useState(null);
@@ -51,6 +52,7 @@ const Find = () => {
 
   return(
     <div>
+      <Navs />
       <h1>제품찾기</h1>
       <p>보고싶은 제품을 찾아보아요</p>
       {/* {onClicks} */}
@@ -65,7 +67,9 @@ const Find = () => {
       {data && <li>{JSON.stringify(data, ['name'], 2)}</li>} */}
       {/* {data && <li>id: {data[1].id}</li>}
       {data && <li>name: {data.name}</li>} */}
-      {data && data.map(function(a){
+
+
+      {/* {data && data.map(function(a){
           return(
             <div>
               <h4>
@@ -75,14 +79,40 @@ const Find = () => {
 
             </div>
           )
-        })}
+        })} */}
+
+
+        {data &&
+          data.map((a, i) => {
+            return(
+              <Card data={data && data[i]} i={i+1}> </Card>
+            )
+          })
+        }
+{/* 
+        <Card data={data && data[0]} />
+        <Card data={data && data[1]} />
+        <Card data={data && data[2]} /> */}
+
       {data && console.log(data.length)}
+
 
 
     </div>
     
   );
 };
+
+
+function Card(props){
+  return(
+    <div>
+      {props.data && props.data.name}<br/>
+      {props.data && props.data.price}<br/>
+    </div>
+  )
+}
+
 
 export function Products(){
   const params = useParams();
@@ -103,6 +133,7 @@ export function Products(){
   useEffect(() => onClicks1, []);
   return(
     <>
+      <Navs />
       {listId}<br/>
       {data1 && data1.name}<br/>
       {data1 && data1.categoriy}<br/>

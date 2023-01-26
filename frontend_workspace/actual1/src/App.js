@@ -1,5 +1,5 @@
 import './App.css';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, Link} from 'react-router-dom';
 import {Button, Navbar, Container, Nav} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Find from './Find';
@@ -46,6 +46,7 @@ function Home(){
     </div>
   )
 }
+
 function Product(){
 return(
   <div>
@@ -70,12 +71,13 @@ return(
 ) 
 }
 
-function Navs(){
+export function Navs(){
 return(
   <Navbar bg="dark" variant="dark">
   <Container>
-    <h4><font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp; </font></h4>
+    {/* <h4><font color= 'white'><Link to ='/'>Rudadak &nbsp;&nbsp;&nbsp; </Link></font></h4> */}
     <Nav className="me-auto">
+    <Nav.Link href="/"><h4><font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp;</font></h4></Nav.Link>
       <Nav.Link href="/">Home</Nav.Link>
       <Nav.Link href="/store">Store</Nav.Link>
       <Nav.Link href="/camera">Camera</Nav.Link>
