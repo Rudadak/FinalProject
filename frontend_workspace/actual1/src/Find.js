@@ -96,6 +96,7 @@ const Find33 = (props) => {
       {data && <li>{JSON.stringify(data, ['name'], 2)}</li>} */}
       {props.data && <li>id: {props.data[1].id}</li>}
       {props.data && <li>name: {props.data.name}</li>}
+      {props.data[1].name}
       {/* {
         data.map(function(a){
           return(
@@ -105,7 +106,7 @@ const Find33 = (props) => {
           )
         })
       } */}
-      {/* {console.log(data[1].name)} */}
+      {/* {console.log(props.data[1].name)} */}
 
 
     </div>
