@@ -1,0 +1,26 @@
+.new{
+    margin-top: 20px;
+    margin-left: 15%;
+    padding: 15px;
+    background-color: antiquewhite;
+    text-align: center;
+    width: 70%;
+  }
+
+  .new1{
+    margin-top: 20px;
+    margin-left: 15%;
+    padding: 15px;
+    background-color: powderblue;
+    text-align: center;
+    width: 70%;
+  }
+  
+  .button{
+  padding: 0px;
+    background-color: antiquewhite;
+    text-align: center;
+    width: 100%;
+    margin: 0px;
+
+  }

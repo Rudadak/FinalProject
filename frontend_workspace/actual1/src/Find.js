@@ -1,10 +1,12 @@
 /* eslint-disable */
 
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import {Navs} from './App';
+import './Find.css';
+import { useNavigate} from 'react-router-dom';
 
 const Find = () => {
   const [data, setData] = useState(null);
@@ -129,10 +131,20 @@ const Find = () => {
 
 
 function Card(props){
+  const navigate = useNavigate();
+  const navigateToPurchase = () => {
+    navigate(`${props.data && "./" + props.data.id}`);
+  };
+
   return(
-    <div>
-      <Link to={props.data && "./" + props.data.id}>{props.data && props.data.name}<br/></Link>
+    <div className='new' onClick = {navigateToPurchase}>
+      {/* <Link to={props.data && "./" + props.data.id}>
+        <button> */}
+
+      {props.data && props.data.name}<br/>
       {props.data && props.data.price}<br/>
+      {/* </button>
+      </Link> */}
     </div>
   )
 }
@@ -162,7 +174,7 @@ export function Products(){
   const onClicks1 = async () => {
     try{
       const response1 = await axios.get(
-        `http://192.168.0.59/test/data/${listId}`,
+        `http://192.168.0.59:8000/test/data/${listId}`,
       );
       setData1(response1.data);
       console.log(response1)
@@ -174,13 +186,18 @@ export function Products(){
   return(
     <>
       <Navs />
-      {listId}<br/>
+      <div className='new1'>
+
+        {listId}<br/>
       {data1 && data1.name}<br/>
+
+      {data1 && data1.price}<br/>
+  
       {data1 && data1.categoriy}<br/>
       {data1 && data1.manufacturer}<br/>
-      {data1 && data1.price}<br/>
       {data1 && data1.period}<br/>
       {data1 && data1.etc}<br/>
+      </div>
     </>
   )
 }
