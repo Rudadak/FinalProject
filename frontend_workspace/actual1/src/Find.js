@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import {Navs} from './App';
+import './Find.css';
 
 const Find = () => {
   const [data, setData] = useState(null);
@@ -130,7 +131,7 @@ const Find = () => {
 
 function Card(props){
   return(
-    <div>
+    <div className='new'>
       <Link to={props.data && "./" + props.data.id}>{props.data && props.data.name}<br/></Link>
       {props.data && props.data.price}<br/>
     </div>
@@ -162,7 +163,7 @@ export function Products(){
   const onClicks1 = async () => {
     try{
       const response1 = await axios.get(
-        `http://192.168.0.59/test/data/${listId}`,
+        `http://192.168.0.59:8000/test/data/${listId}`,
       );
       setData1(response1.data);
       console.log(response1)
@@ -174,6 +175,7 @@ export function Products(){
   return(
     <>
       <Navs />
+      <a>루다닥</a>
       {listId}<br/>
       {data1 && data1.name}<br/>
       {data1 && data1.categoriy}<br/>
