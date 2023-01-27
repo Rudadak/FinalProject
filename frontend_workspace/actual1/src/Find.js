@@ -7,6 +7,10 @@ import { useParams } from 'react-router-dom';
 import {Navs} from './App';
 import './Find.css';
 import { useNavigate} from 'react-router-dom';
+import sample1 from './sample1.mp3'
+import sample2 from './sample2.mp3'
+import sample3 from './sample3.mp3'
+import sample4 from './sample4.mp3'
 
 const Find = () => {
   const [data, setData] = useState(null);
@@ -197,7 +201,7 @@ export function Products(){
       {data1 && data1.manufacturer}<br/>
       {data1 && data1.period}<br/>
       {data1 && data1.etc}<br/>
-      {Player}
+      <AudioExample />
       </div>
     </>
   )
@@ -212,39 +216,45 @@ const Search = () => {
 
 
 
+function AudioExample() {
+  let audio = new Audio(sample1)
+  const start = () => { audio.play(sample1) }
+  return ( <div> <button onClick={start} >play</button> </div> )}
 
 
-const useAudio = url => {
-  const [audio] = useState(new Audio(url));
-  const [playing, setPlaying] = useState(false);
 
-  const toggle = () => setPlaying(!playing);
 
-  useEffect(() => {
-      playing ? audio.play() : audio.pause();
-    },
-    [playing]
-  );
+// const useAudio = url => {
+//   const [audio] = useState(new Audio(url));
+//   const [playing, setPlaying] = useState(false);
 
-  useEffect(() => {
-    audio.addEventListener('ended', () => setPlaying(false));
-    return () => {
-      audio.removeEventListener('ended', () => setPlaying(false));
-    };
-  }, []);
+//   const toggle = () => setPlaying(!playing);
 
-  return [playing, toggle];
-};
+//   useEffect(() => {
+//       playing ? audio.play() : audio.pause();
+//     },
+//     [playing]
+//   );
 
-const Player = ({ url }) => {
-  const [playing, toggle] = useAudio(url);
+//   useEffect(() => {
+//     audio.addEventListener('ended', () => setPlaying(false));
+//     return () => {
+//       audio.removeEventListener('ended', () => setPlaying(false));
+//     };
+//   }, []);
 
-  return (
-    <div>
-      <button onClick={toggle}>{playing ? "Pause" : "Play"}</button>
-    </div>
-  );
-};
+//   return [playing, toggle];
+// };
+
+// const Player = ({ url }) => {
+//   const [playing, toggle] = useAudio(url);
+
+//   return (
+//     <div>
+//       <button onClick={toggle}>{playing ? "Pause" : "Play"}</button>
+//     </div>
+//   );
+// };
 
 
 
