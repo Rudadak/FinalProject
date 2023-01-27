@@ -36,11 +36,10 @@ def getTestData(request, id):
 @api_view(['POST'])
 def getMembers(request):
     reqData = request.data
-    id = reqData['id']
     name = reqData['name']
     # print("id is : ", id)
     # print("name is : ", name)
-    data = Test01.objects.filter(id=id, name=name)
+    data = Test01.objects.filter(name__contains=name)
     serializer = TestDataSerializer(data, many=True)
     test = tts_save(serializer.data[0].values())
     print(test)

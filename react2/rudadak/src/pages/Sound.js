@@ -1,16 +1,55 @@
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
+import React, { Component } from "react";
 
+// Import your audio file
+import song from "../audio/tts.mp3";
 
+class Sound extends Component {
+  // Create state
+  state = {
 
+    // Get audio file in a variable
+    audio: new Audio(song),
 
-const Player = () => (
-    <AudioPlayer
-      autoPlay
-      src="../audio/tts.mp3"
-      onPlay={e => console.log("onPlay")}
-      // other props here
-    />
-  );
+    // Set initial state of song
+    isPlaying: true,
+  };
 
-  export default Player;
+  // Main function to handle both play and pause operations
+  playPause = () => {
+
+    // Get state of song
+    let isPlaying = this.state.isPlaying;
+
+    if (isPlaying) {
+      // Pause the song if it is playing
+      this.state.audio.pause();
+    } else {
+
+      // Play the song if it is paused
+      this.state.audio.play();
+    }
+
+    // Change the state of song
+    this.setState({ isPlaying: !isPlaying });
+  };
+
+  render() {
+    return (
+      <div>
+        {/* Show state of song on website */}
+        <p>
+          {this.state.isPlaying ? 
+            "Song is Playing" : 
+            "Song is Paused"}
+        </p>
+
+        {/* Button to call our main function */}
+        <button onClick={this.playPause}>
+          Play | Pause
+        </button>
+      </div>
+    );
+  }
+}
+
+export default Sound;
