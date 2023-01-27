@@ -8,6 +8,13 @@ from .models import Test01
 from .serializers import TestDataSerializer
 from django.shortcuts import render
 
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+
+from function.tts import *
+
+
 def index(request):
     return render(request, 'index.html')
 
@@ -31,9 +38,10 @@ def getMembers(request):
     reqData = request.data
     id = reqData['id']
     name = reqData['name']
-    print("id is : ", id)
-    print("name is : ", name)
+    # print("id is : ", id)
+    # print("name is : ", name)
     data = Test01.objects.filter(id=id, name=name)
     serializer = TestDataSerializer(data, many=True)
-    print(serializer.data)
+    test = tts_save(serializer.data[0].values())
+    print(test)
     return Response(serializer.data)
