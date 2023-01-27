@@ -9,8 +9,29 @@ import {Navs} from './App';
 const Find = () => {
   const [data, setData] = useState(null);
   const [num12, num12change] = useState(3)
+  // const searchData = data.filter((data) => 
+  //   {data.name.toLowerCase().includes(userInput.toLowerCase());
+  // );
 
-  const url = "http://127.0.0.1:8000/test/datas"
+  
+  const [userInput, setUserInput] = useState('');
+  const getValue = (e) => {
+    setUserInput(e.target.value.toLowerCase())};
+
+  <input onChange={getValue}/>
+
+
+ // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
+ // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
+    const searched = data && data.filter((item) =>
+     item.name.toLowerCase().includes(userInput)
+   );
+    
+    
+
+
+
+  const url = "http://192.168.0.59:8000/test/datas"
 //   axios
 //     .get(url)
 //     .then((res)=> {
@@ -38,7 +59,7 @@ const Find = () => {
   const onClicks = async () => {
     try{
       const response = await axios.get(
-        'http://127.0.0.1:8000/test/datas',
+        'http://192.168.0.59:8000/test/datas',
       );
       setData(response.data);
       console.log(response)
@@ -57,18 +78,18 @@ const Find = () => {
       <p>보고싶은 제품을 찾아보아요</p>
       {/* {onClicks} */}
     {/* {onClicks} */}     
-      <button onClick={onClicks}>예쁘게 불러오기</button>
+      {/* <button onClick={onClicks}>예쁘게 불러오기</button>
         {console.log(data)}
       <input></input>
 
-      <br /><br />
+      <br /><br /> */}
       {/* {data && <li>{JSON.stringify(data, ['id', 'name'], 2)}</li>}
       {data && <li>{JSON.stringify(data, ['id'], 2)}</li>}
       {data && <li>{JSON.stringify(data, ['name'], 2)}</li>} */}
       {/* {data && <li>id: {data[1].id}</li>}
       {data && <li>name: {data.name}</li>} */}
 
-
+{/* 링크 클릭 가능하게 넘어가는 기능 */}
       {/* {data && data.map(function(a){
           return(
             <div>
@@ -80,12 +101,17 @@ const Find = () => {
             </div>
           )
         })} */}
-
+        
+        <input onChange={getValue}/>
+        {/* {data && searched.map((item) => (
+          <Card key={item.name} {...item} />
+        ))}
+        {console.log(searched)} */}
 
         {data &&
-          data.map((a, i) => {
+          searched.map((a, i) => {
             return(
-              <Card data={data && data[i]} i={i+1}> </Card>
+              <Card data={searched[i]} i={i+1}> </Card>
             )
           })
         }
@@ -95,9 +121,7 @@ const Find = () => {
         <Card data={data && data[2]} /> */}
 
       {data && console.log(data.length)}
-
-
-
+      
     </div>
     
   );
@@ -107,11 +131,27 @@ const Find = () => {
 function Card(props){
   return(
     <div>
-      {props.data && props.data.name}<br/>
+      <Link to={props.data && "./" + props.data.id}>{props.data && props.data.name}<br/></Link>
       {props.data && props.data.price}<br/>
     </div>
   )
 }
+
+
+
+
+// function CardList({data}) {
+//   console.log(data);
+//   return(
+//     <div>
+//       {data.map((data) =>{
+//         const {name, price} = data;
+//         return <Card key={name} price={price}/>;
+//       })}
+//     </div>
+//   );
+// }
+
 
 
 export function Products(){
@@ -122,7 +162,7 @@ export function Products(){
   const onClicks1 = async () => {
     try{
       const response1 = await axios.get(
-        `http://127.0.0.1:8000/test/data/${listId}`,
+        `http://192.168.0.59/test/data/${listId}`,
       );
       setData1(response1.data);
       console.log(response1)
