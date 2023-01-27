@@ -4,11 +4,10 @@ import Searchinputjson from '../components/Searchinputjson.js';
 
 const Search = () => {
   const [data, setData] = useState({
-    name: '',
-    id: '',
+    name: ''
   });
 
-  const {name, id} = data;
+  const {name} = data;
 
   const onChange = e => {
     const {name, value} = e.target;
@@ -44,13 +43,11 @@ const Search = () => {
       <p>보고싶은 친구를 탐색해보아요</p>
       <Searchinputjson
         name={name}
-        id={id}
         onChange={onChange}
         onClick={onClick}
       />
       <br /><br />
       {data && <li>{data.name}</li>}
-      {data && <li>{data.id}</li>}
 
       <h2>결과보기</h2>
       {resData && <li>name: {resData[0].name}</li>}

@@ -74,7 +74,7 @@ const Find = () => {
   
 
   return(
-    <div>
+    <div className='search-box'>
       <Navs />
       <h1>제품찾기</h1>
       <p>보고싶은 제품을 찾아보아요</p>
@@ -200,6 +200,12 @@ export function Products(){
       </div>
     </>
   )
+}
+
+const Search = () => {
+  const [data2, setData] = useState({
+    id: ''
+  });
 }
 
 export default Find;
