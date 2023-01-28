@@ -25,9 +25,11 @@ const Find = () => {
   //   {data.name.toLowerCase().includes(userInput.toLowerCase());
   // );
 
-  const {state} = useLocation();
-  console.log(state)
 
+  // 여기 고쳐야됨
+  const {state} = {if(useLocation() == null{});}
+
+console.log(state)
 
   const [userInput, setUserInput] = useState(state);
 
