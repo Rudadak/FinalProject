@@ -7,10 +7,10 @@ import { useParams } from 'react-router-dom';
 import {Navs} from './App';
 import './Find.css';
 import { useNavigate} from 'react-router-dom';
-import sample1 from './sample1.mp3'
-import sample2 from './sample2.mp3'
-import sample3 from './sample3.mp3'
-import sample4 from './sample4.mp3'
+// import sample1 from './sample1.mp3'
+// import sample2 from './sample2.mp3'
+// import sample3 from './sample3.mp3'
+// import sample4 from './sample4.mp3'
 
 const Find = () => {
   const [data, setData] = useState(null);
@@ -225,8 +225,8 @@ const Search = () => {
 
 
 function AudioExample() {
-  let audio = new Audio(sample1)
-  const start = () => { audio.play(sample1) }
+  let audio = new Audio('../sample1.mp3')
+  const start = () => { audio.play() }
   return ( <div> <button onClick={start} >play</button> </div> )}
 
 
