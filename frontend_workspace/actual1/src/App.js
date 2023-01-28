@@ -34,13 +34,13 @@ function Home(){
 
       <div className="d-grid gap-2">
       <Button variant="primary" size="lg"  href="/product">
-      검색
+      <font size='6'>검색</font>
       </Button>
       <Button variant="secondary" size="lg" href="/camera">
-      카메라
+      <font size='6'>카메라</font>
       </Button>
       <Button variant="dark" size="lg" href="/mypage">
-      마이페이지
+      <font size='6'>마이페이지</font>
       </Button>
       </div>
     </div>
