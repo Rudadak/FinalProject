@@ -1,11 +1,16 @@
 /* eslint-disable */
 
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import {Navs} from './App';
 import './Find.css';
+import { useNavigate} from 'react-router-dom';
+import sample1 from './sample1.mp3'
+import sample2 from './sample2.mp3'
+import sample3 from './sample3.mp3'
+import sample4 from './sample4.mp3'
 
 const Find = () => {
   const [data, setData] = useState(null);
@@ -73,7 +78,7 @@ const Find = () => {
   
 
   return(
-    <div>
+    <div className='search-box'>
       <Navs />
       <h1>제품찾기</h1>
       <p>보고싶은 제품을 찾아보아요</p>
@@ -130,10 +135,20 @@ const Find = () => {
 
 
 function Card(props){
+  const navigate = useNavigate();
+  const navigateToPurchase = () => {
+    navigate(`${props.data && "./" + props.data.id}`);
+  };
+
   return(
-    <div className='new'>
-      <Link to={props.data && "./" + props.data.id}>{props.data && props.data.name}<br/></Link>
+    <div className='new' onClick = {navigateToPurchase}>
+      {/* <Link to={props.data && "./" + props.data.id}>
+        <button> */}
+
+      {props.data && props.data.name}<br/>
       {props.data && props.data.price}<br/>
+      {/* </button>
+      </Link> */}
     </div>
   )
 }
@@ -175,16 +190,78 @@ export function Products(){
   return(
     <>
       <Navs />
-      <a>루다닥</a>
-      {listId}<br/>
+      <div className='new1'>
+
+        {listId}<br/>
       {data1 && data1.name}<br/>
+
+      {data1 && data1.price}<br/>
+  
       {data1 && data1.categoriy}<br/>
       {data1 && data1.manufacturer}<br/>
-      {data1 && data1.price}<br/>
       {data1 && data1.period}<br/>
       {data1 && data1.etc}<br/>
+      <AudioExample />
+      </div>
     </>
   )
 }
+
+const Search = () => {
+  const [data2, setData] = useState({
+    id: ''
+  });
+}
+
+
+
+
+function AudioExample() {
+  let audio = new Audio(sample1)
+  const start = () => { audio.play(sample1) }
+  return ( <div> <button onClick={start} >play</button> </div> )}
+
+
+
+
+// const useAudio = url => {
+//   const [audio] = useState(new Audio(url));
+//   const [playing, setPlaying] = useState(false);
+
+//   const toggle = () => setPlaying(!playing);
+
+//   useEffect(() => {
+//       playing ? audio.play() : audio.pause();
+//     },
+//     [playing]
+//   );
+
+//   useEffect(() => {
+//     audio.addEventListener('ended', () => setPlaying(false));
+//     return () => {
+//       audio.removeEventListener('ended', () => setPlaying(false));
+//     };
+//   }, []);
+
+//   return [playing, toggle];
+// };
+
+// const Player = ({ url }) => {
+//   const [playing, toggle] = useAudio(url);
+
+//   return (
+//     <div>
+//       <button onClick={toggle}>{playing ? "Pause" : "Play"}</button>
+//     </div>
+//   );
+// };
+
+
+
+
+
+
+
+
 
 export default Find;

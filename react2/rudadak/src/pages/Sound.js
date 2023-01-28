@@ -11,7 +11,7 @@ class Sound extends Component {
     audio: new Audio(song),
 
     // Set initial state of song
-    isPlaying: true,
+    isPlaying: false,
   };
 
   // Main function to handle both play and pause operations
