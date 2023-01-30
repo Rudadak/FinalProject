@@ -26,12 +26,22 @@ const Find = () => {
   // );
 
 
+  // const location = useLocation.state
   // 여기 고쳐야됨
-  const {state} = {if(useLocation() == null{});}
+  const {state} = useLocation();
 
-console.log(state)
+
 
   const [userInput, setUserInput] = useState(state);
+
+  function imsi1(){
+    if(userInput == null){
+      setUserInput('');
+    }
+  }
+  useEffect(() => imsi1, []);
+
+
 
   const getValue = (e) => {
     console.log(e)
