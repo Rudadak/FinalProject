@@ -135,3 +135,9 @@ class Test01(models.Model):
     class Meta:
         managed = True
         db_table = 'test01'
+
+	
+class UploadFileModel(models.Model):
+    description = models.CharField(max_length=255)
+    files = models.FileField(upload_to="documents", null=True)
+    upload_at = models.DateTimeField(auto_now=True)

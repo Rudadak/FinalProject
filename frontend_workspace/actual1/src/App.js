@@ -1,3 +1,4 @@
+/* eslint-disable */
 import './App.css';
 import {Routes, Route, Link, useNavigate} from 'react-router-dom';
 import {Button, Navbar, Container, Nav, ToggleButton} from 'react-bootstrap';
@@ -6,7 +7,9 @@ import Find from './Find';
 import Datasheet from './Find';
 import {Products} from './Find';
 import React, { useState } from 'react';
-import Camera from './Camera'
+import Camera from './Camera';
+import Show from './Show';
+
 
 function App() {
   return (
@@ -17,6 +20,7 @@ function App() {
         {/* <Route path = "/store" element={<Store />} /> */}
         <Route path = "/camera" element={<Camera />} />
         <Route path = "/product/:listId" element={< Products/>} />
+        <Route path = "/camera/show" element={< Show/>} />
       </Routes>
 
     </div>
@@ -41,27 +45,30 @@ function Home(){
         <Navs />
       </div>
       <div>
-        <font size= '30'>Title</font>
+        <font size= '30'>Title/ / ..<br/> (🤦‍♂️)/</font>
+        
       </div>
 
 
-      <div className="d-grid gap-2">
+      <div className="d-grid gap
+      -2">
 
-   
-     <input
+     <input style =  {{height: "130px",}} font-size = "50Px" 
      onChange = {(e) =>{
      setText(e.target.value);
      console.log(text);}}></input>
      
-     <button
-     type="button"
+     {/* <button style={{ width: "100px", height: "50px",}} 
+     type="button"  
      onClick={() => {
     onSubmit();
-     }}>버튼</button>
+     }}>버튼</button> */}
    
       {/* <input type='button' value='검색' onClick={()=>navigate('./product')}></input> */}
       {console.log({text})}
-      <Button variant="primary" size="lg"  href="/product" state={text}>
+      <Button variant="primary" size="lg"  href="/product" state={text}  onClick={() => {
+    onSubmit();
+     }}>
         <p></p>
         <p></p>
         <p></p>

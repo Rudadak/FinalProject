@@ -248,14 +248,14 @@ export function Products(){
       <div className='new1'>
 
         {listId}<br/>
-      {data1 && data1.name}<br/>
+      제품명 : {data1 && data1.name}<br/>
 
-      {data1 && data1.price}<br/>
+      가격 : {data1 && data1.price}<br/>
   
-      {data1 && data1.categoriy}<br/>
-      {data1 && data1.manufacturer}<br/>
-      {data1 && data1.period}<br/>
-      {data1 && data1.etc}<br/>
+      카테고리 : {data1 && data1.categoriy}<br/>
+      제조사 : {data1 && data1.manufacturer}<br/>
+      용량 : {data1 && data1.period}<br/>
+      👍 {data1 && data1.etc}<br/>
 
       </div>
       <div>
@@ -280,7 +280,7 @@ const Search = () => {
 
 
 function AudioExample() {
-  let audio = new Audio('../sample1.mp3')
+  let audio = new Audio('../audio/tts.mp3') 
   const start = () => { audio.play() }
   return ( <div> <button onClick={start} >play</button> </div> )}
 

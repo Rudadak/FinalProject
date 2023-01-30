@@ -15,6 +15,15 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from function.tts import *
 
 
+import json
+ 
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+ 
+from .forms import DocumentForm
+
+
 def index(request):
     return render(request, 'index.html')
 
@@ -30,6 +39,8 @@ def getTestDatas(request):
 def getTestData(request, id):
     data = Test01.objects.get(id=id)
     serializer = TestDataSerializer(data, many=False)
+    test = tts_save(serializer.data.values())
+    print(test)
     return Response(serializer.data)
 
 
@@ -37,10 +48,24 @@ def getTestData(request, id):
 def getMembers(request):
     reqData = request.data
     name = reqData['name']
+    # print(name)
     # print("id is : ", id)
     # print("name is : ", name)
     data = Test01.objects.filter(name__contains=name)
     serializer = TestDataSerializer(data, many=True)
-    # test = tts_save(serializer.data[0].values())
+    # print(serializer)
+    
+    
     # print(test)
     return Response(serializer.data)
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+def model_form_upload(request):
+    if request.method == "POST":
+        form = DocumentForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(json.dumps({"status": "Success"}))
+        else:
+            return HttpResponse(json.dumps({"status": "Failed"}))

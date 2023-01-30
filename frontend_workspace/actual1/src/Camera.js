@@ -1,7 +1,9 @@
-	
+/* eslint-disable */
 import React from "react";
 import axios from "axios"; // axios 모듈 추가
 import {Navs} from './App';
+import Show from './Show';
+import {Routes, Route, useNavigate} from 'react-router-dom';
  
 function Camera() {
    
@@ -11,9 +13,10 @@ function Camera() {
         const desc = e.target[0].value;
         
         // # event로 file 객체 얻기
-        const upload_file = e.target[1].files[0];
+        const upload_file = e.target[1].files[0]; 
         
 		// # 폼 데이터 생성
+        const navigate = useNavigate();
         const formData = new FormData();
         formData.append("description", desc);
         formData.append("files", upload_file);
@@ -31,12 +34,16 @@ function Camera() {
  
             }
         }).then(function (response) {
-            console.log(response)
+            console.log(response);
+            // window.location.replace("/camera/show"); 
         })
-    }
+    } 
  
     return (
         <>
+        <Routes>        
+            <Route path = "/camera/show" element={< Show/>} />
+        </Routes>
          <Navs />
             <h1>File Upload Test</h1>
             <form onSubmit={uploadModule}>
