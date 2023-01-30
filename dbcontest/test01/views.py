@@ -30,6 +30,9 @@ def getTestDatas(request):
 def getTestData(request, id):
     data = Test01.objects.get(id=id)
     serializer = TestDataSerializer(data, many=False)
+    text = tts_save(serializer.data.values())
+    
+    print(text)
     return Response(serializer.data)
 
 
@@ -43,7 +46,5 @@ def getMembers(request):
     data = Test01.objects.filter(name__contains=name)
     serializer = TestDataSerializer(data, many=True)
     # print(serializer)
-    test = tts_save(serializer.data[0].values())
     
-    # print(test)
     return Response(serializer.data)
