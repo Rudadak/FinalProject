@@ -40,12 +40,13 @@ function Home(){
   //   setText('');
   // };
   return(
+    
     <div>
       <div>
         <Navs />
       </div>
       <div>
-        <font size= '30'>Title/ / ..<br/> (🤦‍♂️)/</font>
+        <font size= '30'>Title</font>
         
       </div>
 
@@ -53,7 +54,7 @@ function Home(){
       <div className="d-grid gap
       -2">
 
-     <input style =  {{height: "130px",}} font-size = "50Px" 
+     <input style =  {{height: "130px",}} 
      onChange = {(e) =>{
      setText(e.target.value);
      console.log(text);}}></input>
@@ -169,6 +170,9 @@ return(
 //     </div>
 //   )
 // }
+
+
+
 
 
 export default App;

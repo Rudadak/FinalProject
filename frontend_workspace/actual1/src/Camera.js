@@ -41,9 +41,9 @@ function Camera() {
  
     return (
         <>
-        <Routes>        
+        {/* <Routes>        
             <Route path = "/camera/show" element={< Show/>} />
-        </Routes>
+        </Routes> */}
          <Navs />
             <h1>File Upload Test</h1>
             <form onSubmit={uploadModule}>

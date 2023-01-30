@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Solitreo&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'Gowun Dodum', sans-serif;
+  /* font-family: 'Solitreo', cursive; */
 }
 
 .App-logo {
