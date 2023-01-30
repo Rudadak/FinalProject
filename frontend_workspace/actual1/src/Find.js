@@ -1,16 +1,22 @@
 /* eslint-disable */
 
 import React, {useState, useEffect, useCallback} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import {Navs} from './App';
 import './Find.css';
 import { useNavigate} from 'react-router-dom';
-import sample1 from './sample1.mp3'
-import sample2 from './sample2.mp3'
-import sample3 from './sample3.mp3'
-import sample4 from './sample4.mp3'
+// import sample1 from './sample1.mp3'
+// import sample2 from './sample2.mp3'
+// import sample3 from './sample3.mp3'
+// import sample4 from './sample4.mp3'
+
+// const handleClick = (e) => {
+//   const navigate = useNavigate();
+//   navigate('/App.js', {state: e.target.value});
+// }
+
 
 const Find = () => {
   const [data, setData] = useState(null);
@@ -19,17 +25,24 @@ const Find = () => {
   //   {data.name.toLowerCase().includes(userInput.toLowerCase());
   // );
 
-  
-  const [userInput, setUserInput] = useState('');
+
+  // 여기 고쳐야됨
+  const {state} = {if(useLocation() == null{});}
+
+console.log(state)
+
+  const [userInput, setUserInput] = useState(state);
+
   const getValue = (e) => {
+    console.log(e)
     setUserInput(e.target.value.toLowerCase())};
 
-  <input onChange={getValue}/>
+  // <input onChange={getValue}/>
 
 
  // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
  // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
-    const searched = data && data.filter((item) =>
+    const searched =  data && data.filter((item) =>
      item.name.toLowerCase().includes(userInput)
    );
     
@@ -75,6 +88,32 @@ const Find = () => {
   };
   useEffect(() => onClicks, []);
 
+
+
+
+  function Compare() {
+      return (
+        <div>
+          {
+            {userInput} != null
+            ? <p>{userInput}</p>
+            : <p>{setUserInput('개쩌는')}</p>
+          }
+        </div>
+      )
+    } 
+  //   if ( userInput != null ) {
+  //     return userInput;
+  //   } else {
+  //     return '';
+  //   }
+  // } 
+  
+
+
+
+
+  console.log(state)
   
 
   return(
@@ -107,8 +146,14 @@ const Find = () => {
             </div>
           )
         })} */}
-        
-        <input onChange={getValue}/>
+
+        {/* {console.log(userInput)} */}
+
+
+
+        <input onChange={getValue} value={userInput} />
+
+
         {/* {data && searched.map((item) => (
           <Card key={item.name} {...item} />
         ))}
@@ -201,7 +246,15 @@ export function Products(){
       {data1 && data1.manufacturer}<br/>
       {data1 && data1.period}<br/>
       {data1 && data1.etc}<br/>
+
+      </div>
+      <div>
+        <br></br>
       <AudioExample />
+      </div>
+      <div className='new1'>
+        추천 내용<br></br>
+        별점
       </div>
     </>
   )
@@ -217,8 +270,8 @@ const Search = () => {
 
 
 function AudioExample() {
-  let audio = new Audio(sample1)
-  const start = () => { audio.play(sample1) }
+  let audio = new Audio('../sample1.mp3')
+  const start = () => { audio.play() }
   return ( <div> <button onClick={start} >play</button> </div> )}
 
 
