@@ -130,7 +130,8 @@ class Test01(models.Model):
     price = models.IntegerField(blank=True, null=True)
     period = models.IntegerField(blank=True, null=True)
     etc = models.CharField(max_length=50, blank=True, null=True)
+    keyword = models.CharField(max_length=50, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'test01'

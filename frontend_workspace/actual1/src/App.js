@@ -6,6 +6,7 @@ import Find from './Find';
 import Datasheet from './Find';
 import {Products} from './Find';
 import React, { useState } from 'react';
+import Camera from './Camera'
 
 function App() {
   return (
@@ -149,18 +150,18 @@ return(
 //   )
 // }
 
-function Camera(){
-  return(
-    <div>
-      <div>
-        <Navs />
-      </div>
-      <div>
-        카메라 어플
-      </div>
-    </div>
-  )
-}
+// function Camera(){
+//   return(
+//     <div>
+//       <div>
+//         <Navs />
+//       </div>
+//       <div>
+//         카메라 어플
+//       </div>
+//     </div>
+//   )
+// }
 
 
 export default App;

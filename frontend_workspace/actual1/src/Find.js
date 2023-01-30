@@ -264,7 +264,7 @@ export function Products(){
       </div>
       <div className='new1'>
         추천 내용<br></br>
-        별점
+        {data1 && data1.keyword}
       </div>
     </>
   )
