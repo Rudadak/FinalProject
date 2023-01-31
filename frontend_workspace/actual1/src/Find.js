@@ -243,7 +243,7 @@ export function Products(){
   };
   useEffect(() => onClicks1, []);
   return(
-    <>
+    <div onClick={AudioExample1}>
       <Navs />
       <div className='new1'>
 
@@ -266,7 +266,7 @@ export function Products(){
         추천 내용<br></br>
         {data1 && data1.keyword}
       </div>
-    </>
+    </div>
   )
 }
 
@@ -283,6 +283,13 @@ function AudioExample() {
   let audio = new Audio('../audio/tts.mp3') 
   const start = () => { audio.play() }
   return ( <div> <button onClick={start} >play</button> </div> )}
+
+
+  function AudioExample1() {
+    let audio = new Audio('../audio/tts.mp3') 
+    const start = () => { audio.play() }
+    start();
+  }
 
 
 
