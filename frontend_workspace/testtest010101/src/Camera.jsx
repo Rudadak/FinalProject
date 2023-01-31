@@ -24,13 +24,6 @@ function Camera() {
 		
         // # 파일을 업로드 시킬 Server 주소
         const URL = "http://192.168.0.42:8000/test/camera/"
-
-        const navigate = useNavigate();
-        function move(){
-            navigate('/')
-        }
-
-
  
         axios({
             method: "post",
