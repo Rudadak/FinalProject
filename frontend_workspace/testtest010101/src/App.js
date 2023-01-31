@@ -1,17 +1,22 @@
 /* eslint-disable */
 import './App.css';
+
 import {Routes, Route, Link, useNavigate} from 'react-router-dom';
 import {Button, Navbar, Container, Nav, ToggleButton} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Find from './Find';
 import Datasheet from './Find';
 import {Products} from './Find';
-import React, { useState } from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Camera from './Camera';
 import Show from './Show';
+import axios from 'axios';
 
 
 function App() {
+
+
+
   return (
     <div className="App">
       <Routes>
