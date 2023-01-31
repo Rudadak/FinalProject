@@ -20,6 +20,13 @@
   transform: translateX(-150px);
 }
 
+.filter{
+  font-weight: bolder;
+  font-size: 200%;
+  filter: grayscale(100%)
+}
+
+
 
 .si {
   width: 100px;

@@ -261,7 +261,7 @@ export function Products(){
 
 
   return(
-      <div >
+      <div className='filter' >
       <Navs />
       <div className= 'heading-1'>
       <div className='new1'>
@@ -310,6 +310,40 @@ function AudioExample() {
   const stop = () => { audio.pause()} 
   return (<div> <div> <Button onClick={start} >play</Button> 
   <div><Button onClick={stop}>stop</Button></div></div></div>)}
+
+
+
+function filter(){
+  //필터 노출 여부 state
+  const[filterOpen, setfilterOpen] = useState(false);
+    // 필터 노출
+    const showfilter = () => {
+      setfilterOpen(true);
+    };
+
+    return(
+      <div>
+        <button onClick={showfilter}>필터노출</button>
+        {/* {filterOpen && <FilterBasic setfilterOpen={setfilterOpen} />}  */}
+      </div>
+      
+    );
+
+}
+
+function FilterBasic(){
+  const closefilter = () => {
+    setfilterOpen(false);
+  };
+
+  return(
+    <div className='filter'>
+      <p>??</p>
+    </div>
+  )
+}
+
+
 
 
 
@@ -365,7 +399,6 @@ function AudioExample() {
 //     </div>
 //   );
 // };
-
 
 
 
