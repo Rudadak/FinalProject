@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Find from './Find';
 import Datasheet from './Find';
 import {Products} from './Find';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Camera from './Camera';
 import Show from './Show';
 // import 'antd/dist/antd.css';
@@ -124,6 +124,7 @@ return(
 }
 
 export function Navs(){
+  useEffect(()=>{window.speechSynthesis.cancel()}, []);
 return(
   
   <Navbar bg="dark" variant="dark">

@@ -36,7 +36,7 @@ const Find = () => {
     const fetchData = async () => {
       setLoading(true);
       const response = await axios.get(
-        "http://192.168.0.59:8000/test/datas"
+        "http://localhost:8000/test/datas"
       );
       setData(response.data);
       setLoading(false);
@@ -86,7 +86,7 @@ const Find = () => {
    };
 
    
-
+   useEffect(()=>{window.speechSynthesis.cancel()}, []);
   return(
    
     <div className='search-box'>
@@ -96,7 +96,7 @@ const Find = () => {
       <Navs />
       <h1>제품찾기</h1>
       <p>보고싶은 제품을 찾아보아요</p>
-      <input onChange={getValue}/>
+      <input onChange={getValue} value={userInput}/>
       </div>
 
 
@@ -180,7 +180,7 @@ export function Products(){
   const onClicks1 = async () => {
     try{
       const response1 = await axios.get(
-        `http://192.168.0.59:8000/test/data/${listId}`,
+        `http://localhost:8000/test/data/${listId}`,
       );
       setData1(response1.data);
       console.log(response1)
@@ -220,7 +220,7 @@ const speechHandler = (e) => {
 
       
       const {enablePrevent} = usePreventLeave();
-
+      useEffect(()=>{window.speechSynthesis.cancel()}, []);
   return(
       <div >
       <Navs />
