@@ -8,7 +8,7 @@
   }
 }
 
-.heading-1 {
+/* .heading-1 {
   animation-name: slideInLeft;
   animation-duration: 1s;
   animation-timing-function: ease-in ;
@@ -18,7 +18,7 @@
   animation-fill-mode: both;
 
   transform: translateX(-150px);
-}
+} */
 
 .filter{
   font-weight: bolder;
@@ -28,37 +28,57 @@
 
 
 
-.si {
-  width: 100px;
-  height: 100px;
-  margin-left: 40%;
-  background: plum;
-  transition-property: width;
-  transition-duration: 2s;
-}
-
-.si:hover {
-  width: 300px;
-}
-
-
 .new{
     margin-top: 20px;
     margin-left: 15%;
     padding: 15px;
-    background-color: antiquewhite;
+    background: linear-gradient( to left, #ee9ca7, #ffdde1);
     text-align: center;
+    font-size: 120%;
+    font-weight: normal;
     width: 70%;
   }
 
-  .new1{
-    margin-top: 20px;
+
+  .news{
+     margin-top: 4%;
+     width:230px; 
+     left:0; 
+     right:0; 
+     margin-left:auto; 
+     margin-right:auto;
+     display: inline-block;
+  }
+    
+    .pagination a {
+      color: black;
+      float: left;
+      padding: 8px 16px;
+      text-decoration: none;
+      transition: background-color .3s;
+      border: 1px solid #ddd;
+      margin: 0 4px;
+    }
+    
+    .pagination a.active {
+      background-color: #4CAF50;
+      color: white;
+      border: 1px solid #4CAF50;
+    }
+    
+    .paginations a:hover:not(.active) {background-color: #ddd;} 
+  
+
+.new1{
+  margin-top: 20px;
     margin-left: 15%;
     padding: 15px;
-    background-color: powderblue;
+    background: linear-gradient( to right, #ffafbd, #ffc3a0);
     text-align: center;
+    font-size: 200%;
+    font-weight: normal;
     width: 70%;
-  }
+}
   
   .button{
     margin-top: 20px;
@@ -80,3 +100,8 @@
     padding: 20px 100px 20px 45px;
     font-size: 40px;
   } */
+
+  
+
+
+/*참고중*/

@@ -9,7 +9,7 @@ import {Products} from './Find';
 import React, { useState } from 'react';
 import Camera from './Camera';
 import Show from './Show';
-
+// import 'antd/dist/antd.css';
 
 function App() {
   return (
@@ -125,19 +125,23 @@ return(
 
 export function Navs(){
 return(
+  
   <Navbar bg="dark" variant="dark">
   <Container>
     {/* <h4><font color= 'white'><Link to ='/'>Rudadak &nbsp;&nbsp;&nbsp; </Link></font></h4> */}
     <Nav className="me-auto">
     <Nav.Link href="/"><h4><font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp;</font></h4></Nav.Link>
+    <div className='item::after'>
       <Nav.Link href="/">Home</Nav.Link>
+    </div>
       {/* <Nav.Link href="/store">Store</Nav.Link> */}
       <Nav.Link href="/camera">Camera</Nav.Link>
     </Nav>
   </Container>
 </Navbar>
+
 )
-}
+};
 
 // function Store(){
 //   return(

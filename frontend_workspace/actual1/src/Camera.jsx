@@ -13,6 +13,7 @@ function Camera() {
         const desc = e.target[0].value;
         
         // # event로 file 객체 얻기
+        
         const upload_file = e.target[1].files[0]; 
         
 		// # 폼 데이터 생성
@@ -25,10 +26,10 @@ function Camera() {
         // # 파일을 업로드 시킬 Server 주소
         const URL = "http://192.168.0.42:8000/test/camera/"
 
-        const navigate = useNavigate();
-        function move(){
-            navigate('/')
-        }
+        // const navigate = useNavigate();
+        // function move(){
+        //     navigate('/')
+        // }
 
 
  
@@ -42,7 +43,9 @@ function Camera() {
             }
         }).then(function (response) {
             console.log(response);
-            window.location.replace("/camera/show"); 
+            if(response.data.status == 'Success'){
+                window.location.replace("/camera/show");}
+            // window.location.replace("/camera/show"); 
         })
     } 
  

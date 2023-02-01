@@ -8,30 +8,47 @@ import {Navs} from './App';
 import './Find.css';
 import { useNavigate} from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-// import ReactAudioPlayer from 'react-audio-player';
-// import sample1 from './sample1.mp3'
-// import sample2 from './sample2.mp3'
-// import sample3 from './sample3.mp3'
-// import sample4 from './sample4.mp3'
+import Posts from './Posts';
+import Pagination from "./Pagination";
+import {usePageLeave, usePrevious} from 'react-use';
 
-// const handleClick = (e) => {
-//   const navigate = useNavigate();
-//   navigate('/App.js', {state: e.target.value});
-// }
 
+// import { Pagination } from 'antd';
+
+// const findnv = () => (
+//   <>
+//     <Pagination simple defaultCurrent={2} total={50} />
+//     <br />
+//     <Pagination disabled simple defaultCurrent={2} total={50} />
+//   </>
+// );
 
 const Find = () => {
-  const [data, setData] = useState(null);
-  const [num12, num12change] = useState(3)
-  // const searchData = data.filter((data) => 
-  //   {data.name.toLowerCase().includes(userInput.toLowerCase());
-  // );
+  const [data, setData] = useState([]);
 
 
-  // const location = useLocation.state
-  // 여기 고쳐야됨
+  // const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(4);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const response = await axios.get(
+        "http://192.168.0.59:8000/test/datas"
+      );
+      setData(response.data);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  console.log(data);
+
+
+
   const {state} = useLocation();
-
 
 
   const [userInput, setUserInput] = useState(state);
@@ -57,140 +74,63 @@ const Find = () => {
     const searched =  data && data.filter((item) =>
      item.name.toLowerCase().includes(userInput)
    );
-    
-    
-
-
-
-  const url = "http://192.168.0.59:8000/test/datas"
-//   axios
-//     .get(url)
-//     .then((res)=> {
-//         setData(res.data);
-//         console.log("성공");
-//     })
-//     .catch(error => {
-//         console.log("에러");
-//     })
-
-
-
-//   function GetPost() {
-//     axios.get("http://127.0.0.1:8000/test/datas")
-//       .then(response => {
-//         setData(response.data);
-//         console.log(response);
-//       })
-//       .catch(error => {
-//         console.error(error);
-//       })
-//   }
-
-
-  const onClicks = async () => {
-    try{
-      const response = await axios.get(
-        'http://192.168.0.59:8000/test/datas',
-      );
-      setData(response.data);
-      console.log(response)
-    } catch (e) {
-      console.log(e)
-    }
-  };
-  useEffect(() => onClicks, []);
-
-
-
-
-  function Compare() {
-      return (
-        <div>
-          {
-            {userInput} != null
-            ? <p>{userInput}</p>
-            : <p>{setUserInput('개쩌는')}</p>
-          }
-        </div>
-      )
-    } 
-  //   if ( userInput != null ) {
-  //     return userInput;
-  //   } else {
-  //     return '';
-  //   }
-  // } 
-
-
   
+   console.log(data)
 
+   const indexOfLast = currentPage * postsPerPage;
+   const indexOfFirst = indexOfLast - postsPerPage;
+   const currentPosts = (posts) => {
+     let currentPosts = 0;
+     currentPosts = posts.slice(indexOfFirst, indexOfLast);
+     return currentPosts;
+   };
 
-
-
-  console.log(state)
-  
+   
 
   return(
+   
     <div className='search-box'>
+      <div style={{background: `url('https://source.unsplash.com/random/1920x1080')`}}>
+      <div className='test1'>
+      {loading && <div> loading... </div>}
       <Navs />
       <h1>제품찾기</h1>
       <p>보고싶은 제품을 찾아보아요</p>
-      {/* {onClicks} */}
-    {/* {onClicks} */}     
-      {/* <button onClick={onClicks}>예쁘게 불러오기</button>
-        {console.log(data)}
-      <input></input>
-
-      <br /><br /> */}
-      {/* {data && <li>{JSON.stringify(data, ['id', 'name'], 2)}</li>}
-      {data && <li>{JSON.stringify(data, ['id'], 2)}</li>}
-      {data && <li>{JSON.stringify(data, ['name'], 2)}</li>} */}
-      {/* {data && <li>id: {data[1].id}</li>}
-      {data && <li>name: {data.name}</li>} */}
-
-{/* 링크 클릭 가능하게 넘어가는 기능 */}
-      {/* {data && data.map(function(a){
-          return(
-            <div>
-              <h4>
-                <Link to={"./" + a.id}>토너 이름: {a.name}</Link>
-              </h4>
-              <p></p>
-
-            </div>
-          )
-        })} */}
-
-        {/* {console.log(userInput)} */}
+      <input onChange={getValue}/>
+      </div>
 
 
+      <Posts data={currentPosts(searched)} loading={loading}></Posts>
+      <Pagination 
+        postsPerPage={postsPerPage}
+        totalPosts={searched.length}
+        paginate={setCurrentPage}
+      ></Pagination>
+      
 
+{/* 
         <input onChange={getValue} value={userInput} />
 
 
-        {/* {data && searched.map((item) => (
-          <Card key={item.name} {...item} />
-        ))}
-        {console.log(searched)} */}
-
-        {data &&
+        {
           searched.map((a, i) => {
             return(
               <Card data={searched[i]} i={i+1}> </Card>
             )
           })
-        }
-{/* 
-        <Card data={data && data[0]} />
-        <Card data={data && data[1]} />
-        <Card data={data && data[2]} /> */}
+        } */}
+
+
 
       {data && console.log(data.length)}
       
+      </div>
     </div>
     
   );
 };
+
+
 
 
 function Card(props){
@@ -202,17 +142,16 @@ function Card(props){
   return(
     // <div className='si'>
     <div className='heading-1'>
-    <div className='new' onClick = {navigateToPurchase}>
+    <div onClick = {navigateToPurchase}>
       {/* <Link to={props.data && "./" + props.data.id}>
         <button> */}
-
+      
       {props.data && props.data.name}<br/>
       {props.data && props.data.price}<br/>
       {/* </button>
       </Link> */}
     </div>
     </div>
-    // </div>
   )
 }
 
@@ -257,14 +196,43 @@ export function Products(){
 
 
 // const playing
+const [ourText, setOurText] = useState("")
+const msg = new SpeechSynthesisUtterance()
+const speechHandler = (e) => {
+  const msg = new SpeechSynthesisUtterance()
+  setOurText(e)
+  msg.text = ourText
+  window.speechSynthesis.speak(msg)}
+  const Demo = () => {
+    usePageLeave(() => window.speechSynthesis.cancel());}
 
+    const usePreventLeave = () => {
+      const listener = (event) => {
+        event.preventDefault();
+        event.returnValue = "";
+      };
+      const enablePrevent = () => {
+        window.speechSynthesis.cancel()
+      };
 
+      return { enablePrevent };
+    };
+
+      
+      const {enablePrevent} = usePreventLeave();
 
   return(
-      <div className='filter' >
+      <div >
       <Navs />
       <div className= 'heading-1'>
-      <div className='new1'>
+      <div className='new' onClick={() => speechHandler(
+        "제품명은 " + data1.name + "," +
+        "가격은 " + data1.price + "원" + "," +
+        "카테고리는 " + data1.categoriy + "," +
+        "제조사는 " + data1.manufacturer + "," +
+        "용량은 " + data1.period +"밀리리터" + "," +
+        "기타 사항으로는 " + data1.etc + "입니다."
+      )}>
 
         {listId}<br/>
       제품명 : {data1 && data1.name}<br/>
@@ -275,15 +243,24 @@ export function Products(){
       제조사 : {data1 && data1.manufacturer}<br/>
       용량 : {data1 && data1.period}<br/>
       👍 {data1 && data1.etc}<br/>
-
+      <button onClick={enablePrevent}>Protect</button>
       </div>
       <div>
         <br></br>
-      <AudioExample />
+      {/* <AudioExample /> */}
       {/* <button onClick={start}>dd</button>
       <button onClick={stop}>dd</button> */}
+      {/* <button onClick={() => speechHandler(
+        "제품명은 " + data1.name + "," +
+        "가격은 " + data1.price + "원" + "," +
+        "카테고리는 " + data1.categoriy + "," +
+        "제조사는 " + data1.manufacturer + "," +
+        "용량은 " + data1.period +"밀리리터" + "," +
+        "기타 사항으로는 " + data1.etc + "입니다."
+      )}>SPEAK</button> */}
       </div>
-      <div className='new1'>
+      <button onClick={() => window.speechSynthesis.cancel()}>dd</button>
+      <div className='new'>
         추천 내용<br></br>
         {data1 && data1.keyword}
       </div>
@@ -310,40 +287,6 @@ function AudioExample() {
   const stop = () => { audio.pause()} 
   return (<div> <div> <Button onClick={start} >play</Button> 
   <div><Button onClick={stop}>stop</Button></div></div></div>)}
-
-
-
-function filter(){
-  //필터 노출 여부 state
-  const[filterOpen, setfilterOpen] = useState(false);
-    // 필터 노출
-    const showfilter = () => {
-      setfilterOpen(true);
-    };
-
-    return(
-      <div>
-        <button onClick={showfilter}>필터노출</button>
-        {/* {filterOpen && <FilterBasic setfilterOpen={setfilterOpen} />}  */}
-      </div>
-      
-    );
-
-}
-
-function FilterBasic(){
-  const closefilter = () => {
-    setfilterOpen(false);
-  };
-
-  return(
-    <div className='filter'>
-      <p>??</p>
-    </div>
-  )
-}
-
-
 
 
 
@@ -399,6 +342,7 @@ function FilterBasic(){
 //     </div>
 //   );
 // };
+
 
 
 
