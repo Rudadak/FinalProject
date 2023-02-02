@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable */
+import React, {useState, useEffect, useCallback} from 'react';
 import { useNavigate} from 'react-router-dom';
 
 const Posts = ({ data, loading }) => {
@@ -11,6 +12,7 @@ const Posts = ({ data, loading }) => {
 
         ))}
       </ul> */}
+
       {
           data.map((a, i) => {
             return(
@@ -18,6 +20,7 @@ const Posts = ({ data, loading }) => {
             )
           })
         }
+
 
     
     </>

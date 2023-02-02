@@ -39,6 +39,11 @@ function Home(){
   // const onReset = () => {
   //   setText('');
   // };
+
+
+  const asdfe = new SpeechSynthesisUtterance()  
+asdfe.text = "안녕하세요. 고글에 오신것을 환영합니다. 저희 사이트는 상품 검색을 통해 tts기능을 제공해 줍니다."
+useEffect(() => window.speechSynthesis.speak(asdfe), [])
   return(
     
     <div>
@@ -46,7 +51,7 @@ function Home(){
         <Navs />
       </div>
       <div>
-        <font size= '30'>Title</font>
+        <font size= '30'>타이틀이 있던 자리입니다.</font>
         
       </div>
 
@@ -127,16 +132,25 @@ export function Navs(){
   useEffect(()=>{window.speechSynthesis.cancel()}, []);
 return(
   
-  <Navbar bg="dark" variant="dark">
+  <Navbar bg="white" variant="white"  className='heading-1'>
   <Container>
     {/* <h4><font color= 'white'><Link to ='/'>Rudadak &nbsp;&nbsp;&nbsp; </Link></font></h4> */}
     <Nav className="me-auto">
-    <Nav.Link href="/"><h4><font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp;</font></h4></Nav.Link>
-    <div className='item::after'>
-      <Nav.Link href="/">Home</Nav.Link>
-    </div>
+    <Nav.Link href="/" ><h4>
+      
+      <font color='#4285f4' >G</font>
+      <font color='#ea4335' >o</font>
+      <font color='#fbbc05' >g</font>
+      <font color='#4285f4' >g</font>
+      <font color='#34a853' >l</font>
+      <font color='#fbbc05' >e</font>
+      <font color='#ea4335' >s</font>
+
+      {/* <font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp;</font> */}
+      </h4></Nav.Link>
+      <Nav.Link href="/" >Home</Nav.Link>
       {/* <Nav.Link href="/store">Store</Nav.Link> */}
-      <Nav.Link href="/camera">Camera</Nav.Link>
+      <Nav.Link href="/camera" >Camera</Nav.Link>
     </Nav>
   </Container>
 </Navbar>
