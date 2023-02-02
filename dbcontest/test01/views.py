@@ -71,6 +71,7 @@ def model_form_upload(request):
             returns = ocr(form.files['files'])
             title = returns[1]
             text = returns[0]
+            print(returns)
             return HttpResponse(json.dumps({'status':"Success","text": text, "title": title}))
         else:
             return HttpResponse(json.dumps({"status": "Failed"}))
