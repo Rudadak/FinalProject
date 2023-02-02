@@ -8,11 +8,13 @@ from .models import Test01
 from .serializers import TestDataSerializer
 from django.shortcuts import render
 
+
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 from function.tts import *
+from function.OCR import ocr
 
 
 import json
@@ -22,6 +24,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
  
 from .forms import DocumentForm
+
 
 
 def index(request):
@@ -53,7 +56,6 @@ def getMembers(request):
     # print("name is : ", name)
     data = Test01.objects.filter(name__contains=name)
     serializer = TestDataSerializer(data, many=True)
-    # print(serializer)
     
     
     # print(test)
@@ -66,6 +68,9 @@ def model_form_upload(request):
         form = DocumentForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
-            return HttpResponse(json.dumps({"status": "Success"}))
+            returns = ocr(form.files['files'])
+            title = returns[1]
+            text = returns[0]
+            return HttpResponse(json.dumps({'status':"Success","text": text, "title": title}))
         else:
             return HttpResponse(json.dumps({"status": "Failed"}))
