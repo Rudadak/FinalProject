@@ -136,6 +136,8 @@ class Test01(models.Model):
         managed = True
         db_table = 'test01'
 
+# def upload_to(instance, filename):
+#     return 'images/{filename}'.format(filename=filename)
 	
 class UploadFileModel(models.Model):
     description = models.CharField(max_length=255)

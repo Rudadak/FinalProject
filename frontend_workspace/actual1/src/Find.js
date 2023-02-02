@@ -7,8 +7,6 @@ import { useParams } from 'react-router-dom';
 import {Navs} from './App';
 import './Find.css';
 import { useNavigate} from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-// import ReactAudioPlayer from 'react-audio-player';
 // import sample1 from './sample1.mp3'
 // import sample2 from './sample2.mp3'
 // import sample3 from './sample3.mp3'
@@ -62,7 +60,7 @@ const Find = () => {
 
 
 
-  const url = "http://192.168.0.59:8000/test/datas"
+  const url = "http://localhost:8000/test/datas"
 //   axios
 //     .get(url)
 //     .then((res)=> {
@@ -90,7 +88,7 @@ const Find = () => {
   const onClicks = async () => {
     try{
       const response = await axios.get(
-        'http://192.168.0.59:8000/test/datas',
+        'http://localhost:8000/test/datas',
       );
       setData(response.data);
       console.log(response)
@@ -120,8 +118,6 @@ const Find = () => {
   //     return '';
   //   }
   // } 
-
-
   
 
 
@@ -237,7 +233,7 @@ export function Products(){
   const onClicks1 = async () => {
     try{
       const response1 = await axios.get(
-        `http://192.168.0.59:8000/test/data/${listId}`,
+        `http://localhost:8000/test/data/${listId}`,
       );
       setData1(response1.data);
       console.log(response1)
@@ -246,18 +242,8 @@ export function Products(){
     }
   };
   useEffect(() => onClicks1, []);
-  
-
-
-
-
-
-// const playing
-
-
-
   return(
-      <div>
+    <>
       <Navs />
       <div className='new1'>
 
@@ -275,19 +261,14 @@ export function Products(){
       <div>
         <br></br>
       <AudioExample />
-      {/* <button onClick={start}>dd</button>
-      <button onClick={stop}>dd</button> */}
       </div>
       <div className='new1'>
         추천 내용<br></br>
         {data1 && data1.keyword}
       </div>
-    </div>
-
+    </>
   )
-};
-  
-
+}
 
 const Search = () => {
   const [data2, setData] = useState({
@@ -296,34 +277,12 @@ const Search = () => {
 }
 
 
-
+const voice = require('C:/Users/admin/Documents/GitHub/FinalProject/frontend_workspace/actual1/src/audio/tts.mp3')
 
 function AudioExample() {
-  let audio = new Audio('../audio/tts.mp3') 
+  let audio = new Audio(voice) 
   const start = () => { audio.play() }
-  const stop = () => { audio.pause()} 
-  return (<div> <div> <Button onClick={start} >play</Button> 
-  <div><Button onClick={stop}>stop</Button></div></div></div>)}
-
-
-
-/* <ReactAudioPlayer
-   let audio = new ('../audio/tts.mp3') 
-   const start = () => { audio.play() }
-   return ( <div> <button onClick={start} >play</button> </div> )}
-/> */
-
-  //*function AudioExample1() {
-  //   let [audioPlay, setAudioPlay] = useState(True);
-  //   let audio = new Audio('../audio/tts.mp3') 
-  //   const start = () => {if(audioPlay == false){
-  //     setAudioPlay(!audioPlay);
-  //     audio.play();}else{
-  //       setAudioPlay(!audioPlay);
-  //       audio.pause();
-  //     }
-  //   start();}
-
+  return ( <div> <button onClick={start} >play</button> </div> )}
 
 
 
@@ -359,6 +318,10 @@ function AudioExample() {
 //     </div>
 //   );
 // };
+
+
+
+
 
 
 
