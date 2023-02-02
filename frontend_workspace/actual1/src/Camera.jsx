@@ -8,6 +8,7 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 function Camera() {
    
     /* 추가된 코드 */
+    const navigate = useNavigate();
     const uploadModule = async (e) => {
         e.preventDefault();
         const desc = e.target[0].value;
@@ -43,8 +44,9 @@ function Camera() {
             }
         }).then(function (response) {
             console.log(response);
+
             if(response.data.status == 'Success'){
-                window.location.replace("/camera/show");}
+                navigate('./show', {state: response.data})();}
             // window.location.replace("/camera/show"); 
         })
     } 

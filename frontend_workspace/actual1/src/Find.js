@@ -36,7 +36,7 @@ const Find = () => {
     const fetchData = async () => {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:8000/test/datas"
+        "http://192.168.0.59:8000/test/datas"
       );
       setData(response.data);
       setLoading(false);
@@ -44,7 +44,7 @@ const Find = () => {
     fetchData();
   }, []);
 
-  console.log(data);
+  // console.log('awerawef' +data);
 
 
 
@@ -71,11 +71,10 @@ const Find = () => {
 
  // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
  // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
-    const searched =  data && data.filter((item) =>
+    const searched =  data.filter((item) =>
      item.name.toLowerCase().includes(userInput)
    );
-  
-   console.log(data)
+
 
    const indexOfLast = currentPage * postsPerPage;
    const indexOfFirst = indexOfLast - postsPerPage;
@@ -85,12 +84,15 @@ const Find = () => {
      return currentPosts;
    };
 
-   
-   useEffect(()=>{window.speechSynthesis.cancel()}, []);
+   const asdfe = new SpeechSynthesisUtterance()
+   asdfe.text = `검색페이지로 이동했습니다. 검색에 사용된 검색어는 ${userInput}, 검색결과는 ${searched} 건입니다.`  
+   useEffect(() =>  window.speechSynthesis.speak(asdfe), [])
+
+  
   return(
-   
+    // {{background: `url('https://source.unsplash.com/random/1920x1080')`}}
     <div className='search-box'>
-      <div style={{background: `url('https://source.unsplash.com/random/1920x1080')`}}>
+      
       <div className='test1'>
       {loading && <div> loading... </div>}
       <Navs />
@@ -98,9 +100,14 @@ const Find = () => {
       <p>보고싶은 제품을 찾아보아요</p>
       <input onChange={getValue} value={userInput}/>
       </div>
-
-
+      
+      <div style={{backgroundImage: `url('https://source.unsplash.com/random/1920x1080')`,
+      // backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover'
+    }}>
       <Posts data={currentPosts(searched)} loading={loading}></Posts>
+      </div>
+      {/* {console.log('이거임' +searched.length)} */}
       <Pagination 
         postsPerPage={postsPerPage}
         totalPosts={searched.length}
@@ -121,12 +128,9 @@ const Find = () => {
         } */}
 
 
-
-      {data && console.log(data.length)}
-      
-      </div>
+      {/* {console.log('ddd' +searched)} */}
     </div>
-    
+
   );
 };
 
@@ -141,7 +145,6 @@ function Card(props){
 
   return(
     // <div className='si'>
-    <div className='heading-1'>
     <div onClick = {navigateToPurchase}>
       {/* <Link to={props.data && "./" + props.data.id}>
         <button> */}
@@ -150,7 +153,6 @@ function Card(props){
       {props.data && props.data.price}<br/>
       {/* </button>
       </Link> */}
-    </div>
     </div>
   )
 }
@@ -180,12 +182,12 @@ export function Products(){
   const onClicks1 = async () => {
     try{
       const response1 = await axios.get(
-        `http://localhost:8000/test/data/${listId}`,
+        `http://192.168.0.59:8000/test/data/${listId}`,
       );
       setData1(response1.data);
-      console.log(response1)
+      // console.log(response1)
     } catch (e) {
-      console.log(e)
+      // console.log(e)
     }
   };
   useEffect(() => onClicks1, []);
@@ -218,13 +220,25 @@ const speechHandler = (e) => {
       return { enablePrevent };
     };
 
-      
       const {enablePrevent} = usePreventLeave();
-      useEffect(()=>{window.speechSynthesis.cancel()}, []);
+// const asdfe = new SpeechSynthesisUtterance()  
+// asdfe.text = "제품명은 " + data1.name + "," +
+// "가격은 " + data1.price + "원" + "," +
+// "카테고리는 " + data1.categoriy + "," +
+// "제조사는 " + data1.manufacturer + "," +
+// "용량은 " + data1.period +"밀리리터" + "," +
+// "기타 사항으로는 " + data1.etc + "입니다."
+// useEffect(() => window.speechSynthesis.speak(asdfe), [])
+
+
   return(
       <div >
-      <Navs />
-      <div className= 'heading-1'>
+      <Navs /> 
+
+      <div style={{backgroundImage: `url('https://source.unsplash.com/random/1920x1080')`,
+      // backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover'
+    }}>
       <div className='new' onClick={() => speechHandler(
         "제품명은 " + data1.name + "," +
         "가격은 " + data1.price + "원" + "," +
@@ -264,7 +278,7 @@ const speechHandler = (e) => {
         추천 내용<br></br>
         {data1 && data1.keyword}
       </div>
-    </div>
+      </div>
     </div>
 
   )

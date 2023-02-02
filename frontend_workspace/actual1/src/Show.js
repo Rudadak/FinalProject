@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {Routes, Route, Link, useNavigate} from 'react-router-dom';
+import {Routes, Route, Link, useNavigate, useLocation} from 'react-router-dom';
 import {Navs} from './App';
 import React, {useState, useEffect, useCallback} from 'react';
 import axios from 'axios';
@@ -12,20 +12,24 @@ const Show = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
+  const {state} = useLocation();
+  // console.log({state})
+  useEffect(()=> setData(state), [])
+  console.log(data)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const response = await axios.get(
-        "http://192.168.0.59:8000/test/data/1"
-      );
-      setData(response.data);
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     const response = await axios.get(
+  //       "http://192.168.0.59:8000/test/data/1"
+  //     );
+  //     setData(response.data);
+  //     setLoading(false);
+  //   };
+  //   fetchData();
+  // }, []);
 
-  console.log(data);
+  // console.log(data);
 
 
 
@@ -42,7 +46,9 @@ const Show = () => {
     <div>
         <Navs />
       <div>
-      <Ocr data={data} loading={loading} />
+        <Ocr data={data} loading={loading}/>
+
+      {/* <Ocr data={state} loading={loading} /> */}
 
 
       </div>
@@ -64,14 +70,16 @@ const Ocr = ({ data, loading }) => {
     window.speechSynthesis.speak(msg)
   }
     return (
-      <>
+      <div className='new' onClick={() => speechHandler(data.text)}>
         {loading && <div> loading... </div>}
-        {data.id}
-        {data.name}
-        <button onClick={() => speechHandler(data.name)}>SPEAK</button>
-  
-      
-      </>
+        {console.log(data)}
+        {data.text}<p/>
+        
+        <button onClick={() => speechHandler(data.text)}>SPEAK</button>
+        <div className='new'>
+        {data.title}
+        </div>
+        </div>
     );
   };
 
