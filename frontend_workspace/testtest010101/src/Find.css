@@ -1,0 +1,75 @@
+@keyframes slideInLeft {
+  from{
+    transform: translateX(-300px);
+  }
+
+  to{
+    transform: translateX(0);
+  }
+}
+
+.heading-1 {
+  animation-name: slideInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-in ;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: both;
+
+  transform: translateX(-150px);
+}
+
+
+.si {
+  width: 100px;
+  height: 100px;
+  margin-left: 40%;
+  background: plum;
+  transition-property: width;
+  transition-duration: 2s;
+}
+
+.si:hover {
+  width: 300px;
+}
+
+
+.new{
+    margin-top: 20px;
+    margin-left: 15%;
+    padding: 15px;
+    background-color: antiquewhite;
+    text-align: center;
+    width: 70%;
+  }
+
+  .new1{
+    margin-top: 20px;
+    margin-left: 15%;
+    padding: 15px;
+    background-color: powderblue;
+    text-align: center;
+    width: 70%;
+  }
+  
+  .button{
+    margin-top: 20px;
+
+    padding: 15px;
+    background-color: antiquewhite;
+    text-align: center;
+    width: 110%;
+
+  }
+
+/* .search-box {
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    color: rgb(17, 17, 17);
+    padding: 20px 100px 20px 45px;
+    font-size: 40px;
+  } */

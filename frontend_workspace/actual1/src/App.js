@@ -6,10 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Find from './Find';
 import Datasheet from './Find';
 import {Products} from './Find';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Camera from './Camera';
 import Show from './Show';
-
+// import 'antd/dist/antd.css';
 
 function App() {
   return (
@@ -54,10 +54,10 @@ function Home(){
       <div className="d-grid gap
       -2">
 
-     <input style =  {{height: "130px",}} 
+     <font size='15'><input style =  {{height: "130px",width: '100%'}} 
      onChange = {(e) =>{
      setText(e.target.value);
-     console.log(text);}}></input>
+     console.log(text);}} placeholder='입력해 주세요!!' ></input></font>
      
      {/* <button style={{ width: "100px", height: "50px",}} 
      type="button"  
@@ -124,20 +124,25 @@ return(
 }
 
 export function Navs(){
+  useEffect(()=>{window.speechSynthesis.cancel()}, []);
 return(
+  
   <Navbar bg="dark" variant="dark">
   <Container>
     {/* <h4><font color= 'white'><Link to ='/'>Rudadak &nbsp;&nbsp;&nbsp; </Link></font></h4> */}
     <Nav className="me-auto">
     <Nav.Link href="/"><h4><font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp;</font></h4></Nav.Link>
+    <div className='item::after'>
       <Nav.Link href="/">Home</Nav.Link>
+    </div>
       {/* <Nav.Link href="/store">Store</Nav.Link> */}
       <Nav.Link href="/camera">Camera</Nav.Link>
     </Nav>
   </Container>
 </Navbar>
+
 )
-}
+};
 
 // function Store(){
 //   return(
