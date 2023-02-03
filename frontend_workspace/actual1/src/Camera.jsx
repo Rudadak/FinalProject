@@ -11,16 +11,14 @@ function Camera() {
     const navigate = useNavigate();
     const uploadModule = async (e) => {
         e.preventDefault();
-        const desc = e.target[0].value;
         
         // # event로 file 객체 얻기
         
-        const upload_file = e.target[1].files[0]; 
+        const upload_file = e.target[0].files[0]; 
         
 		// # 폼 데이터 생성
         // const navigate = useNavigate();
         const formData = new FormData();
-        formData.append("description", desc);
         formData.append("files", upload_file);
         formData.append("enctype", "multipart/form-data")
 		
@@ -51,6 +49,17 @@ function Camera() {
         })
     } 
  
+
+
+    // const imageInput = useRef();
+
+    // const onCickImageUpload = () => {
+    //     imageInput.current.click();
+    //   };
+
+    const [url, setUrl] = React.useState("");
+
+
     return (
         <>
         {/* <Routes>        
@@ -59,16 +68,34 @@ function Camera() {
          <Navs />
             <h1>File Upload Test</h1>
             <form onSubmit={uploadModule}>
-                description<input type="text" name="description" />
                 <br />
-            files<input type="file" name="files" />
- 
-                <input type="submit" value="SUBMIT" />
+            <Input updateUrl={setUrl} />
             </form>
+            
+            
+            <Img url={url} />
  
         </>
     );
- 
 }
+
+const Input = ({ updateUrl }) => {
+    const handleUpload = (event) => {
+      const url = URL.createObjectURL(event.target.files[0]);
+      console.log(event.target.files[0]);
+      updateUrl(url);
+    };
+  
+    return (
+      <div style={{ marginBottom: "30px" }}>
+        <input type="file" onChange={handleUpload} />
+        <input type="submit" value="SUBMIT" />
+      </div>
+    );
+  };
+  
+  const Img = ({ url }) => {
+    return <img src={url} />;
+  };
  
 export default Camera;

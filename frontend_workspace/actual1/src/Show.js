@@ -70,14 +70,17 @@ const Ocr = ({ data, loading }) => {
     window.speechSynthesis.speak(msg)
   }
     return (
-      <div className='new' onClick={() => speechHandler(data.text)}>
+      <div>
+      <div className='new1' onClick={() => speechHandler(data.text)}>
         {loading && <div> loading... </div>}
         {console.log(data)}
         {data.text}<p/>
+        </div>
         
-        <button onClick={() => speechHandler(data.text)}>SPEAK</button>
-        <div className='new'>
+        <div className='new1' onClick={() => speechHandler(data.title)}>
+        
         {data.title}
+        
         </div>
         </div>
     );

@@ -11,6 +11,11 @@ import { Button } from 'react-bootstrap';
 import Posts from './Posts';
 import Pagination from "./Pagination";
 import {usePageLeave, usePrevious} from 'react-use';
+import { useSpeechRecognition } from 'react-speech-kit';
+
+
+
+
 
 
 // import { Pagination } from 'antd';
@@ -84,9 +89,13 @@ const Find = () => {
      return currentPosts;
    };
 
+  
    const asdfe = new SpeechSynthesisUtterance()
-   asdfe.text = `검색페이지로 이동했습니다. 검색에 사용된 검색어는 ${userInput}, 검색결과는 ${searched} 건입니다.`  
-   useEffect(() =>  window.speechSynthesis.speak(asdfe), [])
+   asdfe.text = `검색페이지로 이동했습니다. 검색에 사용된 검색어는 ${userInput}입니다.` 
+   const [searchLength,setSearchLength] = useState('')
+ 
+
+  useEffect(()=>{return(window.speechSynthesis.speak(asdfe))}, [])
 
   
   return(
@@ -105,14 +114,20 @@ const Find = () => {
       // backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover'
     }}>
-      <Posts data={currentPosts(searched)} loading={loading}></Posts>
+      {/* <Posts data={currentPosts(searched)} loading={loading}></Posts> */}
+      <Posts data={searched} loading={loading}></Posts>
+
       </div>
       {/* {console.log('이거임' +searched.length)} */}
-      <Pagination 
+      {/* <Pagination 
         postsPerPage={postsPerPage}
         totalPosts={searched.length}
         paginate={setCurrentPage}
-      ></Pagination>
+      ></Pagination> */}
+
+
+
+      {/* {window.speechSynthesis.speak(asdfe)} */}
       
 
 {/* 
@@ -145,7 +160,7 @@ function Card(props){
 
   return(
     // <div className='si'>
-    <div onClick = {navigateToPurchase}>
+    <div onClick = {navigateToPurchase}>0
       {/* <Link to={props.data && "./" + props.data.id}>
         <button> */}
       
@@ -239,7 +254,7 @@ const speechHandler = (e) => {
       // backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover'
     }}>
-      <div className='new' onClick={() => speechHandler(
+      <div className='new1' onClick={() => speechHandler(
         "제품명은 " + data1.name + "," +
         "가격은 " + data1.price + "원" + "," +
         "카테고리는 " + data1.categoriy + "," +
@@ -248,7 +263,7 @@ const speechHandler = (e) => {
         "기타 사항으로는 " + data1.etc + "입니다."
       )}>
 
-        {listId}<br/>
+        {/* {listId}<br/> */}
       제품명 : {data1 && data1.name}<br/>
 
       가격 : {data1 && data1.price}<br/>
@@ -257,7 +272,9 @@ const speechHandler = (e) => {
       제조사 : {data1 && data1.manufacturer}<br/>
       용량 : {data1 && data1.period}<br/>
       👍 {data1 && data1.etc}<br/>
-      <button onClick={enablePrevent}>Protect</button>
+
+      {/* <button onClick={enablePrevent}>Protect</button> */}
+      
       </div>
       <div>
         <br></br>
@@ -273,9 +290,11 @@ const speechHandler = (e) => {
         "기타 사항으로는 " + data1.etc + "입니다."
       )}>SPEAK</button> */}
       </div>
-      <button onClick={() => window.speechSynthesis.cancel()}>dd</button>
-      <div className='new'>
-        추천 내용<br></br>
+
+      {/* <button onClick={() => window.speechSynthesis.cancel()}>dd</button> */}
+      
+      <div className='new1'>
+        추천 내용<br/>
         {data1 && data1.keyword}
       </div>
       </div>
@@ -356,8 +375,6 @@ function AudioExample() {
 //     </div>
 //   );
 // };
-
-
 
 
 

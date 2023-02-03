@@ -42,8 +42,8 @@ def getTestDatas(request):
 def getTestData(request, id):
     data = Test01.objects.get(id=id)
     serializer = TestDataSerializer(data, many=False)
-    test = tts_save(serializer.data.values())
-    print(test)
+    # test = tts_save(serializer.data.values())
+    # print(test)
     return Response(serializer.data)
 
 

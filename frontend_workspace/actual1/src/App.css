@@ -1,9 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Solitreo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=Gowun+Dodum&family=Kanit&family=Noto+Sans&family=Poppins&family=Roboto&family=Solitreo&display=swap');
+
 
 .App {
   text-align: center;
   font-family: 'Gowun Dodum', sans-serif;
-  /* font-family: 'Solitreo', cursive; */
+}
+
+
+.App-go{
+  font-family: 'Poppins', sans-serif;
 }
 
 .App-logo {
@@ -54,4 +59,8 @@
   background-color: #282c34;
 
   transform: translateX(-150px);
+} */
+/* 
+.hover {
+  background-color: gray;
 } */
