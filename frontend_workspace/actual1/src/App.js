@@ -1,6 +1,6 @@
 /* eslint-disable */
 import './App.css';
-import {Routes, Route, Link, useNavigate} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Redirect, Link, useNavigate} from 'react-router-dom';
 import {Button, Navbar, Container, Nav, ToggleButton} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Find from './Find';
@@ -11,6 +11,16 @@ import Camera from './Camera';
 import Show from './Show';
 import Sifind from './Sifind';
 import { useSpeechRecognition } from 'react-speech-kit';
+import SpeechRecognition from "react-speech-recognition";
+// import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
+import { BsMicFill } from "react-icons/bs";
+import useLongPress from './use-long-press';
+import App1 from './test1'
+
+
+
+
+// import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
 // import 'antd/dist/antd.css';
 
@@ -25,6 +35,9 @@ function App() {
         <Route path = "/product/:listId" element={< Products/>} />
         <Route path = "/camera/show" element={< Show/>} />
         <Route path = "/sifind" element={< Sifind/>} />
+        <Route path = "/test" element={< App1/>} />
+
+
         
        </Routes>
 
@@ -38,17 +51,22 @@ function Home(){
   const onSubmit = () => {
     navigate('./product', {state: text})
   }
+  const onSubmit1 = () => {
+    navigate('./sifind', {state: text})
+  }
 
   const navigate = useNavigate();
   
-  const [value12, setValue12] = useState('');
-  const { listen, listening, stop } = useSpeechRecognition({
+  // const [value12, setValue12] = useState('');
+  const { listen, listening, stop} = useSpeechRecognition({
     onResult: (result) => {
       // 음성인식 결과가 value 상태값으로 할당됩니다.
       // setValue12(result);
       setText(result);
     },
   });
+
+  
 
 
 
@@ -57,6 +75,23 @@ asdfe.text = "안녕하세요. 고글에 오신것을 환영합니다. 저희 �
 useEffect(() => window.speechSynthesis.speak(asdfe), [])
 
 
+
+
+const { action, handlers } = useLongPress();
+
+
+// if(! ('webkitSpeechRecognition' in window)) {
+//   alert('지원x');
+// } else{
+// const speech = new webkitSpeechRecognition;
+// document.getElementById('start').addEventListener('click', () => {
+
+// })
+
+// document.getElementById('stop').addEventListener('click', () =>{
+
+// })
+// }
 
 
   return(
@@ -78,10 +113,24 @@ useEffect(() => window.speechSynthesis.speak(asdfe), [])
      onChange = {(e) =>{
      setText(e.target.value);
      console.log(text);}} placeholder='입력해 주세요!!' value={text} ></input>
-     <button onMouseDown={listen} onMouseUp={stop} style={{marginleft:'20%', height: "130px",width: '20%'}}>
+     <button onMouseDown={listen} onMouseUp={stop} onTouchStart={listen} onTouchEnd={stop} style={{marginleft:'20%', height: "130px",width: '20%'}}>
      🎤
-   </button>{listening && <div>음성인식 활성화 중</div>}</font>
+   </button>{listening && <div>음성인식 활성화 중</div>}
+    
+    
+  
+ 
+ {/* <button onClick={SpeechRecognition.startListening}> */}
+        {/* <button
+        onClick={() => SpeechRecognition.startListening({ continuous: true })}
+      >
+        <h3>
+          <BsMicFill /> {listening ? "On" : "Off"}
+        </h3>
+      </button> */}
+   </font>
 
+      
       {console.log({text})}
       <Button variant="primary" size="lg"  state={text}  onClick={() => {
     onSubmit();
@@ -107,12 +156,14 @@ useEffect(() => window.speechSynthesis.speak(asdfe), [])
       <p></p>
       <br />
       </Button>
-      <Button variant="success" size="lg" href="/sifind">
+      <Button variant="success" size="lg"  state={text}  onClick={() => {
+    onSubmit1();
+     }}>
       <p></p>
       <p></p>
       <p></p>
       <br />
-      <font size='20'>유사도 검색</font>
+      <font size='20'>리뷰 찾기</font>
       <p></p>
       <p></p>
       <p></p>

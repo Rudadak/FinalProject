@@ -99,7 +99,6 @@ const Find = () => {
 
   
   return(
-    // {{background: `url('https://source.unsplash.com/random/1920x1080')`}}
     <div className='search-box'>
       
       <div className='test1'>
@@ -114,16 +113,16 @@ const Find = () => {
       // backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover'
     }}>
-      {/* <Posts data={currentPosts(searched)} loading={loading}></Posts> */}
-      <Posts data={searched} loading={loading}></Posts>
+      <Posts data={currentPosts(searched)} loading={loading}></Posts>
+      {/* <Posts data={searched} loading={loading}></Posts> */}
 
       </div>
       {/* {console.log('이거임' +searched.length)} */}
-      {/* <Pagination 
+      <Pagination 
         postsPerPage={postsPerPage}
         totalPosts={searched.length}
         paginate={setCurrentPage}
-      ></Pagination> */}
+      ></Pagination>
 
 
 

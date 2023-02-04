@@ -35,30 +35,23 @@ const Posts = ({ data, loading }) => {
         ))}
       </ul> */}
 
-      {/* {
+      {
           data.map((a, i) => {
             return(
-              <Swiper
-      spaceBetween={a}
-      slidesPerView={4}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
-    >
-                <SwiperSlide>
+ 
               <Card data={data[i]} i={i+1}> </Card>
-              </SwiperSlide>
-              </Swiper>
+
             )
           })
-        } */}
-        <Swiper
+        }
+        {/* <Swiper
         className="banner"
         spaceBetween={50}
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
         autoplay={{ delay: 1000 }}>
-          {/* {dividing()} */}
+          {dividing()}
           <SwiperSlide>
   <Card data={data[0]}> </Card>
   <Card data={data[1]}> </Card>
@@ -78,7 +71,7 @@ const Posts = ({ data, loading }) => {
   <Card data={data[11]}> </Card>
   </SwiperSlide>
 
-        </Swiper>
+        </Swiper> */}
   
 {/* <SwiperSlide>
           {
