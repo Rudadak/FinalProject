@@ -10,6 +10,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Camera from './Camera';
 import Show from './Show';
 // import 'antd/dist/antd.css';
+// import { useSpeechRecognition } from 'react-speech-kit';
 
 function App() {
   return (
@@ -30,10 +31,13 @@ function App() {
 function Home(){
   const [text, setText] = useState('');
 
+
+
   const onSubmit = () => {
     navigate('./product', {state: text})
   }
 
+  
   const navigate = useNavigate();
   
   // const onReset = () => {
@@ -42,7 +46,7 @@ function Home(){
 
 
   const asdfe = new SpeechSynthesisUtterance()  
-asdfe.text = "안녕하세요. 고글에 오신것을 환영합니다. 저희 사이트는 상품 검색을 통해 tts기능을 제공해 줍니다."
+asdfe.text = "안녕하세요. 고글에 오신것을 환영합니다. 저희 사이트는 상품 검색을 통해 tts기능을 제공합니다."
 useEffect(() => window.speechSynthesis.speak(asdfe), [])
   return(
     
@@ -96,6 +100,7 @@ useEffect(() => window.speechSynthesis.speak(asdfe), [])
       <p></p>
       <br />
       </Button>
+
       {/* <Button variant="dark" size="lg" href="/mypage">
       <font size='6'>마이페이지</font>
       </Button> */}
@@ -103,6 +108,8 @@ useEffect(() => window.speechSynthesis.speak(asdfe), [])
     </div>
   )
 }
+
+
 
 function Product(){
 return(

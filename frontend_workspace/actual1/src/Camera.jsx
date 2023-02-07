@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from "react";
+import React, {useRef} from "react";
 import axios from "axios"; // axios 모듈 추가
 import {Navs} from './App';
 import Show from './Show';
@@ -11,16 +11,14 @@ function Camera() {
     const navigate = useNavigate();
     const uploadModule = async (e) => {
         e.preventDefault();
-        const desc = e.target[0].value;
         
         // # event로 file 객체 얻기
         
-        const upload_file = e.target[1].files[0]; 
+        const upload_file = e.target[0].files[0]; 
         
 		// # 폼 데이터 생성
         // const navigate = useNavigate();
         const formData = new FormData();
-        formData.append("description", desc);
         formData.append("files", upload_file);
         formData.append("enctype", "multipart/form-data")
 		
@@ -51,6 +49,14 @@ function Camera() {
         })
     } 
  
+
+    const imageInput = useRef();
+
+    const onCickImageUpload = () => {
+        imageInput.current.click();
+      };
+
+
     return (
         <>
         {/* <Routes>        
@@ -59,12 +65,13 @@ function Camera() {
          <Navs />
             <h1>File Upload Test</h1>
             <form onSubmit={uploadModule}>
-                description<input type="text" name="description" />
                 <br />
-            files<input type="file" name="files" />
+                <input type="file" style={{ display: "none" }} ref={imageInput} />
+                <button onClick={onCickImageUpload}>이미지업로드</button>
  
                 <input type="submit" value="SUBMIT" />
             </form>
+            
  
         </>
     );
