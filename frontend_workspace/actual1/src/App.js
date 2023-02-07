@@ -1,6 +1,6 @@
 /* eslint-disable */
 import './App.css';
-import {Routes, Route, Link, useNavigate} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Redirect, Link, useNavigate} from 'react-router-dom';
 import {Button, Navbar, Container, Nav, ToggleButton} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Find from './Find';
@@ -9,6 +9,19 @@ import {Products} from './Find';
 import React, { useState, useEffect, useCallback } from 'react';
 import Camera from './Camera';
 import Show from './Show';
+import Sifind from './Sifind';
+import { useSpeechRecognition } from 'react-speech-kit';
+import SpeechRecognition from "react-speech-recognition";
+// import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
+import { BsMicFill } from "react-icons/bs";
+import useLongPress from './use-long-press';
+import App1 from './test1'
+
+
+
+
+// import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+
 // import 'antd/dist/antd.css';
 // import { useSpeechRecognition } from 'react-speech-kit';
 
@@ -22,7 +35,12 @@ function App() {
         <Route path = "/camera" element={<Camera />} />
         <Route path = "/product/:listId" element={< Products/>} />
         <Route path = "/camera/show" element={< Show/>} />
-      </Routes>
+        <Route path = "/sifind" element={< Sifind/>} />
+        <Route path = "/test" element={< App1/>} />
+
+
+        
+       </Routes>
 
     </div>
   );
@@ -36,18 +54,50 @@ function Home(){
   const onSubmit = () => {
     navigate('./product', {state: text})
   }
+  const onSubmit1 = () => {
+    navigate('./sifind', {state: text})
+  }
 
   
   const navigate = useNavigate();
   
-  // const onReset = () => {
-  //   setText('');
-  // };
+  // const [value12, setValue12] = useState('');
+  const { listen, listening, stop} = useSpeechRecognition({
+    onResult: (result) => {
+      // 음성인식 결과가 value 상태값으로 할당됩니다.
+      // setValue12(result);
+      setText(result);
+    },
+  });
+
+  
+
 
 
   const asdfe = new SpeechSynthesisUtterance()  
 asdfe.text = "안녕하세요. 고글에 오신것을 환영합니다. 저희 사이트는 상품 검색을 통해 tts기능을 제공합니다."
 useEffect(() => window.speechSynthesis.speak(asdfe), [])
+
+
+
+
+const { action, handlers } = useLongPress();
+
+
+// if(! ('webkitSpeechRecognition' in window)) {
+//   alert('지원x');
+// } else{
+// const speech = new webkitSpeechRecognition;
+// document.getElementById('start').addEventListener('click', () => {
+
+// })
+
+// document.getElementById('stop').addEventListener('click', () =>{
+
+// })
+// }
+
+
   return(
     
     <div>
@@ -55,7 +105,7 @@ useEffect(() => window.speechSynthesis.speak(asdfe), [])
         <Navs />
       </div>
       <div>
-        <font size= '30'>타이틀이 있던 자리입니다.</font>
+        {/* <font size= '30'>오늘 할 일: 쉬엄쉬엄 하기, 쉬기, 집에 가기</font> */}
         
       </div>
 
@@ -63,27 +113,37 @@ useEffect(() => window.speechSynthesis.speak(asdfe), [])
       <div className="d-grid gap
       -2">
 
-     <font size='15'><input style =  {{height: "130px",width: '100%'}} 
+     <font size='15'><input style =  {{height: "130px",width: '80%'}} 
      onChange = {(e) =>{
      setText(e.target.value);
-     console.log(text);}} placeholder='입력해 주세요!!' ></input></font>
-     
-     {/* <button style={{ width: "100px", height: "50px",}} 
-     type="button"  
-     onClick={() => {
-    onSubmit();
-     }}>버튼</button> */}
-   
-      {/* <input type='button' value='검색' onClick={()=>navigate('./product')}></input> */}
+     console.log(text);}} placeholder='입력해 주세요!!' value={text} ></input>
+     <button onMouseDown={listen} onMouseUp={stop} onTouchStart={listen} onTouchEnd={stop} style={{marginleft:'20%', height: "130px",width: '20%'}}>
+     🎤
+   </button>{listening && <div>음성인식 활성화 중</div>}
+    
+    
+  
+ 
+ {/* <button onClick={SpeechRecognition.startListening}> */}
+        {/* <button
+        onClick={() => SpeechRecognition.startListening({ continuous: true })}
+      >
+        <h3>
+          <BsMicFill /> {listening ? "On" : "Off"}
+        </h3>
+      </button> */}
+   </font>
+
+      
       {console.log({text})}
-      <Button variant="primary" size="lg"  href="/product" state={text}  onClick={() => {
+      <Button variant="primary" size="lg"  state={text}  onClick={() => {
     onSubmit();
      }}>
         <p></p>
         <p></p>
         <p></p>
         <br></br>
-      <font size='6'>검색</font>
+      <font size='20'>검색</font>
       <p></p>
       <p></p>
       <p></p>
@@ -94,7 +154,20 @@ useEffect(() => window.speechSynthesis.speak(asdfe), [])
       <p></p>
       <p></p>
       <br />
-      <font size='6'>카메라</font>
+      <font size='20'>카메라</font>
+      <p></p>
+      <p></p>
+      <p></p>
+      <br />
+      </Button>
+      <Button variant="success" size="lg"  state={text}  onClick={() => {
+    onSubmit1();
+     }}>
+      <p></p>
+      <p></p>
+      <p></p>
+      <br />
+      <font size='20'>리뷰 찾기</font>
       <p></p>
       <p></p>
       <p></p>
@@ -143,21 +216,22 @@ return(
   <Container>
     {/* <h4><font color= 'white'><Link to ='/'>Rudadak &nbsp;&nbsp;&nbsp; </Link></font></h4> */}
     <Nav className="me-auto">
-    <Nav.Link href="/" ><h4>
+    <Nav.Link href="/" className='App-go'><h4>
       
-      <font color='#4285f4' >G</font>
-      <font color='#ea4335' >o</font>
-      <font color='#fbbc05' >g</font>
-      <font color='#4285f4' >g</font>
-      <font color='#34a853' >l</font>
-      <font color='#fbbc05' >e</font>
-      <font color='#ea4335' >s</font>
+      <font color='#4285f4' size = '10' weight="bolder">G</font>
+      <font color='#ea4335' size ='6' weight="bolder">o</font>
+      <font color='#fbbc05' size = '6' weight="bolder">g</font>
+      <font color='#4285f4' size = '6' weight="bolder" >g</font>
+      <font color='#34a853' size = '6' weight="bolder">l</font>
+      <font color='#fbbc05' size = '6' weight="bolder">e</font>
+      <font color='#ea4335' size = '6' weight="bolder">s</font>
 
       {/* <font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp;</font> */}
       </h4></Nav.Link>
-      <Nav.Link href="/" >Home</Nav.Link>
+      <Nav.Link href="/"  >Home</Nav.Link>
       {/* <Nav.Link href="/store">Store</Nav.Link> */}
-      <Nav.Link href="/camera" >Camera</Nav.Link>
+      <Nav.Link href="/camera">Camera</Nav.Link>
+
     </Nav>
   </Container>
 </Navbar>

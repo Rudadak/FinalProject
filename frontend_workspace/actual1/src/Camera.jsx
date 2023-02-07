@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, {useRef} from "react";
+import React from "react";
 import axios from "axios"; // axios 모듈 추가
 import {Navs} from './App';
 import Show from './Show';
@@ -50,11 +50,14 @@ function Camera() {
     } 
  
 
-    const imageInput = useRef();
 
-    const onCickImageUpload = () => {
-        imageInput.current.click();
-      };
+    // const imageInput = useRef();
+
+    // const onCickImageUpload = () => {
+    //     imageInput.current.click();
+    //   };
+
+    const [url, setUrl] = React.useState("");
 
 
     return (
@@ -66,16 +69,33 @@ function Camera() {
             <h1>File Upload Test</h1>
             <form onSubmit={uploadModule}>
                 <br />
-                <input type="file" style={{ display: "none" }} ref={imageInput} />
-                <button onClick={onCickImageUpload}>이미지업로드</button>
- 
-                <input type="submit" value="SUBMIT" />
+            <Input updateUrl={setUrl} />
             </form>
             
+            
+            <Img url={url} />
  
         </>
     );
- 
 }
+
+const Input = ({ updateUrl }) => {
+    const handleUpload = (event) => {
+      const url = URL.createObjectURL(event.target.files[0]);
+      console.log(event.target.files[0]);
+      updateUrl(url);
+    };
+  
+    return (
+      <div style={{ marginBottom: "30px" }}>
+        <input type="file" onChange={handleUpload} />
+        <input type="submit" value="SUBMIT" />
+      </div>
+    );
+  };
+  
+  const Img = ({ url }) => {
+    return <img src={url}  style={{textAlign:"center"}} width={200} height={200} />;
+  };
  
 export default Camera;

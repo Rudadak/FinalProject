@@ -28,6 +28,7 @@ const PageLi = styled.li`
   &:focus::after {
     color: white;
     background-color: #263a6c;
+    
   }
 `;
 
