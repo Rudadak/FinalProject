@@ -12,4 +12,5 @@ urlpatterns = [
     path('data/<int:id>', views.getTestData, name="data"),
     path('getMembers/', views.getMembers, name="getMembers"),
     path('camera/', views.model_form_upload, name = "camera"),
+    path('sentence/', views.getSentence, name = "sentence"),
 ] 

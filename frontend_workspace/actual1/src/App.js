@@ -91,6 +91,7 @@ import axios from 'axios';
 // import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
 // import 'antd/dist/antd.css';
+// import { useSpeechRecognition } from 'react-speech-kit';
 
 function App() {
 
@@ -116,6 +117,8 @@ function App() {
 function Home(){
   const [text, setText] = useState('');
 
+
+
   const onSubmit = () => {
     navigate('./product', {state: text})
   }
@@ -123,6 +126,7 @@ function Home(){
     navigate('./sifind', {state: text})
   }
 
+  
   const navigate = useNavigate();
   
   // const [value12, setValue12] = useState('');
@@ -139,7 +143,7 @@ function Home(){
 
 
   const asdfe = new SpeechSynthesisUtterance()  
-asdfe.text = "안녕하세요. 고글에 오신것을 환영합니다. 저희 사이트는 상품 검색을 통해 tts기능을 제공해 줍니다."
+asdfe.text = "안녕하세요. 고글에 오신것을 환영합니다. 저희 사이트는 상품 검색을 통해 tts기능을 제공합니다."
 useEffect(() => window.speechSynthesis.speak(asdfe), [])
 
 
@@ -248,7 +252,10 @@ const { action, handlers } = useLongPress();
 
       </Button>
 
+<<<<<<< HEAD
       </div>
+=======
+>>>>>>> 3a4bcc7e99dca84a11aa0342862dbc73eb203db8
       {/* <Button variant="dark" size="lg" href="/mypage">
       <font size='6'>마이페이지</font>
       </Button> */}

@@ -15,6 +15,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 from function.tts import *
 from function.OCR import ocr
+from function.KST import kst_model
 
 
 import json
@@ -62,6 +63,24 @@ def getMembers(request):
     return Response(serializer.data)
 
 
+@api_view(['POST'])
+def getSentence(request):
+    reqData = request.data
+    query = reqData['query']
+    print(query)
+    # print(name)
+    # print("id is : ", id)
+    # print("name is : ", name)
+    data = kst_model(query)
+    # serializer = TestDataSerializer(data, many=True)
+    print(data[0])
+    
+    
+    # print(test)
+    return Response(data)
+
+
+
 @method_decorator(csrf_exempt, name="dispatch")
 def model_form_upload(request):
     if request.method == "POST":
@@ -75,3 +94,13 @@ def model_form_upload(request):
             return HttpResponse(json.dumps({'status':"Success","text": text, "title": title}))
         else:
             return HttpResponse(json.dumps({"status": "Failed"}))
+        
+        
+        
+        
+        
+        
+
+        
+        
+
