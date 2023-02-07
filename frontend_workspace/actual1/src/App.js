@@ -13,9 +13,77 @@ import Sifind from './Sifind';
 import { useSpeechRecognition } from 'react-speech-kit';
 import SpeechRecognition from "react-speech-recognition";
 // import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
-import { BsMicFill } from "react-icons/bs";
+import { BsFileX, BsMicFill } from "react-icons/bs";
 import useLongPress from './use-long-press';
-import App1 from './test1'
+import App1 from './test1';
+import axios from 'axios';
+// import IconButton from '@mui/material/IconButton';
+// import Box from '@mui/material/Box';
+// import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+// import Brightness4Icon from '@mui/icons-material/Brightness4';
+// import Brightness7Icon from '@mui/icons-material/Brightness7';
+
+
+
+// const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+
+// function MyApp() {
+//   const theme = useTheme();
+//   const colorMode = React.useContext(ColorModeContext);
+//   return (
+//     <Box
+//       sx={{
+//         display: 'flex',
+//         width: '100%',
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//         bgcolor: 'background.default',
+//         color: 'text.primary',
+//         borderRadius: 1,
+//         p: 3,
+//       }}
+//     >
+//       {theme.palette.mode} mode
+//       <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+//         {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+//       </IconButton>
+//     </Box>
+//   );
+// }
+
+// export function ToggleColorMode() {
+//   const [mode, setMode] = React.useState('light');
+//   const colorMode = React.useMemo(
+//     () => ({
+//       toggleColorMode: () => {
+//         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+//       },
+//     }),
+//     [],
+//   );
+
+//   const theme = React.useMemo(
+//     () =>
+//       createTheme({
+//         palette: {
+//           mode,
+//         },
+//       }),
+//     [mode],
+//   );
+
+//   return (
+//     <ColorModeContext.Provider value={colorMode}>
+//       <ThemeProvider theme={theme}>
+//         <MyApp />
+//       </ThemeProvider>
+//     </ColorModeContext.Provider>
+//   );
+// }
+
+
+// import DarkModeToggle from "react-dark-mode-toggle";
+
 
 
 
@@ -25,8 +93,9 @@ import App1 from './test1'
 // import 'antd/dist/antd.css';
 
 function App() {
+
   return (
-    <div className="App">
+    <div className='App' >
       <Routes>
         <Route path = "/" element={<Home />} />
         <Route path = "/product" element={<Find />} />
@@ -36,12 +105,11 @@ function App() {
         <Route path = "/camera/show" element={< Show/>} />
         <Route path = "/sifind" element={< Sifind/>} />
         <Route path = "/test" element={< App1/>} />
-
-
         
        </Routes>
+      
 
-    </div>
+   </div>
   );
 }
 
@@ -63,7 +131,7 @@ function Home(){
       // 음성인식 결과가 value 상태값으로 할당됩니다.
       // setValue12(result);
       setText(result);
-    },
+    }
   });
 
   
@@ -93,29 +161,53 @@ const { action, handlers } = useLongPress();
 // })
 // }
 
+// axios({
+//   method: 'post',
+//   url: 'http://192.168.0.42:8080/test/sentence',
+//   data: {
+//     query: {text}
+//   }}).then(function (response) {
+//   console.log(response);    })
+
+
+  const submitHandler = (e) => {
+    // e.preventDefault();
+    // state에 저장한 값을 가져옵니다.
+    axios.post('http://192.168.0.42:8000/test/sentence/', {query:text}).then(function (response) {
+      console.log(response);
+      console.log(response.data);
+      console.log(response.data.state);
+      if(response.status == '200'){
+        navigate('./Sifind', {state: response.data})();}
+    })
+  };
+
+
 
   return(
-    
+                        
     <div>
       <div>
         <Navs />
       </div>
-      <div>
-        {/* <font size= '30'>오늘 할 일: 쉬엄쉬엄 하기, 쉬기, 집에 가기</font> */}
+      {/* <div>
+        <font size= '5'>오늘 할 일: 쉬엄쉬엄 하기, 쉬기, 집에 가기</font>
         
-      </div>
+      </div> */}
 
 
-      <div className="d-grid gap
-      -2">
+      <div className="d-grid gap-2" style={{height: '20vh', padding:"0", margin:
+      "0"}}>
+ 
 
-     <font size='15'><input style =  {{height: "130px",width: '80%'}} 
+     <font size='15'><input style =  {{width: '80%'}} 
      onChange = {(e) =>{
      setText(e.target.value);
      console.log(text);}} placeholder='입력해 주세요!!' value={text} ></input>
-     <button onMouseDown={listen} onMouseUp={stop} onTouchStart={listen} onTouchEnd={stop} style={{marginleft:'20%', height: "130px",width: '20%'}}>
+     <button onMouseDown={listen} onMouseUp={stop} onTouchStart={listen} onTouchEnd={stop} style={{width: '20%'}}>
      🎤
-   </button>{listening && <div>음성인식 활성화 중</div>}
+   </button>
+   {listening && <div>음성인식 활성화 중</div>}
     
     
   
@@ -130,52 +222,44 @@ const { action, handlers } = useLongPress();
       </button> */}
    </font>
 
-      
+
+      <div style={{height: '60vh'}} >
       {console.log({text})}
-      <Button variant="primary" size="lg"  state={text}  onClick={() => {
+      <Button variant="primary" size="lg"  state={text} style={{width: '100%', height: '20vh'}} onClick={() => {
     onSubmit();
      }}>
-        <p></p>
-        <p></p>
-        <p></p>
-        <br></br>
-      <font size='20'>검색</font>
-      <p></p>
-      <p></p>
-      <p></p>
+
+      <font size='20' >검색</font>
+
+      </Button>
       <br></br>
-      </Button>
-      <Button variant="secondary" size="lg" href="/camera">
-      <p></p>
-      <p></p>
-      <p></p>
-      <br />
-      <font size='20'>카메라</font>
-      <p></p>
-      <p></p>
-      <p></p>
-      <br />
-      </Button>
-      <Button variant="success" size="lg"  state={text}  onClick={() => {
-    onSubmit1();
-     }}>
-      <p></p>
-      <p></p>
-      <p></p>
-      <br />
+     <Link to="/camera">
+      <button  variant="secondary" size="lg" state={text} style={{width: '100%', height: '20vh', backgroundColor: 'gray', borderRadius: '8px' , border:'none'}} >
+
+      <font color='white' size='20' > 카메라</font>
+
+      </button>
+      </Link>
+    
+      <Button style={{width: '100%', height: '20vh'}} variant="success" size="lg"  state={text}  type='submit' onClick={submitHandler}>
+ 
+ 
       <font size='20'>리뷰 찾기</font>
-      <p></p>
-      <p></p>
-      <p></p>
-      <br />
+
       </Button>
+
+      </div>
       {/* <Button variant="dark" size="lg" href="/mypage">
       <font size='6'>마이페이지</font>
       </Button> */}
+
       </div>
     </div>
+    
   )
 }
+
+
 
 function Product(){
 return(
@@ -205,7 +289,7 @@ export function Navs(){
   useEffect(()=>{window.speechSynthesis.cancel()}, []);
 return(
   
-  <Navbar bg="white" variant="white"  className='heading-1'>
+  <Navbar bg="white" variant="white"  className='heading-1'style={{height: '20vh'}}>
   <Container>
     {/* <h4><font color= 'white'><Link to ='/'>Rudadak &nbsp;&nbsp;&nbsp; </Link></font></h4> */}
     <Nav className="me-auto">
@@ -224,13 +308,14 @@ return(
       <Nav.Link href="/"  >Home</Nav.Link>
       {/* <Nav.Link href="/store">Store</Nav.Link> */}
       <Nav.Link href="/camera">Camera</Nav.Link>
-
     </Nav>
   </Container>
 </Navbar>
 
 )
 };
+
+
 
 // function Store(){
 //   return(
@@ -267,5 +352,6 @@ return(
 
 
 
-
 export default App;
+
+
