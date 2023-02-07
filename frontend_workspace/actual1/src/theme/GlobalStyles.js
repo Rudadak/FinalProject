@@ -1,27 +1,24 @@
-import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
+import { createGlobalStyle } from "./theme";
 
-export const GlobalStyle = createGlobalStyle`
-  ${reset}
-  body {
-    background: ${({ theme }) => theme.bgColor};
-    color: ${({ theme }) => theme.textColor};
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
-    line-height: 1.5;
-    margin: 0 auto;
-    font-family:
-      "Montserrat",
-      "Helvetica Neue",
-      "NanumSquare",
-      "Noto Sans",
-      "Noto Sans CJK KR",
-      sans-serif;
-    word-break: keep-all;
-    word-wrap: break-word;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-  }
+const GlobalStyle = createGlobalStyle`
+    * {
+        font-size: 10px;
+    }
+    body{
+        font-family: 'Nunito','Pretendard', sans-serif;
+        margin: 0;
+        font-size: 12px;
+    }
+    h2{
+        font-size: 18px;
+    }
+    button{
+        cursor: pointer;
+        border: none;
+    }
+    div{
+        font-size: 12px;
+    }
 `;
+
+export default GlobalStyle;

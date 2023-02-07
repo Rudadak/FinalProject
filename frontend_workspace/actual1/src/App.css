@@ -48,6 +48,44 @@
   }
 }
 
+.TextBox {
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+
+
+
+
+
+
+
+
+/* .Adsf1{
+
+} */
+
+/* .card-container {
+  contain: style layout inline-size;
+  width: 100%;
+  border: 1px solid #663399;
+  padding: 0px;
+  transition: all 1s;
+  display:'flex';
+}
+.title {
+  font-size: 30px;
+} */
+
+/* @container (max-width: 350px){
+  .tilte{
+    font-size: 30px;
+    color: grey;
+  }
+} */
+
+
 /* .heading-1 {
   animation-name: slideInLeft;
   animation-duration: 1s;

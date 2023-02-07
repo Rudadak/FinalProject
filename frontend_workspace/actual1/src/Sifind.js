@@ -25,7 +25,8 @@ import Posts from './Posts';
 
 
 const SiFind = () => {
-  const [data, setData] = useState([]);
+const {state} = useLocation();
+const [data, setData] = useState(state);
 
 
   // const [posts, setPosts] = useState([]);
@@ -33,26 +34,22 @@ const SiFind = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const response = await axios.get(
-        "http://192.168.0.59:8000/test/datas"
-      );
-      setData(response.data);
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     const response = await axios.get(
+  //       "http://192.168.0.59:8000/test/datas"
+  //     );
+  //     setData(response.data);
+  //     setLoading(false);
+  //   };
+  //   fetchData();
+  // }, []);
 
   // console.log('awerawef' +data);
 
 
-
-  const {state} = useLocation();
-
-
-  const [userInput, setUserInput] = useState(state);
+  const [userInput, setUserInput] = useState('');
 
   function imsi1(){
     if(userInput == null){
@@ -65,7 +62,7 @@ const SiFind = () => {
 
   const getValue = (e) => {
     console.log(e)
-    setUserInput(e.target.value.toLowerCase())};
+    setUserInput(e.target.value)};
 
   // <input onChange={getValue}/>
 
@@ -73,7 +70,7 @@ const SiFind = () => {
  // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
  // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
     const searched =  data.filter((item) =>
-     item.name.toLowerCase().includes(userInput)
+     item.name
    );
 
 
@@ -92,6 +89,7 @@ const SiFind = () => {
  
 
   useEffect(()=>{return(window.speechSynthesis.speak(asdfe))}, [])
+  console.log(data)
 
   
   return(
