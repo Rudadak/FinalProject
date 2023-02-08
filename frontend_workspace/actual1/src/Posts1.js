@@ -109,7 +109,7 @@ const Posts1 = ({ data, loading }) => {
 function Card(props){
     const navigate = useNavigate();
     const navigateToPurchase = () => {
-      navigate(`${props.data && "product/" + props.data.id}`);
+      navigate(`${props.data && "/product/" + props.data.id}`);
     };
   
     return(
