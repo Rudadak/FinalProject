@@ -67,17 +67,25 @@ def getMembers(request):
 def getSentence(request):
     reqData = request.data
     query = reqData['query']
-    print(query)
     # print(name)
     # print("id is : ", id)
     # print("name is : ", name)
+    ## kosentencebert 모델을
     data = kst_model(query)
     # serializer = TestDataSerializer(data, many=True)
-    print(data[0])
+    # serializer = TestDataSerializer(data, many=True)
+    # datas = Test01.objects.filter(name=data[0][0])
+    # serializer = TestDataSerializer(datas, many=True)
     
+    answer = []
+    for i in data:
+        datas = Test01.objects.filter(name=i[0])
+        serializer = TestDataSerializer(datas, many=True)
+        serializer.data[0]['rv'] = i[1]
+        answer.append(serializer.data[0])
     
     # print(test)
-    return Response(data)
+    return Response(answer)
 
 
 
@@ -96,11 +104,6 @@ def model_form_upload(request):
             return HttpResponse(json.dumps({"status": "Failed"}))
         
         
-        
-        
-        
-        
-
         
         
 
