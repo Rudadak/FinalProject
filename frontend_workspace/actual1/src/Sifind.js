@@ -12,7 +12,7 @@ import Sifind from './Sifind';
 import { useSpeechRecognition } from 'react-speech-kit';
 import {Navs} from './App';
 
-import Posts from './Posts';
+import Posts1 from './Posts1';
 
 // import 'antd/dist/antd.css';
 
@@ -97,7 +97,7 @@ const [data, setData] = useState(state);
       
       <div className='test1'>
 
-      <Navs />
+      {/* <Navs /> */}
       <h1>리뷰 찾기</h1>
       <p>관련리뷰를 찾아보았어요</p>
       <input onChange={getValue} value={userInput}/>
@@ -108,7 +108,7 @@ const [data, setData] = useState(state);
       backgroundSize: 'cover'
     }}>
       {/* <Posts data={currentPosts(searched)} loading={loading}></Posts> */}
-      <Posts data={searched} loading={loading}></Posts>
+      <Posts1 data={searched} loading={loading}></Posts1>
 
       </div>
       {/* {console.log('이거임' +searched.length)} */}

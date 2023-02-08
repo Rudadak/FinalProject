@@ -54,9 +54,14 @@
   line-height: 1.5;
 }
 
-
-
-
+.off {
+  filter: grayscale(100%);
+  
+}
+.on {
+  filter: brightness(100%);
+  /* transition: 5s; */
+}
 
 
 
@@ -102,3 +107,16 @@
 .hover {
   background-color: gray;
 } */
+
+.button2color{
+   width: 100%;
+   height: 20vh;
+   background-color: gray;
+   border-radius: 8px;
+   border:none;
+
+}
+
+.button2color:hover{
+  background-color: rgb(115, 115, 115);
+} 

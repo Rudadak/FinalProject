@@ -22,7 +22,12 @@ import axios from 'axios';
 // import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 // import Brightness4Icon from '@mui/icons-material/Brightness4';
 // import Brightness7Icon from '@mui/icons-material/Brightness7';
-
+import { createTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+import blue from "@material-ui/core/colors/blue";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { dark } from '@material-ui/core/styles/createPalette';
+// import CssBaseline from '@mui/material/CssBaseline';
 
 
 // const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
@@ -96,7 +101,9 @@ import axios from 'axios';
 function App() {
 
   return (
+
     <div className='App' >
+      <Navs />
       <Routes>
         <Route path = "/" element={<Home />} />
         <Route path = "/product" element={<Find />} />
@@ -188,20 +195,53 @@ const { action, handlers } = useLongPress();
 
 
 
+
+
+
+ 
+const [darkWhitek, setDarkWhite]= useState('on')
+const [switch123, SetSwitch123]= useState(false)
+function avsdf(){
+  if (switch123 == false){
+    SetSwitch123(!switch123)
+    setDarkWhite('off')
+    console.log(switch123)
+    console.log(darkWhitek)
+  }else{
+    SetSwitch123(!switch123)
+    setDarkWhite('on')
+    console.log(switch123)
+    console.log(darkWhitek)
+  }
+}
+
+const onChangeText = e => {
+  console.log(e.target.checked);
+  if (e.target.checked == false) {
+    setDarkWhite("off");
+  } else if (e.target.checked == true) {
+    setDarkWhite("on");
+  }
+};
+
   return(
-                        
-    <div>
+    <div className={darkWhitek}>
       <div>
-        <Navs />
+        {/* <Navs /> */}
       </div>
+      {/* style="display:inline-block; height:20px; width:100px;" */}
+      <span  >블랙테마
+      <input type="checkbox" style={{width:'70px' , height:'50px' }} onClick={avsdf} />
+      </span><p />
+
       {/* <div>
         <font size= '5'>오늘 할 일: 쉬엄쉬엄 하기, 쉬기, 집에 가기</font>
         
-      </div> */}
+      </div>  */}
+      
 
 
-      <div className="d-grid gap-2" style={{height: '20vh', padding:"0", margin:
-      "0"}}>
+
  
 
      <font size='15'><input style =  {{width: '80%'}} 
@@ -238,7 +278,7 @@ const { action, handlers } = useLongPress();
       </Button>
       <br></br>
      <Link to="/camera">
-      <button  variant="secondary" size="lg" state={text} style={{width: '100%', height: '20vh', backgroundColor: 'gray', borderRadius: '8px' , border:'none'}} >
+      <button className='button2color' state={text}>
 
       <font color='white' size='20' > 카메라</font>
 
@@ -252,16 +292,15 @@ const { action, handlers } = useLongPress();
 
       </Button>
 
-<<<<<<< HEAD
       </div>
-=======
->>>>>>> 3a4bcc7e99dca84a11aa0342862dbc73eb203db8
+
       {/* <Button variant="dark" size="lg" href="/mypage">
       <font size='6'>마이페이지</font>
       </Button> */}
 
       </div>
-    </div>
+
+
     
   )
 }
@@ -296,7 +335,7 @@ export function Navs(){
   useEffect(()=>{window.speechSynthesis.cancel()}, []);
 return(
   
-  <Navbar bg="white" variant="white"  className='heading-1'style={{height: '20vh'}}>
+  <Navbar bg="white" variant="white"  style={{height: '20vh'}}>
   <Container>
     {/* <h4><font color= 'white'><Link to ='/'>Rudadak &nbsp;&nbsp;&nbsp; </Link></font></h4> */}
     <Nav className="me-auto">

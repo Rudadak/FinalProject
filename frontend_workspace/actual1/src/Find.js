@@ -41,7 +41,7 @@ const Find = () => {
     const fetchData = async () => {
       setLoading(true);
       const response = await axios.get(
-        "http://192.168.0.59:8000/test/datas"
+        "http://192.168.0.42:8000/test/datas"
       );
       setData(response.data);
       setLoading(false);
@@ -103,7 +103,7 @@ const Find = () => {
       
       <div className='test1'>
       {loading && <div> loading... </div>}
-      <Navs />
+      {/* <Navs /> */}
       <h1>제품찾기</h1>
       <p>보고싶은 제품을 찾아보아요</p>
       <input onChange={getValue} value={userInput}/>
@@ -196,7 +196,7 @@ export function Products(){
   const onClicks1 = async () => {
     try{
       const response1 = await axios.get(
-        `http://192.168.0.59:8000/test/data/${listId}`,
+        `http://192.168.0.42:8000/test/data/${listId}`,
       );
       setData1(response1.data);
       // console.log(response1)
@@ -247,7 +247,7 @@ const speechHandler = (e) => {
 
   return(
       <div >
-      <Navs /> 
+      {/* <Navs />  */}
 
       <div style={{backgroundImage: `url('https://source.unsplash.com/random/1920x1080')`,
       // backgroundRepeat: 'no-repeat',

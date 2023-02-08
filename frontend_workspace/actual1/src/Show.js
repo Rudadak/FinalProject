@@ -44,12 +44,12 @@ const Show = () => {
 
   return(
     <div>
-        <Navs />
+        {/* <Navs /> */}
       <div>
         <Ocr data={data} loading={loading}/>
 
       {/* <Ocr data={state} loading={loading} /> */}
-
+    
 
       </div>
    
