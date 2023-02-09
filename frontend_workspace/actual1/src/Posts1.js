@@ -115,15 +115,16 @@ function Card(props){
     return(
       // <div className='si'>
       <div className='heading-1'>
-      <div className='new' onClick = {navigateToPurchase}>
+      <div className='new2' onClick = {navigateToPurchase}>
         {/* <Link to={props.data && "./" + props.data.id}>
           <button> */}
   
         {props.data && props.data.name}<br/>
-        {props.data && props.data.price}<br/>
+        {props.data && props.data.rv}<br/>
+        {props.data && props.data.sim}
         {/* </button>
         </Link> */}
-      </div>
+      </div>  
       </div>
       // </div>
     )

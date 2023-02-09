@@ -28,7 +28,7 @@ import { useSpeechRecognition } from 'react-speech-kit';
 //   </>
 // );
 
-const Find = () => {
+const Find = (props) => {
   const [data, setData] = useState([]);
 
 
@@ -97,25 +97,50 @@ const Find = () => {
 
   useEffect(()=>{return(window.speechSynthesis.speak(asdfe))}, [])
 
+
+
+
+//   style={{backgroundImage: `url('https://source.unsplash.com/random/1920x1080')`,
+//   // backgroundRepeat: 'no-repeat', 
+//   //textAlign:'center',
+//   backgroundSize: 'contain', backgroundposition: 'top',
+//   //  opacity:'0.5'
+// }}
+
+
+
+
+  
+
   
   return(
-    <div className='search-box'>
+    <div className={props.col} >
+    <div >
       
-      <div className='test1'>
+      <div className='box01' >
       {loading && <div> loading... </div>}
       {/* <Navs /> */}
       <h1>제품찾기</h1>
-      <p>보고싶은 제품을 찾아보아요</p>
+      <p >보고싶은 제품을 찾아보아요</p>
       <input onChange={getValue} value={userInput}/>
-      </div>
       
-      <div style={{backgroundImage: `url('https://source.unsplash.com/random/1920x1080')`,
-      // backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover'
-    }}>
-      <Posts data={currentPosts(searched)} loading={loading}></Posts>
-      {/* <Posts data={searched} loading={loading}></Posts> */}
-
+      
+      {/* <div 
+  style={{backgroundImage: 'url(./wallpapersden.com_galaxy-cluster-gravity-communication_7680x4320.jpg)',
+    // backgroundImage: `url('https://source.unsplash.com/random/1920x1080')`,
+  // backgroundRepeat: 'no-repeat', 
+  //textAlign:'center',
+  backgroundSize: 'contain', backgroundposition: 'top',
+  //  opacity:'0.5'
+}} > */}
+      
+      
+      
+      
+      
+      {/* <Posts data={currentPosts(searched)} loading={loading}></Posts> */}
+      <Posts data={searched} loading={loading}></Posts>
+      {console.log(searched)}
       </div>
       {/* {console.log('이거임' +searched.length)} */}
       <Pagination 
@@ -144,7 +169,7 @@ const Find = () => {
 
       {/* {console.log('ddd' +searched)} */}
     </div>
-
+    </div>
   );
 };
 
@@ -158,8 +183,10 @@ function Card(props){
   };
 
   return(
+    
     // <div className='si'>
-    <div onClick = {navigateToPurchase}>0
+
+    <div onClick = {navigateToPurchase} >0
       {/* <Link to={props.data && "./" + props.data.id}>
         <button> */}
       
@@ -168,6 +195,7 @@ function Card(props){
       {/* </button>
       </Link> */}
     </div>
+
   )
 }
 
@@ -188,7 +216,7 @@ function Card(props){
 
 
 
-export function Products(){
+export function Products(props){
   const params = useParams();
   const listId = params.listId;
   const [data1, setData1] = useState(null);
@@ -246,13 +274,10 @@ const speechHandler = (e) => {
 
 
   return(
-      <div >
+    <div className={props.col}>
       {/* <Navs />  */}
 
-      <div style={{backgroundImage: `url('https://source.unsplash.com/random/1920x1080')`,
-      // backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover'
-    }}>
+      <div className='box01'>
       <div className='new1' onClick={() => speechHandler(
         "제품명은 " + data1.name + "," +
         "가격은 " + data1.price + "원" + "," +

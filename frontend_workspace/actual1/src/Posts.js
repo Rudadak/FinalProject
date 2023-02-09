@@ -5,25 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
 const Posts = ({ data, loading }) => {
-  const [dived, setDived] = useState(Math.round(data.length/4)+1)
-  function dividing(){
-    let arr = [];
-    for (let i = 0; i<dived; i++){
-
-      arr.push(
-        <div>
-        <SwiperSlide>
-          <Card data={data[0 + i*4]}> </Card>
-          <Card data={data[1 + i*4]}> </Card>
-          <Card data={data[2 + i*4]}> </Card>
-          <Card data={data[3 + i*4]}> </Card>
-        </SwiperSlide>
-        </div>
-      )
-    }
-    return arr;}
-
-
   
   return(
     <>
@@ -34,12 +15,12 @@ const Posts = ({ data, loading }) => {
 
         ))}
       </ul> */}
-
+    {console.log('aedfweaf'+data)}
       {
           data.map((a, i) => {
             return(
  
-              <Card data={data[i]} i={i+1}> </Card>
+              <Card data={data[i]}> </Card>
 
             )
           })

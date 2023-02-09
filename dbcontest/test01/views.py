@@ -15,7 +15,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 from function.tts import *
 from function.OCR import ocr
-from function.KST import kst_model
+# from function.KST import kst_model
 
 
 import json
@@ -63,29 +63,29 @@ def getMembers(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
-def getSentence(request):
-    reqData = request.data
-    query = reqData['query']
-    # print(name)
-    # print("id is : ", id)
-    # print("name is : ", name)
-    ## kosentencebert 모델을
-    data = kst_model(query)
-    # serializer = TestDataSerializer(data, many=True)
-    # serializer = TestDataSerializer(data, many=True)
-    # datas = Test01.objects.filter(name=data[0][0])
-    # serializer = TestDataSerializer(datas, many=True)
+# @api_view(['POST'])
+# def getSentence(request):
+#     reqData = request.data
+#     query = reqData['query']
+#     # print(name)
+#     # print("id is : ", id)
+#     # print("name is : ", name)
+#     ## kosentencebert 모델을
+#     data = kst_model(query)
+#     # serializer = TestDataSerializer(data, many=True)
+#     # serializer = TestDataSerializer(data, many=True)
+#     # datas = Test01.objects.filter(name=data[0][0])
+#     # serializer = TestDataSerializer(datas, many=True)
     
-    answer = []
-    for i in data:
-        datas = Test01.objects.filter(name=i[0])
-        serializer = TestDataSerializer(datas, many=True)
-        serializer.data[0]['rv'] = i[1]
-        answer.append(serializer.data[0])
+#     answer = []
+#     for i in data:
+#         datas = Test01.objects.filter(name=i[0])
+#         serializer = TestDataSerializer(datas, many=True)
+#         serializer.data[0]['rv'] = i[1]
+#         answer.append(serializer.data[0])
     
-    # print(test)
-    return Response(answer)
+#     # print(test)
+#     return Response(answer)
 
 
 

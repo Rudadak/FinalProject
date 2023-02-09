@@ -24,7 +24,7 @@ import Posts1 from './Posts1';
 
 
 
-const SiFind = () => {
+const SiFind = (props) => {
 const {state} = useLocation();
 const [data, setData] = useState(state);
 
@@ -93,7 +93,8 @@ const [data, setData] = useState(state);
 
   
   return(
-    <div className='search-box'>
+    <div className={props.col}>
+    <div className='box01'>
       
       <div className='test1'>
 
@@ -101,12 +102,7 @@ const [data, setData] = useState(state);
       <h1>리뷰 찾기</h1>
       <p>관련리뷰를 찾아보았어요</p>
       <input onChange={getValue} value={userInput}/>
-      </div>
       
-      <div style={{backgroundImage: `url('https://source.unsplash.com/random/1920x1080')`,
-      // backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover'
-    }}>
       {/* <Posts data={currentPosts(searched)} loading={loading}></Posts> */}
       <Posts1 data={searched} loading={loading}></Posts1>
 
@@ -138,7 +134,7 @@ const [data, setData] = useState(state);
 
       {/* {console.log('ddd' +searched)} */}
     </div>
-
+    </div>
   );
 };
 

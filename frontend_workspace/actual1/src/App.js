@@ -15,7 +15,7 @@ import SpeechRecognition from "react-speech-recognition";
 // import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
 import { BsFileX, BsMicFill } from "react-icons/bs";
 import useLongPress from './use-long-press';
-import App1 from './test1';
+import Test1 from './test1';
 import axios from 'axios';
 // import IconButton from '@mui/material/IconButton';
 // import Box from '@mui/material/Box';
@@ -28,6 +28,7 @@ import blue from "@material-ui/core/colors/blue";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { dark } from '@material-ui/core/styles/createPalette';
 // import CssBaseline from '@mui/material/CssBaseline';
+import Info from './info';
 
 
 // const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
@@ -100,19 +101,45 @@ import { dark } from '@material-ui/core/styles/createPalette';
 
 function App() {
 
+
+const [darkWhitek, setDarkWhite]= useState('on')
+const [switch123, SetSwitch123]= useState(false)
+function avsdf(){
+  if (switch123 == false){
+    SetSwitch123(!switch123)
+    setDarkWhite('off')
+    console.log(switch123)
+    console.log(darkWhitek)
+  }else{
+    SetSwitch123(!switch123)
+    setDarkWhite('on')
+    console.log(switch123)
+    console.log(darkWhitek)
+  }
+}
+
+
+
+
+
+const [data, setData] = useState([]);
+const [loading, setLoading] = useState(false);
+
+
   return (
 
     <div className='App' >
-      <Navs />
+      <Navs fuc={avsdf} col={darkWhitek}/>
       <Routes>
-        <Route path = "/" element={<Home />} />
-        <Route path = "/product" element={<Find />} />
+        <Route path = "/" element={<Home col={darkWhitek}/>} />
+        <Route path = "/product" element={<Find fuc={avsdf} col={darkWhitek}/>} />
         {/* <Route path = "/store" element={<Store />} /> */}
-        <Route path = "/camera" element={<Camera />} />
-        <Route path = "/product/:listId" element={< Products/>} />
-        <Route path = "/camera/show" element={< Show/>} />
-        <Route path = "/sifind" element={< Sifind/>} />
-        <Route path = "/test" element={< App1/>} />
+        <Route path = "/camera" element={<Camera fuc={avsdf} col={darkWhitek}/>} />
+        <Route path = "/product/:listId" element={< Products fuc={avsdf} col={darkWhitek}/>} />
+        <Route path = "/camera/show" element={< Show fuc={avsdf} col={darkWhitek}/>} />
+        <Route path = "/sifind" element={< Sifind fuc={avsdf} col={darkWhitek}/>} />
+        <Route path = "/test" element={< Test1 data={data} loading={loading}/>} />
+        <Route path = "/info" element={< Info/>} />
         
        </Routes>
       
@@ -121,7 +148,7 @@ function App() {
   );
 }
 
-function Home(){
+function Home(props){
   const [text, setText] = useState('');
 
 
@@ -199,21 +226,21 @@ const { action, handlers } = useLongPress();
 
 
  
-const [darkWhitek, setDarkWhite]= useState('on')
-const [switch123, SetSwitch123]= useState(false)
-function avsdf(){
-  if (switch123 == false){
-    SetSwitch123(!switch123)
-    setDarkWhite('off')
-    console.log(switch123)
-    console.log(darkWhitek)
-  }else{
-    SetSwitch123(!switch123)
-    setDarkWhite('on')
-    console.log(switch123)
-    console.log(darkWhitek)
-  }
-}
+// const [darkWhitek, setDarkWhite]= useState('on')
+// const [switch123, SetSwitch123]= useState(false)
+// function avsdf(){
+//   if (switch123 == false){
+//     SetSwitch123(!switch123)
+//     setDarkWhite('off')
+//     console.log(switch123)
+//     console.log(darkWhitek)
+//   }else{
+//     SetSwitch123(!switch123)
+//     setDarkWhite('on')
+//     console.log(switch123)
+//     console.log(darkWhitek)
+//   }
+// }
 
 const onChangeText = e => {
   console.log(e.target.checked);
@@ -225,14 +252,14 @@ const onChangeText = e => {
 };
 
   return(
-    <div className={darkWhitek}>
+    <div className={props.col}>
       <div>
         {/* <Navs /> */}
       </div>
       {/* style="display:inline-block; height:20px; width:100px;" */}
-      <span  >블랙테마
+      {/* <span  >블랙테마
       <input type="checkbox" style={{width:'70px' , height:'50px' }} onClick={avsdf} />
-      </span><p />
+      </span><p /> */}
 
       {/* <div>
         <font size= '5'>오늘 할 일: 쉬엄쉬엄 하기, 쉬기, 집에 가기</font>
@@ -331,30 +358,45 @@ return(
 ) 
 }
 
-export function Navs(){
+export function Navs(props){
   useEffect(()=>{window.speechSynthesis.cancel()}, []);
 return(
   
+  
   <Navbar bg="white" variant="white"  style={{height: '20vh'}}>
-  <Container>
+  <Container className={props.col}>
+    <Link to="/" style={{ textDecoration: "none" }} className='me-auto'>
     {/* <h4><font color= 'white'><Link to ='/'>Rudadak &nbsp;&nbsp;&nbsp; </Link></font></h4> */}
-    <Nav className="me-auto">
-    <Nav.Link href="/" className='App-go'><h4>
+    {/* <Nav className="me-auto">
+    <Nav.Link href="/" className='App-go'> */}
+      <h1 >
       
       <font color='#4285f4' size = '10' weight="bolder">G</font>
-      <font color='#ea4335' size ='6' weight="bolder">o</font>
+      <font color='#ea4335' size = '6' weight="bolder">o</font>
       <font color='#fbbc05' size = '6' weight="bolder">g</font>
-      <font color='#4285f4' size = '6' weight="bolder" >g</font>
+      <font color='#4285f4' size = '6' weight="bolder">g</font>
       <font color='#34a853' size = '6' weight="bolder">l</font>
       <font color='#fbbc05' size = '6' weight="bolder">e</font>
       <font color='#ea4335' size = '6' weight="bolder">s</font>
 
       {/* <font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp;</font> */}
-      </h4></Nav.Link>
+      </h1>
+      {/* </Nav.Link>
       <Nav.Link href="/"  >Home</Nav.Link>
-      {/* <Nav.Link href="/store">Store</Nav.Link> */}
+      <Nav.Link href="/store">Store</Nav.Link>
       <Nav.Link href="/camera">Camera</Nav.Link>
-    </Nav>
+    </Nav> */}
+    </Link>
+    
+    
+       <Link to="/info"  style={{ marginRight: 'auto' ,textDecoration: "none" }} ><h4>info</h4></Link>
+       
+       {/* <Link to="/camera" style={{ marginRight: 'auto' , display:'grid', 
+       gridAutoFlow:'column', gridTemplateColumns:'1fr', textDecoration: "none" }} ><h4>Camera</h4></Link> */}
+      <h5><font size = '20pt'>🌜
+      <input type="checkbox" style={{width:'70px' , height:'50px' }} onClick={()=>{props.fuc();}} />
+      </font></h5>
+
   </Container>
 </Navbar>
 

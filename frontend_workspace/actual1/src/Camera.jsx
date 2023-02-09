@@ -5,7 +5,7 @@ import {Navs} from './App';
 import Show from './Show';
 import {Routes, Route, useNavigate} from 'react-router-dom';
  
-function Camera() {
+function Camera(props) {
    
     /* 추가된 코드 */
     const navigate = useNavigate();
@@ -61,6 +61,7 @@ function Camera() {
 
 
     return (
+        <div className={props.col}>
         <>
         {/* <Routes>        
             <Route path = "/camera/show" element={< Show/>} />
@@ -76,6 +77,7 @@ function Camera() {
             <Img url={url} />
  
         </>
+        </div>
     );
 }
 
