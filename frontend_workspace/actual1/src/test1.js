@@ -1,76 +1,108 @@
-import React, { useState, useEffect } from "react";
-import { BsMicFill } from "react-icons/bs";
-import Camera from "./Camera";
-import SiFind from "./Sifind";
-import { Products } from "./Find";
-import Find from "./Find";
-import { BrowserRouter, Route, Link} from "react-router-dom";
-import SpeechRecognition, {
-  useSpeechRecognition
-} from "react-speech-recognition";
+import React, {useEffect, useState, useLayoutEffect} from 'react';
+import Images from "./components/Images";
+import axios from 'axios';
+import {Link, useLocation} from 'react-router-dom';
+import './Test1.css';
 
 
-export default function App1() {
-  // set up variables
-  const commands = [
-    {
-      command: ["Go to * page", "Go to *", "Open * page", "Open *"],
+function Test1(){
 
-    }
-  ];
 
-  const urlsMap = {
-    home: "/",
-    about: "/about",
-    products: "/products",
-    contact: "/contact"
-  };
 
-  // states
-  const [redirectUrl, setRedirectUrl] = useState("home");
-  const [error, setError] = useState(false);
-  const { transcript, listening } = useSpeechRecognition({ commands });
+
+  // const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     const response = await axios.get(
+  //       "http://192.168.0.42:8000/test/datas"
+  //     );
+  //     setData(response.data);
+  //     setLoading(false);
+  //   };
+  //   fetchData();
+  // }, []);
+  // console.log(data)
+  
+  // const {state} = useLocation();
+  // const [userInput, setUserInput] = useState(state);
+  
+  // function imsi1(){
+  //   if(userInput == null){
+  //     setUserInput('');
+  //   }
+  // }
+  // useEffect(() => imsi1, []);
+  
+  
+  
+  // const getValue = (e) => {
+  //   console.log(e)
+  //   setUserInput(e.target.value.toLowerCase())};
+  
+  // // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
+  // // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
+  //   const searched =  data.filter((item) =>
+  //    item.name.toLowerCase().includes(userInput)
+  //  );
+  
+  //  const asdfe = new SpeechSynthesisUtterance()
+  //  asdfe.text = `검색페이지로 이동했습니다. 검색에 사용된 검색어는 ${userInput}입니다.` 
+  //  const [searchLength,setSearchLength] = useState('')
+  
+  // useEffect(()=>{return(window.speechSynthesis.speak(asdfe))}, [])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // const [images, setImages] = useState([])
+
+  // useLayoutEffect(() => {
+  //   fetch("http://192.168.0.42:8000/test/datas").then(
+  //     response => response.json().then(data=>{
+  //       setImages(data);  
+  //     })
+  //   )
+  // }, [])
+  // useEffect(() => { console.log(images); },[images]); 
+
 
   // useEffect(() => {
-  //   urlsMap.hasOwnProperty(redirectUrl) ? setError(false) : setError(true);
-  // }, [redirectUrl]);
+  //   const fetchData = async () => {
 
-  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
+  //     const prdouct = await fetch('http://192.168.0.42:8000/test/datas/?format=json').then(
+  //       response => response.json().then(data=>{
+  //         setImages(data);}))
+  //         console.log(images)
+  //       setImages(prdouct);
+  //       console.log(images)
+  //   };
+  //   fetchData();
+  // }, [])
 
-  return (
-    <div className="App">
-      {/* <BrowserRouter>
-        <nav id="links">
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/contact">Contact</Link>
-        </nav>
 
-        <Route path="/" exact component={SiFind} />
-        <Route path="/products" exact component={Find} />
-        <Route path="/about" component={Products} />
-        <Route path="/contact" component={Camera} /> */}
 
-        {/* {error ? (
-          <p>Could not find page: {redirectUrl}</p>
-        ) : (
-          <Redirect to={urlsMap[redirectUrl]} />
-        )} */}
-      {/* </BrowserRouter> */}
 
-      <p>Transcript: {transcript}</p>
-      <button onClick={SpeechRecognition.startListening}>
-        {/* <button
-        onClick={() => SpeechRecognition.startListening({ continuous: true })}
-      > */}
-        <h3>
-          <BsMicFill /> {listening ? "On" : "Off"}
-        </h3>
-      </button> 
+
+  return(
+    <div>
+      {/* {loading && <div> loading... </div>} */}
+      <Images />
     </div>
-  );
+  )
+
 }
 
+export default Test1;
