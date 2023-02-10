@@ -12,6 +12,7 @@ import Posts from './Posts';
 import Pagination from "./Pagination";
 import {usePageLeave, usePrevious} from 'react-use';
 import { useSpeechRecognition } from 'react-speech-kit';
+import Tts1 from './components/tts1';
 
 
 
@@ -29,13 +30,13 @@ import { useSpeechRecognition } from 'react-speech-kit';
 // );
 
 const Find = (props) => {
+  const {state} = useLocation();
   const [data, setData] = useState([]);
-
-
-  // const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(4);
+  const [postsPerPage, setPostsPerPage] = useState(3);
+  const [userInput, setUserInput] = useState(state ? state : '');
+  const [ttsExecuted, setTtsExecuted] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,126 +50,51 @@ const Find = (props) => {
     fetchData();
   }, []);
 
-  // console.log('awerawef' +data);
-
-
-
-  const {state} = useLocation();
-
-
-  const [userInput, setUserInput] = useState(state);
-
-  function imsi1(){
-    if(userInput == null){
-      setUserInput('');
-    }
-  }
-  useEffect(() => imsi1, []);
-
-
-
   const getValue = (e) => {
-    console.log(e)
-    setUserInput(e.target.value.toLowerCase())};
+    setUserInput(e.target.value.toLowerCase());
+  };
 
-  // <input onChange={getValue}/>
+  const searched = data.filter((item) =>
+    item.name.toLowerCase().includes(userInput)
+  );
 
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  const currentPosts = (posts) => {
+    let currentPosts = 0;
+    currentPosts = posts.slice(indexOfFirst, indexOfLast);
+    return currentPosts;
+  };
 
- // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
- // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
-    const searched =  data.filter((item) =>
-     item.name.toLowerCase().includes(userInput)
-   );
+  const asdfe = new SpeechSynthesisUtterance();
+  asdfe.text = `검색페이지로 이동했습니다. 검색에 사용된 검색어는 ${userInput}입니다.`;
 
+  useEffect(() => {
+    if (!ttsExecuted) {
+      setTtsExecuted(true);
+      window.speechSynthesis.speak(asdfe);
+    }
+  }, [userInput]);
 
-   const indexOfLast = currentPage * postsPerPage;
-   const indexOfFirst = indexOfLast - postsPerPage;
-   const currentPosts = (posts) => {
-     let currentPosts = 0;
-     currentPosts = posts.slice(indexOfFirst, indexOfLast);
-     return currentPosts;
-   };
-
-  
-   const asdfe = new SpeechSynthesisUtterance()
-   asdfe.text = `검색페이지로 이동했습니다. 검색에 사용된 검색어는 ${userInput}입니다.` 
-   const [searchLength,setSearchLength] = useState('')
- 
-
-  useEffect(()=>{return(window.speechSynthesis.speak(asdfe))}, [])
-
-
-
-
-//   style={{backgroundImage: `url('https://source.unsplash.com/random/1920x1080')`,
-//   // backgroundRepeat: 'no-repeat', 
-//   //textAlign:'center',
-//   backgroundSize: 'contain', backgroundposition: 'top',
-//   //  opacity:'0.5'
-// }}
-
-
-
-
-  
-
-  
-  return(
+  return (
     <div className={props.col} >
-    <div >
-      
-      <div className='box01' >
-      {loading && <div> loading... </div>}
-      {/* <Navs /> */}
-      <h1>제품찾기</h1>
-      <p >보고싶은 제품을 찾아보아요</p>
-      <input onChange={getValue} value={userInput}/>
-      
-      
-      {/* <div 
-  style={{backgroundImage: 'url(./wallpapersden.com_galaxy-cluster-gravity-communication_7680x4320.jpg)',
-    // backgroundImage: `url('https://source.unsplash.com/random/1920x1080')`,
-  // backgroundRepeat: 'no-repeat', 
-  //textAlign:'center',
-  backgroundSize: 'contain', backgroundposition: 'top',
-  //  opacity:'0.5'
-}} > */}
-      
-      
-      
-      
-      
-      {/* <Posts data={currentPosts(searched)} loading={loading}></Posts> */}
-      <Posts data={searched} loading={loading}></Posts>
-      {console.log(searched)}
+      <div >
+        <div className='box01 ' >
+          {loading && <div> loading... </div>}
+          <font size='12'>
+            <h1>제품찾기</h1>
+            <input onChange={getValue} value={userInput} style={{textAlign:'center'}}/>
+          </font>
+          <Posts data={currentPosts(searched)} loading={loading}></Posts>
+          {console.log(searched)}
+        </div>
+        <Pagination 
+          postsPerPage={postsPerPage}
+          totalPosts={searched.length}
+          paginate={setCurrentPage}
+          searched={searched}
+        ></Pagination>
       </div>
-      {/* {console.log('이거임' +searched.length)} */}
-      <Pagination 
-        postsPerPage={postsPerPage}
-        totalPosts={searched.length}
-        paginate={setCurrentPage}
-      ></Pagination>
-
-
-
-      {/* {window.speechSynthesis.speak(asdfe)} */}
-      
-
-{/* 
-        <input onChange={getValue} value={userInput} />
-
-
-        {
-          searched.map((a, i) => {
-            return(
-              <Card data={searched[i]} i={i+1}> </Card>
-            )
-          })
-        } */}
-
-
-      {/* {console.log('ddd' +searched)} */}
-    </div>
     </div>
   );
 };
@@ -185,6 +111,7 @@ function Card(props){
   return(
     
     // <div className='si'>
+
 
     <div onClick = {navigateToPurchase} >0
       {/* <Link to={props.data && "./" + props.data.id}>
@@ -221,19 +148,54 @@ export function Products(props){
   const listId = params.listId;
   const [data1, setData1] = useState(null);
 
-  const onClicks1 = async () => {
-    try{
-      const response1 = await axios.get(
-        `http://192.168.0.42:8000/test/data/${listId}`,
-      );
-      setData1(response1.data);
-      // console.log(response1)
-    } catch (e) {
-      // console.log(e)
-    }
-  };
-  useEffect(() => onClicks1, []);
+
+
+
   
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // setLoading(true);
+      const response = await axios.get(
+        `http://192.168.0.42:8000/test/data/${listId}`
+      );
+      setData1(response.data);
+      // setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+
+
+  useEffect(() => {
+    if (data1 == null) {
+      setData1('');
+    }
+  }, []);
+  
+
+
+
+
+
+
+
+
+
+
+  // const onClicks1 = async () => {
+  //   try{
+  //     const response1 = await axios.get(
+  //       `http://192.168.0.42:8000/test/data/${listId}`,
+  //     );
+  //     setData1(response1.data);
+  //     console.log(response1)
+  //   } catch (e) {
+  //     // console.log(e)
+  //   }
+  // };
+  // useEffect(() => onClicks1, []);
+
 
 
 
@@ -318,7 +280,7 @@ const speechHandler = (e) => {
       {/* <button onClick={() => window.speechSynthesis.cancel()}>dd</button> */}
       
       <div className='new1'>
-        추천 내용<br/>
+        # 리뷰키워드<br/>
         {data1 && data1.keyword}
       </div>
       </div>

@@ -97,7 +97,7 @@ const Input = ({ updateUrl }) => {
   };
   
   const Img = ({ url }) => {
-    return <img src={url}  style={{textAlign:"center"}} width={200} height={200} />;
+    return <img src={url}  style={{textAlign:"center"}} height="200" width="200"   />;
   };
  
 export default Camera;

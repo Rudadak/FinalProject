@@ -15,7 +15,7 @@ import SpeechRecognition from "react-speech-recognition";
 // import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
 import { BsFileX, BsMicFill } from "react-icons/bs";
 import useLongPress from './use-long-press';
-import Test1 from './test1';
+// import Test1 from './test1';
 import axios from 'axios';
 // import IconButton from '@mui/material/IconButton';
 // import Box from '@mui/material/Box';
@@ -138,7 +138,7 @@ const [loading, setLoading] = useState(false);
         <Route path = "/product/:listId" element={< Products fuc={avsdf} col={darkWhitek}/>} />
         <Route path = "/camera/show" element={< Show fuc={avsdf} col={darkWhitek}/>} />
         <Route path = "/sifind" element={< Sifind fuc={avsdf} col={darkWhitek}/>} />
-        <Route path = "/test" element={< Test1 data={data} loading={loading}/>} />
+        {/* <Route path = "/test" element={< Test1 data={data} loading={loading}/>} /> */}
         <Route path = "/info" element={< Info/>} />
         
        </Routes>
@@ -148,10 +148,8 @@ const [loading, setLoading] = useState(false);
   );
 }
 
-function Home(props){
+function Home(props) {
   const [text, setText] = useState('');
-
-
 
   const onSubmit = () => {
     navigate('./product', {state: text})
@@ -160,98 +158,53 @@ function Home(props){
     navigate('./sifind', {state: text})
   }
 
-  
   const navigate = useNavigate();
-  
-  // const [value12, setValue12] = useState('');
-  const { listen, listening, stop} = useSpeechRecognition({
+
+  const { listen, listening, stop } = useSpeechRecognition({
     onResult: (result) => {
-      // 음성인식 결과가 value 상태값으로 할당됩니다.
-      // setValue12(result);
       setText(result);
     }
   });
 
-  
+  const [ttsExecuted, setTtsExecuted] = useState(false);
 
+  const asdfe = new SpeechSynthesisUtterance();
+  asdfe.text = "안녕하세요. 고글에 오신것을 환영합니다. 저희 사이트는 상품 검색을 통해 tts 기능을 제공합니다."
 
+  useEffect(() => {
+    if (!ttsExecuted) {
+      setTtsExecuted(true);
+      window.speechSynthesis.speak(asdfe);
+    }
+  }, []);
 
-  const asdfe = new SpeechSynthesisUtterance()  
-asdfe.text = "안녕하세요. 고글에 오신것을 환영합니다. 저희 사이트는 상품 검색을 통해 tts기능을 제공합니다."
-useEffect(() => window.speechSynthesis.speak(asdfe), [])
+  const [switch124, SetSwitch124] = useState(false);
+  function sdf() {
+    SetSwitch124(!switch124);
+  }
+  useEffect(() => {
+    sdf();
+  }, []);
 
-
-
-
-const { action, handlers } = useLongPress();
-
-
-// if(! ('webkitSpeechRecognition' in window)) {
-//   alert('지원x');
-// } else{
-// const speech = new webkitSpeechRecognition;
-// document.getElementById('start').addEventListener('click', () => {
-
-// })
-
-// document.getElementById('stop').addEventListener('click', () =>{
-
-// })
-// }
-
-// axios({
-//   method: 'post',
-//   url: 'http://192.168.0.42:8080/test/sentence',
-//   data: {
-//     query: {text}
-//   }}).then(function (response) {
-//   console.log(response);    })
-
+  const { action, handlers } = useLongPress();
 
   const submitHandler = (e) => {
-    // e.preventDefault();
-    // state에 저장한 값을 가져옵니다.
     axios.post('http://192.168.0.42:8000/test/sentence/', {query:text}).then(function (response) {
-      console.log(response);
-      console.log(response.data);
-      console.log(response.data.state);
-      if(response.status == '200'){
-        navigate('./Sifind', {state: response.data})();}
-    })
+      if (response.status == '200' & text != '') {
+        navigate('./Sifind', { state: { responseData: response.data, textState: text } })();
+      }
+    });
   };
 
+  const onChangeText = e => {
+    if (e.target.checked == false) {
+      setDarkWhite("off");
+    } else if (e.target.checked == true) {
+      setDarkWhite("on");
+    }
+  };
 
-
-
-
-
- 
-// const [darkWhitek, setDarkWhite]= useState('on')
-// const [switch123, SetSwitch123]= useState(false)
-// function avsdf(){
-//   if (switch123 == false){
-//     SetSwitch123(!switch123)
-//     setDarkWhite('off')
-//     console.log(switch123)
-//     console.log(darkWhitek)
-//   }else{
-//     SetSwitch123(!switch123)
-//     setDarkWhite('on')
-//     console.log(switch123)
-//     console.log(darkWhitek)
-//   }
-// }
-
-const onChangeText = e => {
-  console.log(e.target.checked);
-  if (e.target.checked == false) {
-    setDarkWhite("off");
-  } else if (e.target.checked == true) {
-    setDarkWhite("on");
-  }
-};
-
-  return(
+  return (
     <div className={props.col}>
       <div>
         {/* <Navs /> */}
@@ -390,7 +343,7 @@ return(
     
     
        <Link to="/info"  style={{ marginRight: 'auto' ,textDecoration: "none" }} ><h4>info</h4></Link>
-       
+       <Button onClick={()=>{window.speechSynthesis.cancel()}}>조용히</Button>
        {/* <Link to="/camera" style={{ marginRight: 'auto' , display:'grid', 
        gridAutoFlow:'column', gridTemplateColumns:'1fr', textDecoration: "none" }} ><h4>Camera</h4></Link> */}
       <h5><font size = '20pt'>🌜

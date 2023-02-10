@@ -41,6 +41,7 @@
      margin-right:auto;
      display: inline-block;
      height: 100%;
+     text-align: center;
   }
     
     .pagination a {
@@ -51,6 +52,8 @@
       transition: background-color .3s;
       border: 1px solid #ddd;
       margin: 0 4px;
+      text-align: center;
+      
     }
     
     .pagination a.active {
@@ -107,11 +110,14 @@
   .box01{
     width: 100%;
     height: 100%; 
-    position: relative;}
+    position: relative;
+  padding: 20px;
+margin-bottom: 10px;}
 .box01::before{
     content: "";
-    background: url(/public/wallpapersden.com_galaxy-cluster-gravity-communication_7680x4320.jpg);
-    /* background-Repeat: no-repeat; */
+    background: url(/public/KakaoTalk_20230210_160013922.jpg);
+    background-Repeat: no-repeat;
+    background-color: #5AB1BB;
     background-size: contain;
     opacity: 0.5;
     position: absolute;
@@ -153,4 +159,70 @@ position: relative;}
   
 
 
-/*참고중*/
+
+  /* .pagination{
+
+    color: black;
+
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    text-align: center;
+    
+  }
+
+  .pagination .page-num{
+    padding:8px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: 400;
+    text-Decoration: none;
+  }
+
+  .pagination .page-num:hover{
+    background-color: #5AB1BB;
+    color: #fff;
+  }
+
+  .pagination .active{
+    background-color: #5AB1BB;
+  } */
+
+  
+  
+  .pagination{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5rem;
+    font-size:1.2rem;
+    gap: 5px;
+    border-color: black;
+    text-Decoration: none;
+    /* border: 10px solid #ddd; */
+    
+  }
+
+  .pagination .page-num{
+    padding:8px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: 400;
+    border-color: black;
+    text-Decoration: none;
+    
+  }
+
+  .pagination .page-num:hover{
+    background-color: #5AB1BB;
+    color: #fff;
+    border-color: black;
+  }
+
+  .pagination .active{
+    background-color: #5AB1BB;
+    border-color: black;
+  }

@@ -26,7 +26,8 @@ import Posts1 from './Posts1';
 
 const SiFind = (props) => {
 const {state} = useLocation();
-const [data, setData] = useState(state);
+const [data, setData] = useState(state.responseData);
+console.log(state.responseData)
 
 
   // const [posts, setPosts] = useState([]);
@@ -100,8 +101,8 @@ const [data, setData] = useState(state);
 
       {/* <Navs /> */}
       <h1>리뷰 찾기</h1>
-      <p>관련리뷰를 찾아보았어요</p>
-      <input onChange={getValue} value={userInput}/>
+<font size='12'>『{state.textState}』</font>
+      {/* <input onChange={getValue} value={userInput}/> */}
       
       {/* <Posts data={currentPosts(searched)} loading={loading}></Posts> */}
       <Posts1 data={searched} loading={loading}></Posts1>

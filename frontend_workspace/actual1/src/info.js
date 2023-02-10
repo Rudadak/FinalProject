@@ -28,40 +28,153 @@
 
 
 
-import {  useEffect, useRef } from "react";
+// import {  useEffect, useRef } from "react";
 
-import "./info.css";
+// import "./info.css";
+// import {Navs} from './App';
 
-const DIVIDER_HEIGHT = 5;
 
-function Info() {
-  const outerDivRef = useRef();
-  useEffect(() => {
-    const wheelHandler = (e) => {
-      e.preventDefault();
-      // 스크롤 행동 구현
-    };
-    // const outerDivRefCurrent = outerDivRef.current;
-    // outerDivRefCurrent.addEventListener("wheel", wheelHandler);
-    // return () => {
-    //   outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
-    // };
-  }, []);
+// function Info() {
+//   const outerDivRef = useRef();
+//   useEffect(() => {
+//     const wheelHandler = (e) => {
+//       e.preventDefault();
+//       // 스크롤 행동 구현
+//     };
+//     // const outerDivRefCurrent = outerDivRef.current;
+//     // outerDivRefCurrent.addEventListener("wheel", wheelHandler);
+//     // return () => {
+//     //   outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
+//     // };
+//   }, []);
 
-  return (
-    <div ref={outerDivRef} className="outer">
-      <div className="inner bg-yellow">안녕하세요 저희는 루다닥</div>
+//   return (
+//     <div ref={outerDivRef} className="outer">
       
-      <div className="inner bg-blue">이었지만 고글로 돌아온 팀입니다.</div>
+//       <div className="inner bg-yellow">안녕하세요 저희는 고글[GOGGLES]</div>
       
-      <div className="inner bg-pink">잘 부탁드립니다.</div>
+//       <div className="inner bg-blue">모두의 눈이 되어주는 <br/> 완전히 새로운 방법.</div>
+      
+//       <div className="inner bg-yellow">누구나 이용할 수 있도록 설계된 쉬운 화면. <br/> 당신의 눈을 대신해주는 음성기능.</div>
+      
+//       <div className="inner bg-blue"> 이 모든걸 가능케 하는 궁극의 웹</div>
+      
+//       <div className="inner bg-pink">(어쩌면)..구글 그 이상.</div>
+
+//       <div className="inner bg-yellow">완전히 새롭게!</div>
+
+//       <div className="inner bg-pink">모두를 위한 고글"😎"<br/> 상시 준비 완료.</div>
+
+//       <div className="inner bg-pink">(히잉.... 사실은 절반이 거짓말이야..)</div>
      
-      <div className="inner bg-yellow"><img src='./wallpapersden.com_galaxy-cluster-gravity-communication_7680x4320.jpg'/></div>
-     
-    </div>
-  );
-}
+//       <div className="inner bg-pink"><img src='./wallpapersden.com_galaxy-cluster-gravity-communication_7680x4320.jpg'/></div>
+      
+      
+//     </div>
+//   );
+// }
 
 
+
+// export default Info;
+
+
+import React, { useEffect } from 'react';
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+const Info = () => {
+
+    let boxStyle = {
+        width: '100%',
+        height: '200px',
+        fontSize: '200%',
+        lineHeight: '200px',
+        background: 'black',
+        color: 'white',
+        textAlign: 'center'
+    }
+
+    let empty = {
+      width: '100%',
+      height: '500px',
+      fontSize: '30px',
+      lineHeight: '200px',
+      background: 'black',
+      color: 'white',
+      textAlign: 'center'
+  }
+
+    useEffect(() => {
+        AOS.init({
+            duration : 1000
+        });
+    });
+
+    return(
+
+        <>
+          <div>
+            {/* <div>
+                <p data-aos="fade-up">AOS 테스트1</p>
+            </div> */}
+            <div style={empty}></div>
+            <div style={boxStyle}>
+                <p data-aos="fade-up">안녕하세요 저희는 고글</p>
+            </div>
+            <div style={boxStyle}>
+                <p data-aos="fade-up">[GOGGLES]</p>
+            </div>
+            <div style={empty}></div>
+            <div style={boxStyle}>
+                <p data-aos="fade-right">모두의 눈이 되어주는 </p>
+            </div>
+            <div style={empty}></div>
+            <div style={boxStyle}>
+                <p data-aos="fade-right"> 완전히 새로운 방법.</p>
+            </div>
+            <div style={empty}></div>
+            
+            <div style={boxStyle}>
+                <p data-aos="fade-left">누구나 이용할 수 있도록 설계된 쉬운 화면. </p>
+            </div>
+            <div style={empty}></div>
+            <div style={boxStyle}>
+                <p data-aos="fade-right">당신의 눈을 대신해주는 음성기능.</p>
+            </div>
+            <div style={empty}></div>
+            <div style={boxStyle}>
+                <p data-aos="fade-down">이 모든걸 가능케 하는 궁극의 웹</p>
+            </div>
+            <div style={empty}></div>
+            <div style={boxStyle}>
+                <p data-aos="zoom-out">(어쩌면..) 구글 그 이상.</p>
+            </div>
+            <div style={empty}></div>
+            <div style={boxStyle}>
+                <p data-aos="flip-left">완전히 새롭게!</p>
+            </div>
+            <div style={empty}></div>
+            <div style={boxStyle}>
+                <p data-aos="zoom-in">모두를 위한 고글 "😎"</p>
+            </div>
+            <div style={boxStyle}>
+                <p data-aos="zoom-in">상시 준비 완료.</p>
+            </div>
+            <div style={empty}></div>
+            <div style={empty}></div>
+            <div style={empty}></div>
+            <div style={empty}></div>
+            <div style={empty}></div>
+            {/* <div style={boxStyle}>
+                <p data-aos="zoom-out">(히잉... 사실은 절반이 거짓말이야...)</p>
+            </div> */}
+
+
+
+          </div>
+        </>
+    )
+};
 
 export default Info;
