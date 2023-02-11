@@ -83,7 +83,7 @@ import React, { useEffect } from 'react';
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const Info = () => {
+const Info = (props) => {
 
     let boxStyle = {
         width: '100%',
@@ -114,7 +114,9 @@ const Info = () => {
     return(
 
         <>
+        <div className={props.col} >
           <div>
+          
             {/* <div>
                 <p data-aos="fade-up">AOS 테스트1</p>
             </div> */}
@@ -123,7 +125,7 @@ const Info = () => {
                 <p data-aos="fade-up">안녕하세요 저희는 고글</p>
             </div>
             <div style={boxStyle}>
-                <p data-aos="fade-up">[GOGGLES]</p>
+            <img src='/KakaoTalk_20230211_101829939.png' data-aos="fade-up"/>
             </div>
             <div style={empty}></div>
             <div style={boxStyle}>
@@ -172,6 +174,7 @@ const Info = () => {
 
 
 
+          </div>
           </div>
         </>
     )

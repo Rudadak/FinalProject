@@ -139,7 +139,7 @@ const [loading, setLoading] = useState(false);
         <Route path = "/camera/show" element={< Show fuc={avsdf} col={darkWhitek}/>} />
         <Route path = "/sifind" element={< Sifind fuc={avsdf} col={darkWhitek}/>} />
         {/* <Route path = "/test" element={< Test1 data={data} loading={loading}/>} /> */}
-        <Route path = "/info" element={< Info/>} />
+        <Route path = "/info" element={< Info fuc={avsdf} col={darkWhitek}/>} />
         
        </Routes>
       
@@ -152,8 +152,15 @@ function Home(props) {
   const [text, setText] = useState('');
 
   const onSubmit = () => {
-    navigate('./product', {state: text})
+    const regex = /^[0-9]+$/;
+    {regex.test(text) ?
+      navigate(`./product/${text}`)
+      :
+      navigate('./product', {state: text})
+    }
+
   }
+
   const onSubmit1 = () => {
     navigate('./sifind', {state: text})
   }
@@ -323,7 +330,7 @@ return(
     {/* <h4><font color= 'white'><Link to ='/'>Rudadak &nbsp;&nbsp;&nbsp; </Link></font></h4> */}
     {/* <Nav className="me-auto">
     <Nav.Link href="/" className='App-go'> */}
-      <h1 >
+      {/* <h1 >
       
       <font color='#4285f4' size = '10' weight="bolder">G</font>
       <font color='#ea4335' size = '6' weight="bolder">o</font>
@@ -333,8 +340,9 @@ return(
       <font color='#fbbc05' size = '6' weight="bolder">e</font>
       <font color='#ea4335' size = '6' weight="bolder">s</font>
 
-      {/* <font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp;</font> */}
-      </h1>
+      <font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp;</font>
+      </h1> */}
+      <p><img src='/KakaoTalk_20230211_101829939.png' width={'100%'} height={100}/></p>
       {/* </Nav.Link>
       <Nav.Link href="/"  >Home</Nav.Link>
       <Nav.Link href="/store">Store</Nav.Link>

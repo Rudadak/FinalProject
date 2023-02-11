@@ -67,15 +67,18 @@ const Find = (props) => {
   };
 
   const asdfe = new SpeechSynthesisUtterance();
-  asdfe.text = `검색페이지로 이동했습니다. 검색에 사용된 검색어는 ${userInput ? userInput : '빈값'}입니다.`;
+  asdfe.text = `검색페이지로 이동했습니다.  ${userInput ? '검색에 사용된 검색어는' + userInput + '입니다.' : ''}`;
 
   useEffect(() => {
     if (!ttsExecuted) {
-      setTtsExecuted(true);
       window.speechSynthesis.cancel();
       window.speechSynthesis.speak(asdfe);
     }
   }, [userInput]);
+
+  asdfe.addEventListener("end", () => {
+    setTtsExecuted(true);
+  });
 
   return (
     <div className={props.col} >
@@ -217,6 +220,8 @@ const speechHandler = (e) => {
 const Demo = () => {
   usePageLeave(() => window.speechSynthesis.cancel());
 }
+
+useEffect(()=> {window.speechSynthesis.cancel()})
 
 const usePreventLeave = () => {
   const listener = (event) => {

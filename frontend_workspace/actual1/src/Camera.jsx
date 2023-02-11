@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from "react";
+import React, {useEffect} from "react";
 import axios from "axios"; // axios 모듈 추가
 import {Navs} from './App';
 import Show from './Show';
@@ -58,6 +58,8 @@ function Camera(props) {
     //   };
 
     const [url, setUrl] = React.useState("");
+
+    useEffect(()=> {window.speechSynthesis.cancel()})
 
 
     return (
