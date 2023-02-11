@@ -23,33 +23,12 @@ import Posts1 from './Posts1';
 
 
 
-
 const SiFind = (props) => {
-const {state} = useLocation();
-const [data, setData] = useState(state.responseData);
-console.log(state.responseData)
-
-
-  // const [posts, setPosts] = useState([]);
+  const {state} = useLocation();
+  const [data, setData] = useState(state.responseData);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setLoading(true);
-  //     const response = await axios.get(
-  //       "http://192.168.0.59:8000/test/datas"
-  //     );
-  //     setData(response.data);
-  //     setLoading(false);
-  //   };
-  //   fetchData();
-  // }, []);
-
-  // console.log('awerawef' +data);
-
-
   const [userInput, setUserInput] = useState('');
 
   function imsi1(){
@@ -59,38 +38,41 @@ console.log(state.responseData)
   }
   useEffect(() => imsi1, []);
 
-
-
   const getValue = (e) => {
     console.log(e)
     setUserInput(e.target.value)};
 
-  // <input onChange={getValue}/>
+  const searched =  data.filter((item) =>
+    item.name
+  );
+
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  const currentPosts = (posts) => {
+    let currentPosts = 0;
+    currentPosts = posts.slice(indexOfFirst, indexOfLast);
+    return currentPosts;
+  };
+
+  function playTts(){
+        const currentData = currentPosts(searched);
+    for(let i=0; i< currentData.length; i++){
+      const asdfe = new SpeechSynthesisUtterance();
+      asdfe.text = `${i+1}번 ${currentData[i].name}.`; 
+      window.speechSynthesis.speak(asdfe);
+    }
+    const asdfe = new SpeechSynthesisUtterance();
+    asdfe.text = '입니다.';
+    window.speechSynthesis.speak(asdfe);
+  }
+
+  useEffect(() => {
+    window.speechSynthesis.cancel();
+    playTts();
+  }, [currentPage, searched]);
 
 
- // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
- // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
-    const searched =  data.filter((item) =>
-     item.name
-   );
 
-
-   const indexOfLast = currentPage * postsPerPage;
-   const indexOfFirst = indexOfLast - postsPerPage;
-   const currentPosts = (posts) => {
-     let currentPosts = 0;
-     currentPosts = posts.slice(indexOfFirst, indexOfLast);
-     return currentPosts;
-   };
-
-  
-   const asdfe = new SpeechSynthesisUtterance()
-   asdfe.text = `검색페이지로 이동했습니다. 검색에 사용된 검색어는 ${userInput}입니다.` 
-   const [searchLength,setSearchLength] = useState('')
- 
-
-  useEffect(()=>{return(window.speechSynthesis.speak(asdfe))}, [])
-  console.log(data)
 
   
   return(

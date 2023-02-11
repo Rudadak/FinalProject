@@ -99,8 +99,7 @@ function Card(props){
       <div className='new' onClick = {navigateToPurchase}>
         {/* <Link to={props.data && "./" + props.data.id}>
           <button> */}
-  
-        {props.data && props.data.name}<br/>
+        <h1>{props.data && props.data.name }<br/></h1>
         {props.data && props.data.price}<br/>
         {/* </button>
         </Link> */}

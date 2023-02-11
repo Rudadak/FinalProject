@@ -118,8 +118,10 @@ function Card(props){
       <div className='new2' onClick = {navigateToPurchase}>
         {/* <Link to={props.data && "./" + props.data.id}>
           <button> */}
-  
-        {props.data && props.data.name}<br/>
+        
+          {/* <font weight = 'bolder'> */}
+        <h1>{props.data && props.data.name}<br/></h1>
+        {/* </font> */}
         {props.data && props.data.rv}<br/>
         {props.data && props.data.sim}
         {/* </button>

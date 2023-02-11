@@ -13,7 +13,7 @@ import Sifind from './Sifind';
 import { useSpeechRecognition } from 'react-speech-kit';
 import SpeechRecognition from "react-speech-recognition";
 // import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
-import { BsFileX, BsMicFill } from "react-icons/bs";
+import { BsFileX, BsMicFill, BsTypeH1 } from "react-icons/bs";
 import useLongPress from './use-long-press';
 // import Test1 from './test1';
 import axios from 'axios';
@@ -174,6 +174,7 @@ function Home(props) {
   useEffect(() => {
     if (!ttsExecuted) {
       setTtsExecuted(true);
+      window.speechSynthesis.cancel();
       window.speechSynthesis.speak(asdfe);
     }
   }, []);
@@ -346,9 +347,9 @@ return(
        <Button onClick={()=>{window.speechSynthesis.cancel()}}>조용히</Button>
        {/* <Link to="/camera" style={{ marginRight: 'auto' , display:'grid', 
        gridAutoFlow:'column', gridTemplateColumns:'1fr', textDecoration: "none" }} ><h4>Camera</h4></Link> */}
-      <h5><font size = '20pt'>🌜
+      <h1 style={{textAlign:'right'}}><font size = '50pt'>🌜
       <input type="checkbox" style={{width:'70px' , height:'50px' }} onClick={()=>{props.fuc();}} />
-      </font></h5>
+      </font></h1>
 
   </Container>
 </Navbar>

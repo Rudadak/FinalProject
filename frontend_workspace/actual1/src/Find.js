@@ -42,7 +42,7 @@ const Find = (props) => {
     const fetchData = async () => {
       setLoading(true);
       const response = await axios.get(
-        "http://192.168.0.42:8000/test/datas"
+        "http://192.168.0.42:8000/test/datas/"
       );
       setData(response.data);
       setLoading(false);
@@ -67,11 +67,12 @@ const Find = (props) => {
   };
 
   const asdfe = new SpeechSynthesisUtterance();
-  asdfe.text = `검색페이지로 이동했습니다. 검색에 사용된 검색어는 ${userInput}입니다.`;
+  asdfe.text = `검색페이지로 이동했습니다. 검색에 사용된 검색어는 ${userInput ? userInput : '빈값'}입니다.`;
 
   useEffect(() => {
     if (!ttsExecuted) {
       setTtsExecuted(true);
+      window.speechSynthesis.cancel();
       window.speechSynthesis.speak(asdfe);
     }
   }, [userInput]);
@@ -144,6 +145,7 @@ function Card(props){
 
 
 export function Products(props){
+  
   const params = useParams();
   const listId = params.listId;
   const [data1, setData1] = useState(null);
@@ -204,35 +206,31 @@ export function Products(props){
 // const playing
 const [ourText, setOurText] = useState("")
 const msg = new SpeechSynthesisUtterance()
+
 const speechHandler = (e) => {
-  const msg = new SpeechSynthesisUtterance()
+  window.speechSynthesis.cancel()
   setOurText(e)
-  msg.text = ourText
-  window.speechSynthesis.speak(msg)}
-  const Demo = () => {
-    usePageLeave(() => window.speechSynthesis.cancel());}
+  msg.text = e
+  window.speechSynthesis.speak(msg)
+}
 
-    const usePreventLeave = () => {
-      const listener = (event) => {
-        event.preventDefault();
-        event.returnValue = "";
-      };
-      const enablePrevent = () => {
-        window.speechSynthesis.cancel()
-      };
+const Demo = () => {
+  usePageLeave(() => window.speechSynthesis.cancel());
+}
 
-      return { enablePrevent };
-    };
+const usePreventLeave = () => {
+  const listener = (event) => {
+    event.preventDefault();
+    event.returnValue = "";
+  };
+  const enablePrevent = () => {
+    window.speechSynthesis.cancel()
+  };
 
-      const {enablePrevent} = usePreventLeave();
-// const asdfe = new SpeechSynthesisUtterance()  
-// asdfe.text = "제품명은 " + data1.name + "," +
-// "가격은 " + data1.price + "원" + "," +
-// "카테고리는 " + data1.categoriy + "," +
-// "제조사는 " + data1.manufacturer + "," +
-// "용량은 " + data1.period +"밀리리터" + "," +
-// "기타 사항으로는 " + data1.etc + "입니다."
-// useEffect(() => window.speechSynthesis.speak(asdfe), [])
+  return { enablePrevent };
+};
+
+const {enablePrevent} = usePreventLeave();
 
 
   return(
@@ -279,7 +277,9 @@ const speechHandler = (e) => {
 
       {/* <button onClick={() => window.speechSynthesis.cancel()}>dd</button> */}
       
-      <div className='new1'>
+      <div className='new1' onClick={() => speechHandler(
+        "# 리뷰키워드, " + data1.keyword 
+      )}>
         # 리뷰키워드<br/>
         {data1 && data1.keyword}
       </div>
@@ -296,7 +296,6 @@ const Search = () => {
     id: ''
   });
 }
-
 
 
 
