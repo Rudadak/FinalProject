@@ -65,6 +65,8 @@ const Find = (props) => {
     currentPosts = posts.slice(indexOfFirst, indexOfLast);
     return currentPosts;
   };
+  
+  const [searchLenght, setSearchLength] = useState(searched && searched.length)
 
   const asdfe = new SpeechSynthesisUtterance();
   asdfe.text = `검색페이지로 이동했습니다.  ${userInput ? '검색에 사용된 검색어는' + userInput + '입니다.' : ''}`;
@@ -76,6 +78,7 @@ const Find = (props) => {
     }
   }, [userInput]);
 
+
   asdfe.addEventListener("end", () => {
     setTtsExecuted(true);
   });
@@ -85,7 +88,7 @@ const Find = (props) => {
       <div >
         <div className='box01 ' >
           {loading && <div> loading... </div>}
-          <font size='12'>
+          <font size='200%'>
             <h1>제품찾기</h1>
             <input onChange={getValue} value={userInput} style={{textAlign:'center'}}/>
           </font>

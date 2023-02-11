@@ -95,16 +95,16 @@ function Card(props){
   
     return(
       // <div className='si'>
-      <div className='heading-1'>
+      // <div className='heading-1'>
       <div className='new' onClick = {navigateToPurchase}>
         {/* <Link to={props.data && "./" + props.data.id}>
           <button> */}
         <h1>{props.data && props.data.name }<br/></h1>
-        {props.data && props.data.price}<br/>
+        {props.data && props.data.price}
         {/* </button>
         </Link> */}
       </div>
-      </div>
+      // </div>
       // </div>
     )
   }

@@ -115,7 +115,7 @@ const Info = (props) => {
 
         <>
         <div className={props.col} >
-          <div>
+          <div style={{ overflow: 'auto'}}>
           
             {/* <div>
                 <p data-aos="fade-up">AOS 테스트1</p>
@@ -125,7 +125,7 @@ const Info = (props) => {
                 <p data-aos="fade-up">안녕하세요 저희는 고글</p>
             </div>
             <div style={boxStyle}>
-            <img src='/KakaoTalk_20230211_101829939.png' data-aos="fade-up"/>
+            <img src='/KakaoTalk_20230211_101829939.png' width='400px' height='200px' data-aos="fade-up"/>
             </div>
             <div style={empty}></div>
             <div style={boxStyle}>

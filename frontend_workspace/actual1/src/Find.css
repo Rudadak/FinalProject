@@ -22,10 +22,14 @@
     margin-top: 20px;
     margin-left: 15%;
     padding: 15px;
-    background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);    width: 70%;
+    /* background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);    */
+    background-color: #4285f4 ;
+    border: 5px solid black;
     cursor : pointer;
+    width: 70%;
     border-radius: 15px;
     font-size: 120%;
+    color: white
   }
   .new h1{
     font-weight: bold;
@@ -46,6 +50,7 @@
   }
   
     .pagination a {
+      
       color: black;
       float: left;
       padding: 8px 16px;
@@ -72,7 +77,7 @@
     padding: 15px;
     text-align: center;
     font-size: 170%;
-    font-weight: normal;
+    font-weight: bold;
     width: 70%;
     cursor : pointer;
     border-radius: 15px;

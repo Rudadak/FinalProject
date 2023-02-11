@@ -176,7 +176,9 @@ function Home(props) {
   const [ttsExecuted, setTtsExecuted] = useState(false);
 
   const asdfe = new SpeechSynthesisUtterance();
-  asdfe.text = "안녕하세요. 고글에 오신것을 환영합니다. 저희 사이트는 상품 검색을 통해 tts 기능을 제공합니다."
+  // asdfe.text = "안녕하세요. 고글에 오신것을 환영합니다. 저희 사이트는 상품 검색을 통해 tts 기능을 제공합니다."
+  asdfe.text ="검색창은 중상단, 검색버튼은 중앙, 카메라버튼은 중하단, 리뷰찾기 버튼은 하단에 있습니다."
+
 
   useEffect(() => {
     if (!ttsExecuted) {
@@ -338,11 +340,11 @@ return(
       <font color='#4285f4' size = '6' weight="bolder">g</font>
       <font color='#34a853' size = '6' weight="bolder">l</font>
       <font color='#fbbc05' size = '6' weight="bolder">e</font>
-      <font color='#ea4335' size = '6' weight="bolder">s</font>
+      <font color='#ea4335' size = '6' weight="bolder">s</font> */}
 
-      <font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp;</font>
-      </h1> */}
-      <p><img src='/KakaoTalk_20230211_101829939.png' width={'100%'} height={100}/></p>
+      {/* <font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp;</font> */}
+      {/* </h1> */}
+      <p><img src='/KakaoTalk_20230211_101829939.png' width={'310%'} height={'30vh'}/></p>
       {/* </Nav.Link>
       <Nav.Link href="/"  >Home</Nav.Link>
       <Nav.Link href="/store">Store</Nav.Link>
@@ -352,7 +354,7 @@ return(
     
     
        <Link to="/info"  style={{ marginRight: 'auto' ,textDecoration: "none" }} ><h4>info</h4></Link>
-       <Button onClick={()=>{window.speechSynthesis.cancel()}}>조용히</Button>
+       <Button onClick={()=>{window.speechSynthesis.cancel()}}variant="light">🔇</Button>
        {/* <Link to="/camera" style={{ marginRight: 'auto' , display:'grid', 
        gridAutoFlow:'column', gridTemplateColumns:'1fr', textDecoration: "none" }} ><h4>Camera</h4></Link> */}
       <h1 style={{textAlign:'right'}}><font size = '50pt'>🌜

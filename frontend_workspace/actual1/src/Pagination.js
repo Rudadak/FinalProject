@@ -30,7 +30,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, searched }) => {
 
   return (
     <div>
-      <nav>
+      <nav >
         <ReactPaginate
           breakLabel="..."
           nextLabel="next >"
