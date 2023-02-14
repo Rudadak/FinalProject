@@ -58,7 +58,7 @@ const SiFind = (props) => {
         const currentData = currentPosts(searched);
     for(let i=0; i< currentData.length; i++){
       const asdfe = new SpeechSynthesisUtterance();
-      asdfe.text = `${i+1}번 ${currentData[i].name}.`; 
+      asdfe.text = `${i+1}번 ${currentData[i].name}. ${currentData[i].rv}`; 
       window.speechSynthesis.speak(asdfe);
     }
     const asdfe = new SpeechSynthesisUtterance();
@@ -83,7 +83,7 @@ const SiFind = (props) => {
 
       {/* <Navs /> */}
       <h1>리뷰 찾기</h1>
-<font size='12'>『{state.textState}』</font>
+<font size='5.5'>『{state.textState}』</font>
       {/* <input onChange={getValue} value={userInput}/> */}
       
       {/* <Posts data={currentPosts(searched)} loading={loading}></Posts> */}

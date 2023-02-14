@@ -31,13 +31,15 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, searched }) => {
   return (
     <div>
       <nav >
+        
         <ReactPaginate
           breakLabel="..."
-          nextLabel="next >"
+          nextLabel=">"
           onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={3}
           pageCount={pageNumbers.length}
-          previousLabel="< previous"
+          previousLabel="<"
+          marginPagesDisplayed={0}
           renderOnZeroPageCount={null}
           containerClassName="pagination"
           pageLinkClassName="page-num"

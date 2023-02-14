@@ -21,15 +21,18 @@
 .new{
     margin-top: 20px;
     margin-left: 15%;
+    margin-bottom: 20px;
     padding: 15px;
     /* background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);    */
-    background-color: #4285f4 ;
-    border: 5px solid black;
+    /* background-color: #4285f4 ;
+    border: 5px solid black; */
+    background-color:white;
     cursor : pointer;
     width: 70%;
-    border-radius: 15px;
+    border-radius: 20px;
     font-size: 120%;
     color: white
+    
   }
   .new h1{
     font-weight: bold;
@@ -81,7 +84,8 @@
     width: 70%;
     cursor : pointer;
     border-radius: 15px;
-    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    /* background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); */
+    background-color:white;
     
 }
 
@@ -96,11 +100,12 @@
   width: 70%;
   cursor : pointer;
   border-radius: 15px;
-  background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
+  /* background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%); */
+  background-color:white;
 }
 .new2 h1{
   font-weight: bold;
-  font-size: 140%;
+  font-size: 120%;
 }
 
 
@@ -122,13 +127,13 @@
     width: 100%;
     height: 100%; 
     position: relative;
-  padding: 20px;
-margin-bottom: 10px;}
+    padding: 20px;
+    margin-bottom: 10px;}
 .box01::before{
     content: "";
-    background: url(/public/KakaoTalk_20230210_160013922.jpg);
+    /* background: url(/public/KakaoTalk_20230210_160013922.jpg); */
     background-Repeat: no-repeat;
-    background-color: #8cdee7;
+    background-color:#E6E8E6;
     background-size: contain;
     opacity: 0.5;
     position: absolute;
@@ -214,6 +219,7 @@ position: relative;}
     border-color: black;
     text-Decoration: none;
     /* border: 10px solid #ddd; */
+    
     
   }
 

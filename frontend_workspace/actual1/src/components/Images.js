@@ -161,11 +161,11 @@ const handlePageClick = (event) => {
         <Items currentItems={currentItems} searched={searched} getValue ={getValue} userInput= {userInput}/>
         <ReactPaginate
             breakLabel="..."
-            nextLabel="next >"
+            nextLabel=">"
             onPageChange={handlePageClick}
             pageRangeDisplayed={5}
             pageCount={pageCount}
-            previousLabel="< previous"
+            previousLabel="<"
             renderOnZeroPageCount={null}
             containerClassName="pagination"
             pageLinkClassName="page-num"
@@ -173,6 +173,7 @@ const handlePageClick = (event) => {
             nextLinkClassName="page-num"
             activeLinkClassName="active"
         />
+
         </>
     )
 }

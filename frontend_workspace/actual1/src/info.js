@@ -105,6 +105,16 @@ const Info = (props) => {
       textAlign: 'center'
   }
 
+  let white = {
+    width: '100%',
+    height: '300px',
+    fontSize: '30px',
+    lineHeight: '200px',
+    background: 'white',
+    color: 'black',
+    textAlign: 'center'
+}
+
     useEffect(() => {
         AOS.init({
             duration : 1000
@@ -120,12 +130,21 @@ const Info = (props) => {
             {/* <div>
                 <p data-aos="fade-up">AOS 테스트1</p>
             </div> */}
+            <div style={white}></div>
+            <div style={white}>
+                <p data-aos="fade-right"> 유저 검색량 통계</p>
+            </div>
+            <div style={white}>
+            <img src='KakaoTalk_20230214_120235155.png' width='300px' height='auto' data-aos="fade-right"/>
+            </div>
+            <div style={white}></div>
+
             <div style={empty}></div>
             <div style={boxStyle}>
                 <p data-aos="fade-up">안녕하세요 저희는 고글</p>
             </div>
             <div style={boxStyle}>
-            <img src='/KakaoTalk_20230211_101829939.png' width='400px' height='200px' data-aos="fade-up"/>
+            <img src='/KakaoTalk_20230211_101829939.png' width='300px' height='200px' data-aos="fade-up"/>
             </div>
             <div style={empty}></div>
             <div style={boxStyle}>
@@ -138,15 +157,15 @@ const Info = (props) => {
             <div style={empty}></div>
             
             <div style={boxStyle}>
-                <p data-aos="fade-left">누구나 이용할 수 있도록 설계된 쉬운 화면. </p>
+                <p data-aos="fade-left">누구나 이용할 수 있도록 <br/>설계된 쉬운 화면. </p>
             </div>
             <div style={empty}></div>
             <div style={boxStyle}>
-                <p data-aos="fade-right">당신의 눈을 대신해주는 음성기능.</p>
+                <p data-aos="fade-right">당신의 눈을 <br/>대신해주는 음성기능.</p>
             </div>
             <div style={empty}></div>
             <div style={boxStyle}>
-                <p data-aos="fade-down">이 모든걸 가능케 하는 궁극의 웹</p>
+                <p data-aos="fade-down">이 모든걸 가능케 하는 <br/>궁극의 웹</p>
             </div>
             <div style={empty}></div>
             <div style={boxStyle}>
@@ -163,7 +182,10 @@ const Info = (props) => {
             <div style={boxStyle}>
                 <p data-aos="zoom-in">상시 준비 완료.</p>
             </div>
-            <div style={empty}></div>
+            <div style={empty}>
+            
+            <img src='제목 없음1.png' width='200px' height='400px' data-aos="flip-down"/>
+            </div>
             <div style={empty}></div>
             <div style={empty}></div>
             <div style={empty}></div>

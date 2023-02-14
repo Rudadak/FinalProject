@@ -29,6 +29,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { dark } from '@material-ui/core/styles/createPalette';
 // import CssBaseline from '@mui/material/CssBaseline';
 import Info from './info';
+import Test1 from './test1';
 
 
 // const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
@@ -140,8 +141,10 @@ const [loading, setLoading] = useState(false);
         <Route path = "/sifind" element={< Sifind fuc={avsdf} col={darkWhitek}/>} />
         {/* <Route path = "/test" element={< Test1 data={data} loading={loading}/>} /> */}
         <Route path = "/info" element={< Info fuc={avsdf} col={darkWhitek}/>} />
+        <Route path = "/test" element={<Test1 />}/>
         
        </Routes>
+       <Navs1/>
       
 
    </div>
@@ -199,7 +202,7 @@ function Home(props) {
   const { action, handlers } = useLongPress();
 
   const submitHandler = (e) => {
-    axios.post('http://192.168.0.42:8000/test/sentence/', {query:text}).then(function (response) {
+    axios.post('http://192.168.0.6:8000/test/sentence/', {query:text}).then(function (response) {
       if (response.status == '200' & text != '') {
         navigate('./Sifind', { state: { responseData: response.data, textState: text } })();
       }
@@ -321,14 +324,20 @@ return(
 ) 
 }
 
+
+
+
 export function Navs(props){
   useEffect(()=>{window.speechSynthesis.cancel()}, []);
 return(
+
+
+  <Navbar bg="white" variant="white"  style={{height: '20vh'}} className='NavLogo'>
   
-  
-  <Navbar bg="white" variant="white"  style={{height: '20vh'}}>
   <Container className={props.col}>
-    <Link to="/" style={{ textDecoration: "none" }} className='me-auto'>
+    <div style={{ textAlign:'left'}}>
+
+    <Link to="/" >
     {/* <h4><font color= 'white'><Link to ='/'>Rudadak &nbsp;&nbsp;&nbsp; </Link></font></h4> */}
     {/* <Nav className="me-auto">
     <Nav.Link href="/" className='App-go'> */}
@@ -344,28 +353,56 @@ return(
 
       {/* <font color= 'white'>Rudadak &nbsp;&nbsp;&nbsp;</font> */}
       {/* </h1> */}
-      <p><img src='/KakaoTalk_20230211_101829939.png' width={'310%'} height={'30vh'}/></p>
+     
+        <img src='/KakaoTalk_20230211_101829939.png' width={'50%'} height={'auto'}   />
+        
       {/* </Nav.Link>
       <Nav.Link href="/"  >Home</Nav.Link>
       <Nav.Link href="/store">Store</Nav.Link>
       <Nav.Link href="/camera">Camera</Nav.Link>
     </Nav> */}
     </Link>
+    </div>
     
     
-       <Link to="/info"  style={{ marginRight: 'auto' ,textDecoration: "none" }} ><h4>info</h4></Link>
-       <Button onClick={()=>{window.speechSynthesis.cancel()}}variant="light">🔇</Button>
+       
+       <div style={{right:'0'}}>
+        <Button onClick={()=>{window.speechSynthesis.cancel()}}variant="light" style={{marginRight:'20px', float:'right'}}>🔇</Button>
+        </div>
        {/* <Link to="/camera" style={{ marginRight: 'auto' , display:'grid', 
        gridAutoFlow:'column', gridTemplateColumns:'1fr', textDecoration: "none" }} ><h4>Camera</h4></Link> */}
-      <h1 style={{textAlign:'right'}}><font size = '50pt'>🌜
+    
+      <div className='Nav'>
+      <h3>🌜
+        
       <input type="checkbox" style={{width:'70px' , height:'50px' }} onClick={()=>{props.fuc();}} />
-      </font></h1>
+      </h3>
 
+      </div>
+      
   </Container>
 </Navbar>
 
+
 )
+
+
 };
+
+export function Navs1(){
+  return(
+    <>
+    <div className='navs1cl' style={{textAlign:'center'}}>
+      <p></p>
+       <Link to="/info"  style={{  textDecoration: "none" , color:'black', fontFamily:'Poppins', textAlign:'center'}} ><font className='navs-font' size='1' textAlign='center' style={{whiteSpace:'no-warp'}}>Copyright © 2023 Goggles All Rights Reserved.</font></Link>
+       </div>
+    </>
+  )
+}
+
+  
+
+  
 
 
 
@@ -405,5 +442,4 @@ return(
 
 
 export default App;
-
 

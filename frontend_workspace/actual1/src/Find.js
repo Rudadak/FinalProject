@@ -8,8 +8,8 @@ import {Navs} from './App';
 import './Find.css';
 import { useNavigate} from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import Posts from './Posts';
-import Pagination from "./Pagination";
+// import Posts from './Posts';
+import Pagination from "react-js-pagination";
 import {usePageLeave, usePrevious} from 'react-use';
 import { useSpeechRecognition } from 'react-speech-kit';
 import Tts1 from './components/tts1';
@@ -19,22 +19,14 @@ import Tts1 from './components/tts1';
 
 
 
-// import { Pagination } from 'antd';
 
-// const findnv = () => (
-//   <>
-//     <Pagination simple defaultCurrent={2} total={50} />
-//     <br />
-//     <Pagination disabled simple defaultCurrent={2} total={50} />
-//   </>
-// );
 
 const Find = (props) => {
-  const {state} = useLocation();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(3);
+  const {state} = useLocation();
   const [userInput, setUserInput] = useState(state ? state : '');
   const [ttsExecuted, setTtsExecuted] = useState(false);
 
@@ -42,7 +34,7 @@ const Find = (props) => {
     const fetchData = async () => {
       setLoading(true);
       const response = await axios.get(
-        "http://192.168.0.42:8000/test/datas/"
+        "http://192.168.0.6:8000/test/datas/"
       );
       setData(response.data);
       setLoading(false);
@@ -82,25 +74,25 @@ const Find = (props) => {
   asdfe.addEventListener("end", () => {
     setTtsExecuted(true);
   });
-
+  
   return (
-    <div className={props.col} >
-      <div >
-        <div className='box01 ' >
+    <div className={props.col}>
+      <div>
+        <div className="box01">
           {loading && <div> loading... </div>}
           <font size='200%'>
             <h1>제품찾기</h1>
             <input onChange={getValue} value={userInput} style={{textAlign:'center'}}/>
           </font>
-          <Posts data={currentPosts(searched)} loading={loading}></Posts>
-          {console.log(searched)}
+
+          <Posts
+            data={searched}
+            loading={loading}
+            currentPage={currentPage}
+            postsPerPage={postsPerPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
-        <Pagination 
-          postsPerPage={postsPerPage}
-          totalPosts={searched.length}
-          paginate={setCurrentPage}
-          searched={searched}
-        ></Pagination>
       </div>
     </div>
   );
@@ -108,48 +100,68 @@ const Find = (props) => {
 
 
 
+const Posts = ({ data, loading, currentPage, postsPerPage, setCurrentPage }) => {
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  const currentData = data.slice(indexOfFirst, indexOfLast);
 
-function Card(props){
-  const navigate = useNavigate();
-  const navigateToPurchase = () => {
-    navigate(`${props.data && "./" + props.data.id}`);
+  return (
+    <>
+      {loading && <div> loading... </div>}
+      {currentData.map((a, i) => {
+        return (
+          <Card data={currentData[i]} key={i} />
+        );
+      })}
+      <Paging
+        page={currentPage}
+        count={data.length}
+        setPage={(pageNumber) => setCurrentPage(pageNumber)}
+      />
+    </>
+  );
+};
+
+
+
+const Paging = ({page, count, setPage}) => {
+
+  const handlePageChange = (page) => {
+    setPage(page);
   };
 
-  return(
-    
-    // <div className='si'>
+  return (
+    <Pagination
+      activePage={page}
+      itemsCountPerPage={3}
+      totalItemsCount={count}
+      pageRangeDisplayed={4}
+      onChange={handlePageChange}
+      linkClass="page-link"
+      itemClass="page-item"
+    />
+  );
+};
 
+function Card(props){
+    const navigate = useNavigate();
+    const navigateToPurchase = () => {
+      navigate(`${props.data && "./" + props.data.id}`);
+    };
+  
+    return(
 
-    <div onClick = {navigateToPurchase} >0
-      {/* <Link to={props.data && "./" + props.data.id}>
-        <button> */}
-      
-      {props.data && props.data.name}<br/>
-      {props.data && props.data.price}<br/>
-      {/* </button>
-      </Link> */}
-    </div>
+      <div className='new' onClick = {navigateToPurchase}>
 
-  )
-}
+        <h1>{props.data && props.data.name }<br/></h1>
+        {props.data && props.data.price}
 
+      </div>
 
+    )
+  }
 
-
-// function CardList({data}) {
-//   console.log(data);
-//   return(
-//     <div>
-//       {data.map((data) =>{
-//         const {name, price} = data;
-//         return <Card key={name} price={price}/>;
-//       })}
-//     </div>
-//   );
-// }
-
-
-
+  
 export function Products(props){
   
   const params = useParams();
@@ -165,7 +177,7 @@ export function Products(props){
     const fetchData = async () => {
       // setLoading(true);
       const response = await axios.get(
-        `http://192.168.0.42:8000/test/data/${listId}`
+        `http://192.168.0.6:8000/test/data/${listId}`
       );
       setData1(response.data);
       // setLoading(false);
@@ -368,7 +380,6 @@ function AudioExample() {
 //     </div>
 //   );
 // };
-
 
 
 export default Find;
