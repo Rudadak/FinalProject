@@ -23,7 +23,7 @@ function Camera(props) {
         formData.append("enctype", "multipart/form-data")
 		
         // # 파일을 업로드 시킬 Server 주소
-        const URL = "http://192.168.0.6:8000/test/camera/"
+        const URL = "http://192.168.0.23:8000/test/camera/"
 
         // const navigate = useNavigate();
         // function move(){

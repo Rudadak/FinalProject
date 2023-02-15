@@ -135,7 +135,7 @@ const Info = (props) => {
                 <p data-aos="fade-right"> 유저 검색량 통계</p>
             </div>
             <div style={white}>
-            <img src='KakaoTalk_20230214_120235155.png' width='300px' height='auto' data-aos="fade-right"/>
+            <img src='KakaoTalk_20230214_120235155.png' width='400px' height='auto' data-aos="fade-right"/>
             </div>
             <div style={white}></div>
 
@@ -183,8 +183,17 @@ const Info = (props) => {
                 <p data-aos="zoom-in">상시 준비 완료.</p>
             </div>
             <div style={empty}>
+            <br/>
             
             <img src='제목 없음1.png' width='200px' height='400px' data-aos="flip-down"/>
+            
+            <div>
+            <br/>
+            <img src='KakaoTalk_20230215_093714083_02.jpg' width='133px' height='400px' data-aos="fade-right"/>
+            <img src='KakaoTalk_20230215_093714083_01.jpg' width='133px' height='400px' data-aos="fade-up"/>
+            <img src='KakaoTalk_20230215_093714083.jpg' width='133px' height='400px' data-aos="fade-left"/>
+            </div> 
+               
             </div>
             <div style={empty}></div>
             <div style={empty}></div>

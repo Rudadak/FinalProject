@@ -34,7 +34,7 @@ const Find = (props) => {
     const fetchData = async () => {
       setLoading(true);
       const response = await axios.get(
-        "http://192.168.0.6:8000/test/datas/"
+        "http://192.168.0.23:8000/test/datas/"
       );
       setData(response.data);
       setLoading(false);
@@ -177,7 +177,7 @@ export function Products(props){
     const fetchData = async () => {
       // setLoading(true);
       const response = await axios.get(
-        `http://192.168.0.6:8000/test/data/${listId}`
+        `http://192.168.0.23:8000/test/data/${listId}`
       );
       setData1(response.data);
       // setLoading(false);

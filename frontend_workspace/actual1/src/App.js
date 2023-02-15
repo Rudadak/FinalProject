@@ -202,7 +202,7 @@ function Home(props) {
   const { action, handlers } = useLongPress();
 
   const submitHandler = (e) => {
-    axios.post('http://192.168.0.6:8000/test/sentence/', {query:text}).then(function (response) {
+    axios.post('http://192.168.0.23:8000/test/sentence/', {query:text}).then(function (response) {
       if (response.status == '200' & text != '') {
         navigate('./Sifind', { state: { responseData: response.data, textState: text } })();
       }
