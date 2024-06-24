@@ -1,0 +1,1219 @@
+﻿
+==============================
+ Crawling vs Scraping
+==============================
+
+ ** Requests      라이브러리
+ ** BeautifulSoup 라이브러리
+ ** Selenium      프레임워크
+ ** Open API      
+
+# 개념
+
+  Crawling vs Scraping 
+  http://itnovice1.blogspot.com/2019/01/web-crawling.html
+
+  대법원 "웹사이트 무단 크롤링은 불법"
+  http://news.bizwatch.co.kr/article/mobile/2017/09/27/0023
+
+  Web Scraping and Crawling Are Perfectly Legal, Right?
+  https://benbernardblog.com/web-scraping-and-crawling-are-perfectly-legal-right/
+  
+  URL
+  https://ko.wikipedia.org/wiki/URL
+
+  Http의 정의, 메소드, 메세지 형식
+  https://velog.io/@rosewwross/Http-and-Request-and-Response-hok6exbnfb
+
+
+# 네트워크 관련 명령어
+
+  ping                             <- 호스트 사이의 물리적 연결 확인
+
+  ipconfig                         <- 현재 컴퓨터의 TCP/IP 네트워크 설정값 확인
+
+  netstat -ano | findstr \[::]\:   <- 현재 컴퓨터의 열려있는 포트 확인
+
+  nslookup www.naver.com           <- 도메인이름으로 IP 주소 확인
+
+  tracert www.naver.com            <- 해당 PC에서 목표 도메인까지 연결 구간 및 응답속도 확인
+
+
+========================================
+ Requests + Beautiful Soup 
+========================================
+
+# Requests: Elegant and simple HTTP library for Python, built for human beings
+
+  - https://requests.readthedocs.io/en/master
+  - Python 3.4 이후부터는 내장모듈임
+
+
+# Beautiful Soup : Python library for pulling data out of HTML and XML files
+
+  - https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+  - https://yongbeomkim.github.io/python/bs4-tutorial/
+
+
+-------------------
+> Example 0:      <
+-------------------
+
+ ** Requests 라이브러리
+
+import requests
+from pprint import pprint as pp
+
+resp = requests.get('http://www.naver.com')  # reponse 객체 리턴
+
+type(resp)
+help(resp)
+pp(dir(resp))
+
+resp.status_code
+resp.encoding
+pp(resp.content)
+pp(resp.text)
+pp(resp.json)
+
+resp.headers
+resp.headers['content-type']
+resp.headers['Date']
+
+for h in resp.headers.items():
+    print(h)
+
+resp = requests.get('http://dbinv.co.kr')
+
+for h in resp.headers.items():
+    print(h)
+
+pp(resp.text)
+
+resp.encoding
+resp.encoding = 'utf-8'  # 한글이 깨지지 않도록 인코딩 설정 변경
+pp(resp.text)
+
+resp.status_code
+resp.ok
+
+
+-------------------
+> Example 1:      <
+-------------------
+
+ ** BeautifulSoup 라이브러리
+
+import requests
+from bs4 import BeautifulSoup
+from pprint import pprint as pp
+
+resp = requests.get('http://quotes.toscrape.com/')
+resp.headers['Server']
+pp(resp.text)
+
+soup = BeautifulSoup(resp.text, 'html.parser')  # 적절한 parser 설정
+
+type(soup)
+help(soup)
+dir(soup)
+
+#
+# Navigating the tree
+#
+
+soup
+soup.name
+
+type(soup.title)
+help(soup.title)
+dir(soup.title)
+
+soup.title
+soup.title.string
+soup.title.text
+
+type(soup.title.string)
+help(soup.title.string)
+dir(soup.title.string)
+type(soup.title.text)
+
+type(soup.title.parent.name)
+soup.title.parent.name
+
+soup.div              # 처음 만나는 div 태그
+soup.div['class']     # class 속성의 값
+soup.div.span.string  # NavigableString 타입
+soup.div.span.text    # str 타입
+
+soup.span
+soup.span.text
+
+## 개발자 도구로 크롤링 대상 문서를 분석해서 원하는 부분의 선택자 확인
+# https://mainia.tistory.com/2393
+# https://developers.google.com/web/tools/chrome-devtools?hl=ko
+# http://tmondev.blog.me/221158360917
+# http://tmondev.blog.me/221161341311
+#
+# 원하는 사이트 방문해서 Console창에 document.head.parentNode.removeChild(document.head); 입력
+
+#
+# Searching the tree : find vs select
+#
+
+soup.find('div')
+soup.find('div').find('span')
+soup.find('div').find('span').text
+# soup.select_one('div')
+# soup.select_one('div > span')
+# soup.select_one('div > span').text
+
+soup.find('span')
+soup.find('span').text
+# soup.select_one('span')
+# soup.select_one('span').text
+
+soup.find_all('div', class_='quote')
+# soup.select('div.quote')
+
+ret = soup.find_all('div', class_='quote')
+
+# type(ret)
+# len(ret)
+# 
+# ret[0]
+# 
+# for i in range(len(ret)):
+#     pp(ret[i])
+# 
+# ret[0].find_all('span')
+# ret[0].find_all('span')[0]
+# ret[0].find_all('span')[1]
+# ret[0].find_all('span')[1].find('small')
+# ret[0].find_all('span')[1].find('small').text
+# 
+# ret[0].find_all('a')
+# ret[0].find_all('a')[0]
+# ret[0].find_all('a')[0]['href']
+# 
+# for i in range(len(ret)):
+#     pp(ret[i].find_all('span')[0].text)
+#     pp(ret[i].find_all('span')[1].find('small').text)
+#     pp('http://quotes.toscrape.com/' + ret[i].find_all('a')[0]['href'])
+
+list_ = []
+
+for i in range(len(ret)):
+    inner_list = []
+    quote_ = (ret[i].find_all('span')[0].text)
+    by_ = (ret[i].find_all('span')[1].find('small').text)
+    link_ = 'http://quotes.toscrape.com/' + ret[i].find_all('a')[0]['href']
+    inner_list.append(quote_)
+    inner_list.append(by_)
+    inner_list.append(link_)
+    list_.append(inner_list)
+
+list_
+
+import csv
+
+f = open('result.csv', 'w', encoding='utf-8', newline='')
+w = csv.writer(f)
+for r in list_:
+    w.writerow(r)
+f.close()
+
+
+----------------------------------------------
+> BeautifulSoup으로 local file 스크래핑      <
+----------------------------------------------
+
+from bs4 import BeautifulSoup
+from pprint import pprint as pp
+
+with open("./shopping/shopping.html", encoding="utf-8") as fp:
+    soup = BeautifulSoup(fp, 'html.parser')
+
+soup.select('.item > .comments')    
+
+soup.select('.item > .metadata > .comments')
+
+
+----------------------------------
+> BeautifulSoup 사용법 익히기    <
+----------------------------------
+
+# 문서 
+
+  - Beautiful Soup Documentation
+    https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+    (한글 번역) https://yongbeomkim.github.io/python/bs4-tutorial/
+
+  - Difference between find() and select()
+    https://stackoverflow.com/questions/38028384/beautifulsoup-is-there-a-difference-between-find-and-select-python-3-
+
+  - BS API 예제
+    https://itsaessak.tistory.com/295
+    https://itsaessak.tistory.com/296  <- next_element
+
+
+###
+#
+# Beautiful Soup Documentation
+# https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+#
+###
+
+###
+#
+# Quick Start
+#
+###
+
+html_doc = """
+<html><head><title>The Dormouse's story</title></head>
+<body>
+<p class="title"><b>The Dormouse's story</b></p>
+
+<p class="story">Once upon a time there were three little sisters; and their names were
+<a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>,
+<a href="http://example.com/lacie" class="sister" id="link2">Lacie</a> and
+<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>;
+and they lived at the bottom of a well.</p>
+
+<p class="story">...</p>
+"""
+
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(html_doc, 'html.parser')
+print(soup.prettify())
+
+soup.title
+soup.title.name
+soup.title.string
+soup.title.parent.name
+soup.p
+soup.p['class']
+soup.a
+soup.find_all('a')
+soup.find(id="link3")
+
+for link in soup.find_all('a'):
+    print(link.get('href'))
+
+print(soup.get_text())
+
+#
+# Making the soup
+# 
+# Kinds of objects
+#     Tag
+#         Name
+#         Attributes
+#             Multi-valued attributes
+#     NavigableString
+#     BeautifulSoup
+#     Comments and other special strings
+#
+
+###
+#
+# Navigating the tree
+#
+###
+
+from bs4 import BeautifulSoup
+
+html_doc = """
+<html><head><title>The Dormouse's story</title></head>
+<body>
+<p class="title"><b>The Dormouse's story</b></p>
+
+<p class="story">Once upon a time there were three little sisters; and their names were
+<a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>,
+<a href="http://example.com/lacie" class="sister" id="link2">Lacie</a> and
+<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>;
+and they lived at the bottom of a well.</p>
+
+<p class="story">...</p>
+"""
+
+soup = BeautifulSoup(html_doc, 'html.parser')
+
+# Going down : Navigating using tag names
+
+soup
+soup.name
+
+soup.head
+soup.head.name
+
+soup.head.title
+soup.head.title.name
+soup.title
+soup.title.name
+
+soup.body
+soup.body.p
+soup.p
+
+soup.body.b
+soup.b
+
+soup.body.a
+soup.a
+
+soup.find_all('a')
+soup.select('a')
+
+# .contents and .children
+
+head_tag = soup.head
+head_tag
+head_tag.contents
+head_tag.children
+for child in head_tag.children:
+    print(child)
+
+title_tag = head_tag.contents[0]
+title_tag
+title_tag.contents
+title_tag.children
+for child in title_tag.children:
+    print(child)
+
+title_text = title_tag.contents[0]
+title_text
+title_text.content   # Error
+title_text.children  # Error
+
+len(soup.contents)
+soup.contents
+print(soup.contents[0].name)
+print(soup.contents[1].name)
+
+for child in title_tag.children:
+    print(child)
+    
+for content in title_tag.contents:
+    print(content)
+
+# .descendants
+
+head_tag.descendants
+
+for child in head_tag.descendants:
+    print(child)
+
+# .string
+
+len(list(soup.children))
+len(list(soup.descendants))
+
+list(soup.descendants)
+
+head_tag = soup.head
+head_tag.contents
+head_tag.string
+
+title_tag = head_tag.contents[0]
+title_tag.string
+
+print(soup.html.string)
+
+# .strings and stripped_strings
+
+for string in soup.strings:
+    print(repr(string))
+
+for string in soup.stripped_strings:
+    print(repr(string))
+
+# Going up : .parent
+
+title_tag = soup.title
+title_tag
+title_tag.parent
+
+title_tag.string
+title_tag.string.parent
+
+html_tag = soup.html
+type(html_tag.parent)
+
+print(soup.parent)
+
+# .parents
+
+link = soup.a
+link
+
+for parent in link.parents:
+    if parent is None:
+        print(parent)
+    else:
+        print(parent.name)
+
+# Going sideways
+
+sibling_soup = BeautifulSoup("<a><b>text1</b><c>text2</c></b></a>")
+print(sibling_soup.prettify())
+
+# .next_sibling and .previous_sibling
+
+sibling_soup.b.next_sibling
+sibling_soup.c.previous_sibling
+
+print(sibling_soup.b.previous_sibling)
+print(sibling_soup.c.next_sibling)
+
+sibling_soup.b.string
+print(sibling_soup.b.string.next_sibling)
+
+soup.find_all("a")
+link = soup.a
+link
+link.next_sibling
+link.next_sibling.next_sibling
+
+# .next_siblings and .previous_siblings
+
+for sibling in soup.a.next_siblings:
+    print(repr(sibling))
+
+for sibling in soup.find(id="link3").previous_siblings:
+    print(repr(sibling))
+
+# Going back and forth : .next_element and .previous_element
+# -> https://www.crummy.com/software/BeautifulSoup/bs4/doc/#going-back-and-forth
+# -> https://itsaessak.tistory.com/296
+
+soup 
+
+last_a_tag = soup.find("a", id="link3")
+last_a_tag
+last_a_tag.next_sibling
+last_a_tag.next_element
+
+last_a_tag.previous_element
+last_a_tag.previous_element.next_element
+
+# .next_elements and .previous_elements
+
+for element in last_a_tag.next_elements:
+    print(repr(element))
+
+###
+#
+# Searching the tree
+#
+###
+
+# Kinds of filters
+#     A string
+#     A regular expression
+#     A list
+#     True
+#     A function
+
+soup = BeautifulSoup(html_doc, 'html.parser')
+
+# Finds all the <b> tags:
+soup.find_all('b')
+
+# Find all the tags whose names start with the letter "b":
+import re
+for tag in soup.find_all(re.compile("^b")):
+    print(tag.name)
+
+for tag in soup.find_all(re.compile("t")):
+    print(tag.name)
+
+# Find all the <a> tags and all the <b> tags:
+soup.find_all(["a", "b"])
+
+# Find all the tags in the document:
+for tag in soup.find_all(True):
+    print(tag.name)
+
+for tag in soup.find_all():
+    print(tag.name)
+
+# Function returns True if a tag defines the "class" attribute but doesn't define the "id" attribute:
+def has_class_but_no_id(tag):
+    return tag.has_attr('class') and not tag.has_attr('id')
+
+soup.find_all(has_class_but_no_id)
+
+# Function finds all "a" tags whose href attribute does not match a regular expression:
+def not_lacie(href):
+    return href and not re.compile("lacie").search(href)
+
+soup.find_all(href=not_lacie)
+
+ # Function returns True if a tag is surrounded by string objects:
+from bs4 import NavigableString
+def surrounded_by_strings(tag):
+    return (isinstance(tag.next_element, NavigableString)
+            and isinstance(tag.previous_element, NavigableString))
+
+for tag in soup.find_all(surrounded_by_strings):
+    print(tag.name)
+
+# find_all(name, attrs, recursive, string, limit, **kwargs)
+# 
+#     The name argument
+#     The keyword arguments
+#     Searching by CSS class
+#     The string argument
+#     The limit argument
+#     The recursive argument
+# 
+# soup.find_all("title")
+# 
+# soup.find_all("p")
+# soup.find_all("p", "title")
+# soup.find_all("p", "story")
+# 
+# soup.find_all("a")
+# soup.find_all("a", href="http://example.com/tillie")
+# soup.find_all(id="link2")
+# 
+# import re
+# soup.find(string=re.compile("sisters"))
+# soup.find("a", href=re.compile("tillie"))
+
+# name argument
+
+soup.find_all("title")
+
+# keyword arguments
+
+soup.find_all("id")          # 엉터리
+soup.find_all("id=link2")    # 엉터리
+soup.find_all("id='link2'")  # 엉터리
+soup.find_all(id)            # 엉터리
+
+soup.find_all(id="link2")
+soup.find_all(attrs={"id": "link2"})
+
+soup.find_all(href=re.compile("elsie"))
+soup.find_all(attrs={"href": re.compile("elsie")})
+
+soup.find_all(id=True)
+
+soup.find_all(href=re.compile("elsie"), id="link2")  # 두 조건 모두 만족해야 함
+
+data_soup = BeautifulSoup('<div data-foo="value">foo!</div>')
+data_soup.find_all(data-foo="value")  # Error
+data_soup.find_all(attrs={"data-foo": "value"})
+
+name_soup = BeautifulSoup('<input name="email"/>')
+name_soup.find_all(name="email")  # name은 BS 예약어임
+name_soup.find_all(attrs={"name": "email"})
+
+# Searching by CSS class
+
+soup.find_all("a", class_="sister")
+soup.find_all(class_=re.compile("itl"))
+
+def has_six_characters(css_class):
+    return css_class is not None and len(css_class) == 6
+    
+soup.find_all(class_=has_six_characters)
+
+css_soup = BeautifulSoup('<p class="body strikeout"></p>')
+css_soup.find_all("p", class_="strikeout")
+css_soup.find_all("p", class_="body")
+css_soup.find_all("p", class_="body strikeout")
+css_soup.find_all("p", class_="strikeout body")
+
+css_soup.select("p.strikeout.body")
+css_soup.select("p.body.strikeout")
+
+soup.find_all("a", attrs={"class": "sister"})
+soup.find_all("a", class_="sister")
+
+# string argument
+
+soup
+
+soup.find_all(string="Elsie")
+soup.find_all(string=["Tillie", "Elsie", "Lacie"])
+soup.find_all(string=re.compile("Dormouse"))
+
+def is_the_only_string_within_a_tag(s):
+    return (s == s.parent.string)
+
+soup.find_all(string=is_the_only_string_within_a_tag)    
+
+soup.find_all("a", string="Elsie")
+soup.find_all("a", text="Elsie")
+
+# limit argument
+
+soup.find_all("a", limit=2)
+
+# recursive argument
+
+soup.html.find_all("title")
+soup.html.find_all("title", recursive=False)
+
+# Calling a tag is like calling find_all()
+
+soup.find_all("a")
+soup("a")
+
+soup.title.find_all(string=True)
+soup.title(string=True)
+
+# find(name, attrs, recursive, string, **kwargs)
+
+soup.find_all('title', limit=1)
+soup.find('title')
+
+print(soup.find_all("nosuchtag"))
+print(soup.find("nosuchtag"))
+
+soup.head.title
+soup.find("head").find("title")
+
+###
+#
+# CSS selectors
+#
+###
+
+# Find tags:
+soup.select("title")
+soup.select("p:nth-of-type(3)")
+
+# Find tags beneath other tags:
+soup.select("body a")
+soup.select("html head title")
+
+# Find tags directly beneath other tags:
+soup.select("head>title")
+soup.select("head > title")
+soup.select("p > a")
+soup.select("p > a:nth-of-type(2)")
+soup.select("p > #link1")
+soup.select("body > a")
+
+# Find the siblings of tags:
+soup.select("#link1 ~ .sister")
+soup.select("#link1 + .sister")
+
+# Find tags by CSS class:
+soup.select(".sister")
+soup.select("[class~=sister]")
+
+# Find tags by ID:
+soup.select("#link1")
+soup.select("a#link2")
+
+# Find tags that match any selector from a list of selectors:
+soup.select("#link1, #link2")
+
+# Test for the existence of an attribute:
+soup.select('a[href]')
+
+# Find tags by attribute value:
+soup.select('a[href="http://example.com/elsie"]')
+soup.select('a[href^="http://example.com/"]')
+soup.select('a[href$="tillie"]')
+soup.select('a[href*=".com/el"]')
+
+# Find only the first tag:
+
+soup.select_one(".sister")
+
+----------------
+> 확인 학습    <
+----------------
+
+# https://www.w3schools.com/cssref/css_selectors.asp
+
+from bs4 import BeautifulSoup
+
+html_doc = """
+<html><head><title>The Dormouse's story</title></head>
+<body>
+<p class="title"><b>The Dormouse's story</b></p>
+
+<a href="http://www.naver.com" class="portal" id="naver">Elsie</a>,
+  
+<p class="story">Once upon a time there were three little sisters; and their names were
+  <a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>,
+  <a href="http://example.com/lacie" class="sister" id="link2">Lacie</a> and
+  <a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>;
+  and they lived at the bottom of a well.
+</p>
+
+<p class="story sister">...</p>
+"""
+
+soup = BeautifulSoup(html_doc, 'html.parser')
+
+soup.select('.title')
+soup.select('.story.sister')
+soup.select('.story .sister')
+soup.select('#link2')
+soup.select('*')
+soup.select('p')
+soup.select('p.story')
+soup.select('title, a')
+soup.select('body a')
+soup.select('body > a')
+
+
+html_doc = """
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+<h1>Welcome to My Homepage</h1>
+
+<div>
+  <h2>My name is Donald</h2>
+  <p>I live in Duckburg.</p>
+</div>
+
+<p nemam='stmt'>My best friend is Mickey.</p>
+<p nemam='stmt'>I will not be styled.</p>
+
+<a href="https://www.w3schools.com" target="_blank">w3schools.com</a>
+
+<div>
+  <p lang="en">Hello!</p>
+  <p lang="enus">Hi!</p>
+  <p lang="en-gb">Ello!</p>
+  <p lang="us">Hi!</p>
+  <p lang="no">Hei!</p>
+</div>
+ 
+<p>비켜주세요</p>
+  
+</body>
+</html>
+"""
+
+soup = BeautifulSoup(html_doc, 'html.parser')
+
+soup.select("div + p")
+soup.select("div ~ p")
+soup.select('a[target]')
+soup.select('a[target="_blank"]')
+soup.select('[nemam~=stmt]')
+soup.select('[lang|=en]')
+soup.select('[lang^=en]')
+soup.select('[lang$=us]')
+soup.select('[lang*=us]')
+
+soup.select('p:nth-of-type(2)')
+
+
+#
+# 추가 학습
+#
+# BeautifulSoup parse tree
+# http://zetcode.com/python/beautifulsoup/
+#
+
+-----------------------------
+> href 속성의 값 추출하기   <
+-----------------------------
+
+import requests
+from bs4 import BeautifulSoup
+
+resp = requests.get('http://www.naver.com')
+soup = BeautifulSoup(resp.text, 'html.parser')
+
+for link in soup.find_all('a'):
+    print(link.get('href'))
+
+print(soup.get_text())
+
+
+---------------------------------
+> 네이버 실시간 검색어 크롤링   <
+---------------------------------
+
+* 다음 실시간 검색어 서비스는 2020년 2월 서비스 중지됨
+
+* 변경된 네이버 실검 방식에 맞는 크롤링
+  - 네이버 JSON 주소 찾기 : https://wikidocs.net/68005
+
+import requests
+from bs4 import BeautifulSoup
+
+json = requests.get('https://www.naver.com/srchrank?frm=main').json()
+json
+
+# json 데이터에서 "data" 항목의 값을 추출
+ranks = json.get("data")
+ranks
+
+# 해당 값은 리스트 형태로 제공되기에 리스트만큼 반복
+for r in ranks:
+    # 각 데이터는 rank, keyword, keyword_synomyms
+    rank = r.get("rank")
+    keyword = r.get("keyword")
+    print(rank, keyword)
+    
+
+=================================================
+ Selenium : Automates browsers. That's it!
+=================================================
+
+# 개요
+
+  https://ko.wikipedia.org/wiki/셀레늄_(소프트웨어)
+  https://www.selenium.dev/
+
+
+# Selenium Client Driver 
+
+  https://www.selenium.dev/selenium/docs/api/py/
+
+  - Python language bindings for Selenium WebDriver.
+
+    -> Language binding : https://ko.wikipedia.org/wiki/언어_바인딩
+    -> 설치 : pip install -U selenium
+
+  - The selenium package is used to automate web browser interaction from Python
+  - Selenium requires a driver to interface with the chosen browser
+
+
+# ChromeDriver - WebDriver for Chrome
+
+  https://sites.google.com/a/chromium.org/chromedriver/downloads
+
+  - Selenium requires a driver to interface with the chosen browser
+
+    -> 자신이 사용하는 Chrome 브라우저의 버전과 동일한 ChromeDriver 버전 다운로드
+
+
+# selenium.webdriver.remote.webelement.WebElement
+
+  find_element
+  find_element_by_class_name
+  find_element_by_css_selector
+  find_element_by_id
+  find_element_by_link_text
+  find_element_by_name
+  find_element_by_partial_link_text
+  find_element_by_tag_name
+  find_element_by_xpath  -> https://selenium-python.readthedocs.io/locating-elements.html#locating-by-xpath
+                         -> https://www.w3schools.com/xml/xpath_syntax.asp
+
+  find_elements
+  find_elements_by_class_name
+  find_elements_by_css_selector
+  find_elements_by_id
+  find_elements_by_link_text
+  find_elements_by_name
+  find_elements_by_partial_link_text
+  find_elements_by_tag_name
+  find_elements_by_xpath
+
+
+-----------------
+> Example 0:    <
+-----------------
+
+ * open a new Chrome browser
+ * load the page at the given URL
+
+from selenium import webdriver
+
+browser = webdriver.Chrome()        # 같은 경로에 있을 경우
+# browser = webdriver.Chrome(path)  # 다른 경로에 있을 경우
+
+# type(browser)
+# help(browser)
+# dir(browser)
+
+browser.get('http://seleniumhq.org/')
+help(browser.get)
+
+browser.quit()
+
+
+-----------------
+> Example 1:    <
+-----------------
+
+ * open a new Chrome browser
+ * load the Yahoo homepage
+ * search for "여행"
+ * close the browser
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+browser = webdriver.Chrome()
+browser.get('http://www.yahoo.com')
+browser.title
+
+elem = browser.find_element_by_name('p') 
+type(elem)
+help(elem)
+dir(elem)
+
+elem.send_keys('여행' + Keys.RETURN)
+help(elem.send_keys)
+type(Keys.RETURN)
+
+browser.quit()
+
+
+------------------------
+>  KBS 뉴스 검색       <
+------------------------
+
+* selenium 사용이 필요했음
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
+
+browser = webdriver.Chrome()
+browser.get('http://news.kbs.co.kr/search/search.do?')
+browser.title
+
+elem = browser.find_element_by_name('input-search') 
+elem.send_keys('부동산' + Keys.RETURN)
+
+ret = browser.page_source
+soup = BeautifulSoup(ret, 'html.parser')
+
+links = soup.select("#searchList a")
+titles = soup.find_all("em", class_="tit")
+times = soup.find_all("span", class_="time")
+
+for link in links:
+    print(link['href'] )
+    
+for title in titles:
+    print(title.text)    
+        
+for time in times:
+    print(time.text)
+
+links = soup.select("#searchList a")
+titles = soup.find_all("em", class_="tit")
+times = soup.find_all("span", class_="time")
+
+browser.quit()
+
+
+---------------------------------------
+>  KBS 뉴스 기사 내용까지 출력검색    <
+---------------------------------------
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
+import requests
+
+browser = webdriver.Chrome()
+browser.get('http://news.kbs.co.kr/search/search.do?')
+browser.title
+
+elem = browser.find_element_by_name('input-search') 
+elem.send_keys('부동산' + Keys.RETURN)
+
+ret = browser.page_source
+soup = BeautifulSoup(ret, 'html.parser')
+
+links = soup.select("#searchList a")
+
+import time
+
+for i in range(len(links)):
+    # time.sleep(5)
+    browser.get(links[i]['href'])
+    news = browser.page_source
+    soup_news = BeautifulSoup(news, 'html.parser')
+    for i in soup_news.find_all("div", class_="detail-body font-size"):
+        print(i.text.strip())
+        print("="*30)
+
+
+---------------------------------------
+>  KBS ON AIR 영상 켜기    <
+---------------------------------------
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
+
+browser = webdriver.Chrome()
+
+# driver.implicitly_wait(20) 
+
+browser.get('http://kbs.co.kr/')
+browser.find_element_by_link_text("예능").click()
+browser.find_element_by_class_name("btn-onair").click()
+
+# 켜기
+browser.find_element_by_id("kbs-social-player").click()
+element = browser.find_element_by_xpath("//div[@class='jw-icon jw-icon-display jw-button-color jw-reset']")
+element.click()
+
+browser.find_element_by_id("kbs-social-player").click()
+element = browser.find_element_by_xpath("//div[@class='jw-icon jw-icon-inline jw-button-color jw-reset jw-icon-playback']")
+element.click()
+
+driver.close()
+
+
+---------------------------------------
+>  파파고 번역기
+---------------------------------------
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
+
+path = input('번역할 사이트를 입력하세요: ')
+path
+
+browser = webdriver.Chrome()
+
+browser.get('https://papago.naver.com')
+browser.find_element_by_link_text("웹사이트 번역").click()
+
+elem = browser.find_element_by_tag_name('input') 
+elem.send_keys(path + Keys.RETURN)
+
+
+-----------------------------------------------------------
+> Opening inspect (pressing F12) on Chrome via Selenium   <
+-----------------------------------------------------------
+
+# https://stackoverflow.com/questions/59365968/opening-inspect-pressing-f12-on-chrome-via-selenium
+
+from selenium import webdriver
+
+options = webdriver.ChromeOptions() 
+options.add_argument("start-maximized")
+options.add_argument("--auto-open-devtools-for-tabs")
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option('useAutomationExtension', False)
+driver = webdriver.Chrome(options=options)
+driver.get("https://www.naver.com")
+print(driver.title)
+
+
+==========================================
+ 네이버 함께 정복하는 무적의 크롤링
+==========================================
+
+# 내용
+
+  1주차: 웹 페이지는 어떻게 구성되어 있을까?      : https://book.coalastudy.com/data-crawling/week-1
+  2주차: 데이터 수집을 위한 파이썬 골라먹기       : https://book.coalastudy.com/data-crawling/week-2
+  3주차: 처음으로 데이터 수집해보기               : https://book.coalastudy.com/data-crawling/week-3
+  4주차: 수집한 데이터를 가공하여 가치있게 만들기 : https://book.coalastudy.com/data-crawling/week-4
+  5주차: 소중한 데이터를 사라지지않게 저장하기    : https://book.coalastudy.com/data-crawling/week-5
+  6주차: 코드로 브라우저 조종하기                 : https://book.coalastudy.com/data-crawling/week-6
+
+
+---------------------
+> 네이트판 크롤링   <
+---------------------
+
+import requests
+from bs4 import BeautifulSoup
+
+resp = requests.get('https://pann.nate.com/')
+soup = BeautifulSoup(resp.text, 'html.parser')
+
+# result = soup.select("#container > div.content.main > div.post-wrap > div.bestTalkBox > div:nth-child(2) > ol")
+result = soup.select('div.bestTalkBox > div:nth-child(2) > ol')
+                       
+type(result)
+
+for i in result:
+    print(i.text)
+
+
+----------------------------------
+> 네이트판 여러 페이지 크롤링    <
+----------------------------------
+
+# 순환문과 주소의 패턴을 활용해서 여러 페이지 크롤링 하기
+
+import requests
+from bs4 import BeautifulSoup
+
+for i in range(1, 11):
+    resp = requests.get('https://pann.nate.com/talk/category/ClassList?&page=' + str(i))
+    soup = BeautifulSoup(resp.text, 'html.parser')
+
+    results = soup.select('dl > dt > a')
+    
+    for result in results:
+        print(result.text)
+
+----------------------------------
+> 크롤링 결과 파일에 저장하기    <
+----------------------------------
+
+  ** Save a dictionary to a file
+
+     https://pythonspot.com/save-a-dictionary-to-a-file/
+
+  ** File Handling
+
+     https://www.w3schools.com/python/python_file_handling.asp
+
+  ** CSV File Reading and Writing
+
+     https://docs.python.org/3.7/library/csv.html
+
+  ** openpyxl 
+
+     https://openpyxl.readthedocs.io/en/stable/
+     https://openpyxl.readthedocs.io/en/stable/tutorial.html
+
+
+===============================================
+ Tutorial: Web Scraping and BeautifulSoup
+===============================================
+
+# https://www.dataquest.io/blog/web-scraping-beautifulsoup/
+
+  - BeautifulSoup 
+  - requests
+  - pandas
+  - matplotlib
+
+=====================================
+ Open API
+=====================================
+
+# Open API 개념
+
+  https://ko.wikipedia.org/wiki/오픈_API
+
+# OpenAPI들
+
+  - 국토교통부 OpenAPI : https://ai-creator.tistory.com/m/24
+  - 네이버 오픈API     : https://developers.naver.com/docs/common/openapiguide/
+  - 구글 API           : https://developers.google.com/apis-explorer
+  - 트위터 API         : http://hleecaster.com/python-twitter-api/
+  - Telegram API       : https://steemit.com/kr/@sifnax/python-5-telegram-api
+  - ...
+
+
+
+
+
+
+
